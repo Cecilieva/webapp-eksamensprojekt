@@ -120,18 +120,18 @@ Du må gerne tage udgangspunkt i disse eksempler og kun indsætte `image` og `ca
 
 ```json
 [
-	{
-		"caption": "Beautiful sunset at the beach",
-		"image": "https://images.unsplash.com/photo-1566241832378-917a0f30db2c?auto=format&fit=crop&w=500&q=80"
-	},
-	{
-		"caption": "Exploring the city streets of Aarhus",
-		"image": "https://images.unsplash.com/photo-1559070169-a3077159ee16?auto=format&fit=crop&w=500&q=80"
-	},
-	{
-		"caption": "Delicious food at the restaurant",
-		"image": "https://images.unsplash.com/photo-1548940740-204726a19be3?auto=format&fit=crop&w=500&q=80"
-	}
+  {
+    "caption": "Beautiful sunset at the beach",
+    "image": "https://images.unsplash.com/photo-1566241832378-917a0f30db2c?auto=format&fit=crop&w=500&q=80"
+  },
+  {
+    "caption": "Exploring the city streets of Aarhus",
+    "image": "https://images.unsplash.com/photo-1559070169-a3077159ee16?auto=format&fit=crop&w=500&q=80"
+  },
+  {
+    "caption": "Delicious food at the restaurant",
+    "image": "https://images.unsplash.com/photo-1548940740-204726a19be3?auto=format&fit=crop&w=500&q=80"
+  }
 ]
 ```
 
@@ -176,8 +176,8 @@ Til `POST` og `PATCH` skal du også sende JSON i body, fx:
 
 ```json
 {
-	"image": "https://example.com/photo.jpg",
-	"caption": "Mit første post"
+  "image": "https://example.com/photo.jpg",
+  "caption": "Mit første post"
 }
 ```
 
