@@ -53,11 +53,4 @@ export default function HomePage() {
     </main>
   );
 }
-export default function HomePage() {
-  return (
-    <main className="app">
-      <h1 className="page-title">Home</h1>
-      <p className="note">TODO: add content and components</p>
-    </main>
-  );
-}
+
