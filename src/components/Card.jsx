@@ -1,3 +1,3 @@
-export default function Card({ children }) {
-  return <div className="post-card">{children}</div>;
+export default function Card({ bruger }) {
+  return <div className="post-card">{bruger}</div>;
 }
