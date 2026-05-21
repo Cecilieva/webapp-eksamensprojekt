@@ -36,7 +36,7 @@ export default function HomePage() {
       </Link>
 
       <section className="post-grid">
-        {posts.length === 0 && <p>No posts yet.</p>}
+        {posts.length === 0 && <p>Ingen resultater</p>}
         {posts.map((post) => (
           <article key={post.id} className="post-card">
             {post.image && <img src={post.image} alt={post.caption} />}
@@ -53,4 +53,3 @@ export default function HomePage() {
     </main>
   );
 }
-
