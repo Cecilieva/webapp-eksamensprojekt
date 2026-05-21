@@ -26,7 +26,7 @@ export default function PostDetailPage() {
   }, [id]);
 
   async function handleDelete() {
-    if (!window.confirm("Delete this post?")) return;
+    if (!window.confirm("Hovsa!?")) return;
     try {
       await api.deletePost(id);
       navigate("/");
@@ -36,8 +36,8 @@ export default function PostDetailPage() {
   }
 
   if (loading) return <main className="app">Loading…</main>;
-  if (error) return <main className="app">Error: {error}</main>;
-  if (!post) return <main className="app">Post not found.</main>;
+  if (error) return <main className="app">404 fejl: {error}</main>;
+  if (!post) return <main className="app">Ingen resultater.</main>;
 
   return (
     <main className="app">
