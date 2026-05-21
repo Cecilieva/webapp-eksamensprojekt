@@ -4,6 +4,11 @@ import HomePage from "./pages/HomePage";
 import CreatePage from "./pages/CreatePage";
 import PostDetailPage from "./pages/PostDetailPage";
 import UpdatePage from "./pages/UpdatePage";
+import ConnectionsPage from "./pages/ConnectionsPage";
+import MapPage from "./pages/MapPage";
+import ChatPage from "./pages/ChatPage";
+import ProfilePage from "./pages/ProfilePage";
+import Botnav from "./components/Botnav";
 
 function App() {
   return (
@@ -14,7 +19,12 @@ function App() {
         <Route path="/create" element={<CreatePage />} />
         <Route path="/posts/:id" element={<PostDetailPage />} />
         <Route path="/posts/:id/update" element={<UpdatePage />} />
+        <Route path="/connections" element={<ConnectionsPage />} />
+        <Route path="/map" element={<MapPage />} />
+        <Route path="/chat" element={<ChatPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
       </Routes>
+      <Botnav />
     </BrowserRouter>
   );
 }
