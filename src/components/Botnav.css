@@ -1,15 +1,14 @@
 .bottom-nav {
   position: fixed;
   left: 50%;
-  bottom: 24px;
+  bottom: 0;
   transform: translateX(-50%);
-  width: 82%;
-  max-width: 900px;
+  width: 100%;
+  max-width: none;
   padding: 24px 36px;
-  /*baggrundfarve mangler*/
+  background-color: var(--bordeaux10);
   border-radius: 32px;
-  /*box-shadow mangler*/
-
+  box-shadow: var(--shadow-top);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -21,16 +20,13 @@
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  /*font skal tilknyttes*/
-  /*farve mangler*/
+  font-size: var(--fs-small);
+  color: var(--bordeaux);
 }
 
 .bottom-nav-icon {
   width: 32px;
   height: 32px;
 }
-/*
-.bottom-nav-link.active span {
-  /*fontvægt mangler*/
-/*farve mangler*
-}*/
+
+
