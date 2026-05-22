@@ -13,10 +13,8 @@
   box-sizing: border-box;
 }
 
-.error-code { font-size: 56px; line-height: 1; margin: 0; font-weight: 800; letter-spacing: -1px; }
-.error-title { font-weight: 800; margin-left: 6px; }
-.error-headline { margin: 6px 0 0; font-size: 18px; color: var(--muted, #222); }
-.error-subline { margin: 4px 0 0; font-size: 16px; color: var(--muted, #222); }
+.error-headline { color: var(--black); }
+.error-subline { color: var(--black); }
 
 .error-image-wrap { margin-top: 12px; width: 120px; height: auto; }
 .error-image { width: 100%; height: auto; display: block; }
