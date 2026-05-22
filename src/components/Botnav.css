@@ -7,11 +7,15 @@
   max-width: none;
   padding: 1.5rem 2.25rem;
   background-color: var(--bordeaux10);
-  border-radius: 2rem;
+  border-top-left-radius: 2rem;
+  border-top-right-radius: 2rem;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
   box-shadow: var(--shadow-top);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 4.5rem;
 }
 
 .bottom-nav-link {
@@ -21,7 +25,8 @@
   align-items: center;
   gap: 0.5rem;
   font-size: var(--fs-small);
-  color: var(--bordeaux);
+  color: var(--sort);
+  font-family: var(--font-body);
 }
 
 .bottom-nav-icon {
