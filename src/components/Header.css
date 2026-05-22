@@ -1,0 +1,186 @@
+.site-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0 2rem 0;
+  background: var(--background);
+  z-index: 50;
+}
+
+.header-inner {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/*centrer logo */
+.logo {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 0.5rem;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.burger-btn {
+  background: transparent;
+  border: none;
+  padding: 0 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(
+    calc(-50% + 0.5rem)
+  ); /*sørger for at burger-menuen flugter med logoet */
+  z-index: 70;
+}
+
+.site-nav {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 0; /* no spacing between icons */
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(
+    calc(-50% + 0.5rem)
+  ); /* sørger for at ikonerne flugter med logoet */
+  z-index: 70;
+}
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  padding: 0rem;
+  cursor: pointer;
+}
+
+/* sørger for at logoet altid vises som almindelig tekst: ingen kant, bordeaux farve */
+.logo .nav-link {
+  border: none;
+  color: var(--bordeaux);
+  display: inline-block;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+/* Overlay */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: flex-start;
+  z-index: 200;
+}
+
+/* Menu panel */
+.overlay-content {
+  position: relative;
+  background: var(--background);
+  width: 80%;
+  max-width: 34rem;
+  height: 100vh;
+
+  padding: 2rem 2rem 0 2rem;
+
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.overlay-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 3rem;
+}
+
+.overlay-title {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+.overlay-close {
+  background: transparent;
+  border: none;
+
+  padding: 1.5rem 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.close-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  cursor: pointer;
+}
+
+/* Menu liste */
+.overlay-list {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  cursor: pointer;
+}
+
+.overlay-link {
+  width: 100%;
+  text-align: left;
+}
+
+/* Sikre at elementer flugter med den venstre kant */
+.overlay-list p,
+.overlay-link {
+  margin-left: 0;
+  padding-left: 0;
+  text-align: left;
+}
+
+.overlay-list p {
+  position: relative;
+}
+
+.overlay-list p + p::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -1.5rem;
+  height: 1px;
+  background: var(--bordeaux10);
+  pointer-events: none;
+}
+/* Burger menu logo */
+.menu-logo {
+  margin-top: auto;
+  display: flex;
+  justify-content: center;
+}
