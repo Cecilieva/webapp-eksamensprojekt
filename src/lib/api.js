@@ -1,22 +1,6 @@
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-
-if (!supabaseUrl || !supabaseKey) {
-  throw new Error(
-    "Missing Supabase env vars. Set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in your .env file.",
-  );
-}
-
-// Supabase PostgREST base URL
-const REST_BASE = `${supabaseUrl.replace(/\/$/, "")}/rest/v1`;
-
-// 👉 Brug den rigtige tabel
-const TABLE = "user";
-const URL = `${REST_BASE}/${TABLE}`;
-
+const URL = import.meta.env.VITE_SUPABASE_URL;
 const headers = {
-  apikey: supabaseKey,
-  Authorization: `Bearer ${supabaseKey}`,
+  apikey: import.meta.env.VITE_SUPABASE_APIKEY,
   "Content-Type": "application/json",
 };
 
@@ -31,40 +15,35 @@ async function handleResponse(res) {
   return null;
 }
 
-// ⭐ Hent ALLE brugere
-export async function getUsers() {
-  const res = await fetch(`${URL}?select=*`, { headers });
+export async function getPosts() {
+  const res = await fetch(URL, { headers });
   return handleResponse(res);
 }
 
-// ⭐ Hent én bruger
-export async function getUser(id) {
-  const res = await fetch(`${URL}?select=*&id=eq.${id}`, { headers });
+export async function getPost(id) {
+  const res = await fetch(`${URL}?id=eq.${id}`, { headers });
   return handleResponse(res);
 }
 
-// ⭐ Opret bruger (hvis du får brug for det)
-export async function createUser(payload) {
+export async function createPost(payload) {
   const res = await fetch(URL, {
     method: "POST",
-    headers: { ...headers, Prefer: "return=representation" },
+    headers,
     body: JSON.stringify(payload),
   });
   return handleResponse(res);
 }
 
-// ⭐ Opdater bruger
-export async function updateUser(id, payload) {
+export async function updatePost(id, payload) {
   const res = await fetch(`${URL}?id=eq.${id}`, {
     method: "PATCH",
-    headers: { ...headers, Prefer: "return=representation" },
+    headers,
     body: JSON.stringify(payload),
   });
   return handleResponse(res);
 }
 
-// ⭐ Slet bruger
-export async function deleteUser(id) {
+export async function deletePost(id) {
   const res = await fetch(`${URL}?id=eq.${id}`, {
     method: "DELETE",
     headers,
@@ -72,4 +51,4 @@ export async function deleteUser(id) {
   return handleResponse(res);
 }
 
-export default { getUsers, getUser, createUser, updateUser, deleteUser };
+export default { getPosts, getPost, createPost, updatePost, deletePost };
