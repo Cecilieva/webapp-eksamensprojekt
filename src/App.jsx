@@ -13,10 +13,9 @@ import CreatePage from "./pages/CreatePage";
 import PostDetailPage from "./pages/PostDetailPage";
 import UpdatePage from "./pages/UpdatePage";
 import ConnectionsPage from "./pages/ConnectionsPage";
-import MapPage from "./pages/MapPage";
-import ChatPage from "./pages/ChatPage";
 import ProfilePage from "./pages/ProfilePage";
 import Botnav from "./components/Botnav";
+import NotFound from "./pages/NotFound";
 
 function App() {
   const [step, setStep] = useState("splash");
