@@ -1,7 +1,7 @@
 // ...404 side som bruger komponenten...
 import ErrorMessage from "../components/Errormessage";
 
-export default function NotFound() {
+export default function NotFoundPage() {
   return (
     <ErrorMessage
       code="404"
