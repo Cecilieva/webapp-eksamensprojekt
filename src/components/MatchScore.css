@@ -1,0 +1,37 @@
+/* MatchScore badge
+   Important: the parent (e.g. ProfileCard root) must have `position: relative;`
+*/
+
+.matchscore-wrapper {
+
+  /* percent (set from React inline style) */
+  --pct: 0%;
+
+  /* colors */
+  --ring: var(--orange);
+  --track: var(--bordeaux10);
+  --inner: var(--background);
+}
+
+/* Outer disc (white) */
+
+/* Orange progress ring (drawn inside the outer disc) */
+.match-score-ring {
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  background: conic-gradient(var(--ring) var(--pct), var(--track) 0);
+  display: grid;
+  place-items: center;
+}
+
+/* Inner score pill */
+.match-score-inner {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background: var(--inner);
+  display: grid;
+  font-size: 14px;
+  place-items: center;
+}
