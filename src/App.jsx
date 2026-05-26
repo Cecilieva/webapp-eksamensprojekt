@@ -45,15 +45,6 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/create" element={<CreatePage />} />
-        <Route path="/posts/:id" element={<PostDetailPage />} />
-        <Route path="/posts/:id/update" element={<UpdatePage />} />
-        <Route path="/connections" element={<ConnectionsPage />} />
-        <Route path="/map" element={<MapPage />} />
-        <Route path="/chat" element={<ChatPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/filtrering" element={<Filtrering />} />
         <Route
           path="/"
           element={
@@ -134,6 +125,7 @@ function App() {
             </>
           }
         />
+        <Route path="/filtrering" element={<Filtrering />} />
         <Route
           path="*"
           element={
