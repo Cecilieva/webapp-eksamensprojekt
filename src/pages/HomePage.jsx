@@ -3,7 +3,7 @@ import ProfileCard from "../components/ProfileCard";
 import { supabase } from "../lib/supabaseClient";
 import "./HomePage.css";
 
-export default function HomePage() {
+export default function HomePage({ favoriteProfiles, toggleFavoriteProfile }) {
   const [profiles, setProfiles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -69,6 +69,7 @@ export default function HomePage() {
         {profiles.map((p) => (
           <ProfileCard
             key={p.id}
+            id={p.id}
             name={p.name}
             age={p.age}
             city={p.city}
@@ -86,6 +87,8 @@ export default function HomePage() {
             roomiePreference={p.roomie_preference}
             interests={p.interests}
             score={p.score}
+            liked={favoriteProfiles.some((fav) => fav.id === p.id)}
+            onToggleFavorite={toggleFavoriteProfile}
           />
         ))}
       </section>
