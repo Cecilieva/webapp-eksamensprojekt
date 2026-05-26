@@ -1,0 +1,105 @@
+.profile-card {
+  background: var(--background);
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  overflow: hidden;
+  width: 14rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Ret shadow til variablen? */
+}
+
+.profile-image-wrapper {
+  width: 100%;
+  height: 10rem;
+  overflow: hidden;
+  background: #bac1dc; /* midlertidig placeholder */
+  position: relative;
+}
+
+.profile-like {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 2;
+}
+
+.profile-score {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 2;
+}
+
+.profile-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* korrekt: cover/contain på img */
+  object-position: center;
+  display: block;
+}
+
+.profile-info-wrapper {
+  position: relative;
+  background: var(--background);
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  margin-top: -1.25rem; /* overlap op på billedet */
+  padding-top: 0.25rem; /* lidt luft så radius ikke klippes */
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0.75rem 1rem 1rem;
+}
+
+.profile-name {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.profile-name-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.profile-section h3 {
+  margin: 0 0 4px 0;
+  font-size: 14px;
+}
+
+.profile-interests {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.interest-badge {
+  background: transparent;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--bordeaux10);
+}
+
+.connect-btn {
+  margin-top: 8px;
+  padding: 10px;
+  background: var(--green);
+  color: var(--black);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.profile-city,
+.profile-occupation,
+.profile-caption {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}

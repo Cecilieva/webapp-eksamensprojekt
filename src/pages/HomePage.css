@@ -1,0 +1,25 @@
+.home {
+  width: 100%;
+  max-width: var(--app-width);
+  margin: 0 auto;
+  padding-left: var(--app-padding-x);
+  padding-right: var(--app-padding-x);
+  padding-bottom: calc(var(--app-padding-bottom) + 86px);
+  padding-top: 2rem;
+  justify-items: center;
+}
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: start;
+  justify-items: center;
+}
+
+.profile-grid-empty {
+  grid-column: 1 / -1;
+  justify-self: center;
+  text-align: center;
+  color: var(--black);
+}

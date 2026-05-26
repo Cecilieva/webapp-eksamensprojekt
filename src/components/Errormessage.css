@@ -1,0 +1,21 @@
+/* ...styling for error message component... */
+.error-page {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 28px 20px;
+  text-align: center;
+  background: var(--background);
+  color: var(--black);
+  box-sizing: border-box;
+}
+
+.error-headline { color: var(--black); }
+.error-subline { color: var(--black); }
+
+.error-image-wrap { margin-top: 12px; width: 120px; height: auto; }
+.error-image { width: 100%; height: auto; display: block; }
+/* ...styling for error message component... */

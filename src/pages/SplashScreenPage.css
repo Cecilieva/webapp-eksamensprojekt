@@ -1,0 +1,13 @@
+.splash-screen {
+  height: 100vh;
+  background: var(--background);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.splash-screen-text {
+  margin-top: 2rem;
+  text-align: center;
+}

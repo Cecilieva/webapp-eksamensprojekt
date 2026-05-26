@@ -1,4 +1,5 @@
-const URL = import.meta.env.VITE_SUPABASE_URL;
+const URL = `${import.meta.env.VITE_SUPABASE_URL}/rest/v1/profiles`;
+
 const headers = {
   apikey: import.meta.env.VITE_SUPABASE_APIKEY,
   "Content-Type": "application/json",
@@ -15,7 +16,7 @@ async function handleResponse(res) {
   return null;
 }
 
-export async function getPosts() {
+export async function getProfiles() {
   const res = await fetch(URL, { headers });
   return handleResponse(res);
 }
@@ -75,11 +76,12 @@ export async function getPostsFiltered(filters = {}) {
 }
 
 export async function getPost(id) {
+export async function getProfilesById(id) {
   const res = await fetch(`${URL}?id=eq.${id}`, { headers });
   return handleResponse(res);
 }
 
-export async function createPost(payload) {
+export async function createProfile(payload) {
   const res = await fetch(URL, {
     method: "POST",
     headers,
@@ -88,7 +90,7 @@ export async function createPost(payload) {
   return handleResponse(res);
 }
 
-export async function updatePost(id, payload) {
+export async function updateProfile(id, payload) {
   const res = await fetch(`${URL}?id=eq.${id}`, {
     method: "PATCH",
     headers,
@@ -97,7 +99,7 @@ export async function updatePost(id, payload) {
   return handleResponse(res);
 }
 
-export async function deletePost(id) {
+export async function deleteProfile(id) {
   const res = await fetch(`${URL}?id=eq.${id}`, {
     method: "DELETE",
     headers,
@@ -105,4 +107,4 @@ export async function deletePost(id) {
   return handleResponse(res);
 }
 
-export default { getPosts, getPost, createPost, updatePost, deletePost };
+export default { getProfiles, getProfilesById, createProfile, updateProfile, deleteProfile };

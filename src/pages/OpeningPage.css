@@ -1,0 +1,44 @@
+.opening-page {
+  position: fixed;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+  background: var(--background);
+}
+
+.opening-page::before {
+  content: "";
+  position: absolute;
+
+  width: 26rem;
+  height: 26rem;
+
+  background: linear-gradient(180deg, var(--green) 0%, var(--pink) 61%);
+
+  opacity: 1;
+  filter: blur(90px);
+}
+
+.opening-page::after {
+  content: "";
+  position: absolute;
+
+  width: 17rem;
+  height: 17rem;
+
+  background: var(--orange);
+
+  opacity: 0.76;
+  filter: blur(90px);
+}
+
+.opening-page h1 {
+  position: relative;
+  z-index: 2;
+
+  color: var(--bordeaux);
+}

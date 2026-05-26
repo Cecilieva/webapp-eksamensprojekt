@@ -13,6 +13,9 @@
   --app-width: 100%;
   --app-max-width: 430px;
   --app-padding-x: clamp(16px, 4vw, 24px);
+  /* Layout (prototype: iPhone 14 Pro = 393px bred) */
+  --app-width: 500px; /* Skal ændres til 393 senere */
+  --app-padding-x: 16px;
   --app-padding-bottom: 24px;
 
   /* Typography (fra Figma: tekst-størrelse/line-height%) */
