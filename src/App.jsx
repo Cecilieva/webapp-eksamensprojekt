@@ -8,6 +8,8 @@ import OpeningPage from "./pages/OpeningPage";
 
 import Header from "./components/Header";
 import HomePage from "./pages/HomePage";
+import FavoritesPage from "./pages/FavoritesPage";
+import NotificationsPage from "./pages/NotificationsPage";
 
 import CreatePage from "./pages/CreatePage";
 import PostDetailPage from "./pages/PostDetailPage";
@@ -20,6 +22,19 @@ import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   const [step, setStep] = useState("splash");
+  const [favoriteProfiles, setFavoriteProfiles] = useState([]);
+
+  const toggleFavoriteProfile = (profile) => {
+    const exists = favoriteProfiles.some((fav) => fav.name === profile.name);
+
+    if (exists) {
+      setFavoriteProfiles((prev) =>
+        prev.filter((fav) => fav.name !== profile.name),
+      );
+    } else {
+      setFavoriteProfiles((prev) => [...prev, profile]);
+    }
+  };
 
   if (step === "splash") {
     return <SplashScreenPage onFinish={() => setStep("login")} />;
@@ -50,7 +65,32 @@ function App() {
           element={
             <>
               <Header />
-              <HomePage />
+              <HomePage
+                favoriteProfiles={favoriteProfiles}
+                toggleFavoriteProfile={toggleFavoriteProfile}
+              />
+              <Botnav />
+            </>
+          }
+        />
+        <Route
+          path="/favorites"
+          element={
+            <>
+              <FavoritesPage
+                favoriteProfiles={favoriteProfiles}
+                toggleFavoriteProfile={toggleFavoriteProfile}
+              />
+              <Botnav />
+            </>
+          }
+        />
+
+        <Route
+          path="/notifications"
+          element={
+            <>
+              <NotificationsPage />
               <Botnav />
             </>
           }
