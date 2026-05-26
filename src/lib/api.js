@@ -76,6 +76,11 @@ export async function getPostsFiltered(filters = {}) {
 }
 
 export async function getPost(id) {
+  const res = await fetch(`${URL}?id=eq.${id}`, { headers });
+  const data = await handleResponse(res);
+  return Array.isArray(data) ? data[0] || null : data;
+}
+
 export async function getProfilesById(id) {
   const res = await fetch(`${URL}?id=eq.${id}`, { headers });
   return handleResponse(res);
@@ -107,4 +112,12 @@ export async function deleteProfile(id) {
   return handleResponse(res);
 }
 
-export default { getProfiles, getProfilesById, createProfile, updateProfile, deleteProfile };
+export default {
+  getProfiles,
+  getPostsFiltered,
+  getPost,
+  getProfilesById,
+  createProfile,
+  updateProfile,
+  deleteProfile,
+};
