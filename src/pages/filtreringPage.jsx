@@ -5,7 +5,6 @@ import mandIcon from "../assets/mand.svg";
 import prismaerkeIcon from "../assets/prismaerke.svg";
 import urIcon from "../assets/ur.svg";
 import mapIcon from "../assets/mapikonsort.svg";
-import statusbarIcon from "../assets/Status bar.svg";
 import usersIcon from "../assets/users.svg";
 import employmentIcon from "../assets/Beskæftigelse-ikon.svg";
 import matchscoreIcon from "../assets/matchscoreikon.svg";
@@ -104,7 +103,6 @@ export default function Filtrering() {
     return () => window.removeEventListener("resetFilters", onReset);
   }, []);
 
-  // age ranges used in the dropdowns
   const AGE_RANGES = [
     "18 - 20 år",
     "20 - 22 år",
@@ -115,7 +113,6 @@ export default function Filtrering() {
     "30 - 32 år",
   ];
 
-  // price ranges used in the budget dropdowns
   const PRICE_RANGES = [
     "1.000 kr.",
     "2.000 kr.",
@@ -188,9 +185,6 @@ export default function Filtrering() {
 
   return (
     <main className="app filtrering">
-      <div className="statusbar-wrap">
-        <img src={statusbarIcon} alt="status bar" className="statusbar-image" />
-      </div>
       <h1 className="page-title">Filtrer</h1>
 
       <form className="filter-panel" onSubmit={handleApply}>

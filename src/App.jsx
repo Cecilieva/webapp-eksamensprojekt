@@ -8,7 +8,7 @@ import ConnectionsPage from "./pages/ConnectionsPage";
 import MapPage from "./pages/MapPage";
 import ChatPage from "./pages/ChatPage";
 import ProfilePage from "./pages/ProfilePage";
-import Filtrering from "./pages/filtrering";
+import Filtrering from "./pages/filtreringPage";
 import Botnav from "./components/Botnav";
 
 function App() {
