@@ -15,7 +15,7 @@ import UpdatePage from "./pages/UpdatePage";
 import ConnectionsPage from "./pages/ConnectionsPage";
 import ProfilePage from "./pages/ProfilePage";
 import Botnav from "./components/Botnav";
-import NotFound from "./pages/NotFound";
+import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   const [step, setStep] = useState("splash");
@@ -99,7 +99,7 @@ function App() {
           element={
             <>
               <Header />
-              <MapPage />
+              <NotFoundPage />
               <Botnav />
             </>
           }
@@ -109,7 +109,7 @@ function App() {
           element={
             <>
               <Header />
-              <ChatPage />
+              <NotFoundPage />
               <Botnav />
             </>
           }
@@ -130,7 +130,7 @@ function App() {
             <>
               <Header />
               <HomePage />
-              <Botnav />
+              <NotFoundPage />
             </>
           }
         />
