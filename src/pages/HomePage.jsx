@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import api from "../lib/api";
+import FilterIcon from "../assets/flitrering-ikon.svg";
 import ProfileCard from "../components/ProfileCard";
 import { supabase } from "../lib/supabaseClient";
 import "./HomePage.css";
@@ -60,6 +63,29 @@ export default function HomePage() {
   if (error) return <main className="app">Error: {error}</main>;
 
   return (
+    <main className="app">
+      <h1 className="page-title">Home</h1>
+      <Link to="/filtrering" className="filter-fab" aria-label="Filtrer">
+        <img src={FilterIcon} alt="Filtrer" className="filter-icon" />
+        <span className="filter-badge">{posts.length}</span>
+      </Link>
+      <Link to="/create" className="btn btn-primary">
+        Create
+      </Link>
+
+      <section className="post-grid">
+        {posts.length === 0 && <p>Ingen resultater</p>}
+        {posts.map((post) => (
+          <article key={post.id} className="post-card">
+            {post.image && <img src={post.image} alt={post.caption} />}
+            <div className="post-card-body">
+              <p className="post-card-id">Post #{post.id}</p>
+              <h2>{post.caption}</h2>
+              <Link to={`/posts/${post.id}`} className="btn">
+                View
+              </Link>
+            </div>
+          </article>
     <div className="home">
       <section className="profile-grid" aria-label="Profiler">
         {profiles.length === 0 && (
