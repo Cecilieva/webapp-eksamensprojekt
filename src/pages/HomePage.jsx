@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../lib/api";
+import FilterIcon from "../assets/flitrering-ikon.svg";
 
 export default function HomePage() {
   const [posts, setPosts] = useState([]);
@@ -31,6 +32,10 @@ export default function HomePage() {
   return (
     <main className="app">
       <h1 className="page-title">Home</h1>
+      <Link to="/filtrering" className="filter-fab" aria-label="Filtrer">
+        <img src={FilterIcon} alt="Filtrer" className="filter-icon" />
+        <span className="filter-badge">{posts.length}</span>
+      </Link>
       <Link to="/create" className="btn btn-primary">
         Create
       </Link>

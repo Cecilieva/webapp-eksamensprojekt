@@ -8,6 +8,7 @@ import ConnectionsPage from "./pages/ConnectionsPage";
 import MapPage from "./pages/MapPage";
 import ChatPage from "./pages/ChatPage";
 import ProfilePage from "./pages/ProfilePage";
+import Filtrering from "./pages/filtrering";
 import Botnav from "./components/Botnav";
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route path="/map" element={<MapPage />} />
         <Route path="/chat" element={<ChatPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/filtrering" element={<Filtrering />} />
       </Routes>
       <Botnav />
     </BrowserRouter>
