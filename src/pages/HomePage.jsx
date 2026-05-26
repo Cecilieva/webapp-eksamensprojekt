@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import FilterIcon from "../assets/flitrering-ikon.svg";
 import ProfileCard from "../components/ProfileCard";
 import { supabase } from "../lib/supabaseClient";
 import "./HomePage.css";
@@ -58,17 +56,11 @@ export default function HomePage() {
     loadData();
   }, []);
 
-  if (loading) return <main className="home">Loading…</main>;
-  if (error) return <main className="home">Error: {error}</main>;
+  if (loading) return <main className="app">Loading…</main>;
+  if (error) return <main className="app">Error: {error}</main>;
 
   return (
-    <main className="home">
-      <h1 className="page-title">Home</h1>
-      <Link to="/filtrering" className="filter-fab" aria-label="Filtrer">
-        <img src={FilterIcon} alt="Filtrer" className="filter-icon" />
-        <span className="filter-badge">{profiles.length}</span>
-      </Link>
-
+    <div className="home">
       <section className="profile-grid" aria-label="Profiler">
         {profiles.length === 0 && (
           <p className="profile-grid-empty">Ingen profiler fundet</p>
@@ -97,6 +89,6 @@ export default function HomePage() {
           />
         ))}
       </section>
-    </main>
+    </div>
   );
 }
