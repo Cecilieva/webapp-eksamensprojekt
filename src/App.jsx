@@ -1,6 +1,14 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useState } from "react";
+
+import SplashScreenPage from "./pages/SplashScreenPage";
+import LoginPage from "./pages/LoginPage";
+import OnboardingPage from "./pages/OnboardingPage";
+import OpeningPage from "./pages/OpeningPage";
+
 import Header from "./components/Header";
 import HomePage from "./pages/HomePage";
+
 import CreatePage from "./pages/CreatePage";
 import PostDetailPage from "./pages/PostDetailPage";
 import UpdatePage from "./pages/UpdatePage";
@@ -10,21 +18,123 @@ import Botnav from "./components/Botnav";
 import NotFound from "./pages/NotFound";
 
 function App() {
+  const [step, setStep] = useState("splash");
+
+  if (step === "splash") {
+    return <SplashScreenPage onFinish={() => setStep("login")} />;
+  }
+
+  if (step === "login") {
+    return <LoginPage onCreateAccount={() => setStep("onboarding")} />;
+  }
+
+  if (step === "onboarding") {
+    return (
+      <OnboardingPage
+        onFinish={() => setStep("opening")}
+        onBack={() => setStep("login")}
+      />
+    );
+  }
+
+  if (step === "opening") {
+    return <OpeningPage onFinish={() => setStep("app")} />;
+  }
+
   return (
     <BrowserRouter>
-      <Header />
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/create" element={<CreatePage />} />
-        <Route path="/posts/:id" element={<PostDetailPage />} />
-        <Route path="/posts/:id/update" element={<UpdatePage />} />
-        <Route path="/connections" element={<ConnectionsPage />} />
-        <Route path="/map" element={<NotFound />} />
-        <Route path="/chat" element={<NotFound />} />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path="*" element={<NotFound />} />
+        <Route
+          path="/"
+          element={
+            <>
+              <Header />
+              <HomePage />
+              <Botnav />
+            </>
+          }
+        />
+        <Route
+          path="/create"
+          element={
+            <>
+              <Header />
+              <CreatePage />
+              <Botnav />
+            </>
+          }
+        />
+        <Route
+          path="/posts/:id"
+          element={
+            <>
+              <Header />
+              <PostDetailPage />
+              <Botnav />
+            </>
+          }
+        />
+        <Route
+          path="/posts/:id/update"
+          element={
+            <>
+              <Header />
+              <UpdatePage />
+              <Botnav />
+            </>
+          }
+        />
+        <Route
+          path="/connections"
+          element={
+            <>
+              <Header />
+              <ConnectionsPage />
+              <Botnav />
+            </>
+          }
+        />
+        <Route
+          path="/map"
+          element={
+            <>
+              <Header />
+              <MapPage />
+              <Botnav />
+            </>
+          }
+        />
+        <Route
+          path="/chat"
+          element={
+            <>
+              <Header />
+              <ChatPage />
+              <Botnav />
+            </>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <>
+              <Header />
+              <ProfilePage />
+              <Botnav />
+            </>
+          }
+        />
+        <Route
+          path="*"
+          element={
+            <>
+              <Header />
+              <HomePage />
+              <Botnav />
+            </>
+          }
+        />
       </Routes>
-      <Botnav />
     </BrowserRouter>
   );
 }

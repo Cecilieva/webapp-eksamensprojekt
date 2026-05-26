@@ -1,0 +1,84 @@
+.login-page {
+  min-height: 100vh;
+  background: var(--background);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6rem 2rem 3rem;
+}
+
+.big-logo {
+  width: 14rem;
+}
+
+.login-page-text {
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+  text-align: center;
+  color: var(--bordeaux);
+}
+
+.login-page-bottom {
+  width: 100%;
+  max-width: 20rem;
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-page-bottom small {
+  margin-bottom: 2rem;
+  text-align: center;
+  color: var(--black);
+}
+
+.text-link {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.primary-btn,
+.secondary-btn {
+  width: 100%;
+  height: 3rem;
+  border-radius: 1rem;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.primary-btn h4,
+.secondary-btn h4,
+.guest-link p {
+  margin: 0;
+}
+
+.primary-btn {
+  border: none;
+  background: var(--green);
+  color: var(--black);
+  margin-bottom: 1rem;
+}
+
+.secondary-btn {
+  border: 1px solid var(--bordeaux10);
+  background: transparent;
+  color: var(--black);
+  margin-top: 1rem;
+}
+
+.guest-link {
+  margin-top: 1rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.guest-link p {
+  text-decoration: underline;
+  color: var(--black);
+  margin-top: 1rem;
+}
