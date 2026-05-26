@@ -10,7 +10,7 @@
     Helvetica, Arial, sans-serif;
 
   /* Layout (prototype: iPhone 14 Pro = 393px bred) */
-  --app-width: 393px;
+  --app-width: 500px; /* Skal ændres til 393 senere */
   --app-padding-x: 16px;
   --app-padding-bottom: 24px;
 
