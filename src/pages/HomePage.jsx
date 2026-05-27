@@ -7,7 +7,10 @@ import Component12 from "../assets/Component 12.svg";
 import Component15 from "../assets/Component 15.svg";
 import "./HomePage.css";
 
-export default function HomePage({ favoriteProfiles, toggleFavoriteProfile }) {
+export default function HomePage({
+  favoriteProfiles = [],
+  toggleFavoriteProfile = () => {},
+}) {
   const [activeIcon, setActiveIcon] = useState(null);
   const [profiles, setProfiles] = useState([]);
   const containerRef = useRef(null);
