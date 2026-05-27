@@ -257,7 +257,7 @@ function RequestItem({ person, onAccept, onShowRemove }) {
           <ActionButton
             variant="lime"
             label="Accepter"
-            onClick={() => onAccept(person.id)}
+            onClick={() => onAccept(person)}
           />
           <ActionButton
             variant="ghost"
@@ -311,6 +311,8 @@ export default function RequestPage() {
   const [connections, setConnections] = useState([]);
   const [overlayOpen, setOverlayOpen] = useState(false);
   const [overlayTarget, setOverlayTarget] = useState(null); // { id, name, mode: 'request'|'connection' }
+  const [acceptedOverlayOpen, setAcceptedOverlayOpen] = useState(false);
+  const [acceptedOverlayName, setAcceptedOverlayName] = useState("");
   const [dismissedProfileIds, setDismissedProfileIds] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -435,7 +437,8 @@ export default function RequestPage() {
   const isConnections = activeTab === "forbindelser";
   const pageTitle = isConnections ? "Forbindelser" : "Anmodninger";
 
-  const handleAccept = async (id) => {
+  const handleAccept = async (person) => {
+    const id = person.id;
     const existingRequest = connections.find(
       (connection) =>
         connection.status === "pending" && connection.sender_id === id,
@@ -486,6 +489,9 @@ export default function RequestPage() {
     );
 
     setError("");
+    // show accepted overlay with the person's name
+    setAcceptedOverlayName(person.name);
+    setAcceptedOverlayOpen(true);
   };
 
   const handleReject = async (id) => {
@@ -684,6 +690,37 @@ export default function RequestPage() {
                   }}
                 >
                   <img src={Annuller} alt="Annuller" style={{ width: 100 }} />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      {acceptedOverlayOpen && (
+        <div
+          style={styles.overlayBackdrop}
+          onClick={() => setAcceptedOverlayOpen(false)}
+          role="dialog"
+          aria-modal="true"
+        >
+          <div style={styles.overlayCard} onClick={(e) => e.stopPropagation()}>
+            <div style={styles.overlayContent}>
+              <div style={styles.overlayTitle}>Tillykke!</div>
+              <div style={styles.overlayText}>
+                Du har nu accepteret {acceptedOverlayName}
+              </div>
+
+              <div style={styles.overlayCTAWrap}>
+                <button
+                  type="button"
+                  onClick={() => setAcceptedOverlayOpen(false)}
+                  style={{
+                    border: "none",
+                    background: "transparent",
+                    padding: 0,
+                  }}
+                >
+                  <img src={CTA} alt="Fortsæt" style={{ width: 220 }} />
                 </button>
               </div>
             </div>
