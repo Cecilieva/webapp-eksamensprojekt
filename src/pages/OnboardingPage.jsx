@@ -11,7 +11,7 @@ export default function OnboardingPage({ onFinish, onBack }) {
     },
 
     {
-      title: <h3>Vi matcher dig på det, der betyder noget.</h3>,
+      title: <h3>Vi matcher dig på det, der betyder noget</h3>,
       button: "Videre",
     },
 
@@ -21,12 +21,12 @@ export default function OnboardingPage({ onFinish, onBack }) {
     },
 
     {
-      title: <h3>Chat, lav gruppechats og find roomies..</h3>,
+      title: <h3>Chat, lav gruppechats og find roomies</h3>,
       button: "Videre",
     },
 
     {
-      title: <h3>Øg dine chancer for gode matches..</h3>,
+      title: <h3>Øg dine chancer for gode matches</h3>,
       button: "Kom i gang",
     },
   ];
