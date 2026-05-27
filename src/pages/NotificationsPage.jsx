@@ -1,9 +1,9 @@
-import Errormessage from "../components/Errormessage";
+import ErrorMessage from "../components/Errormessage";
 
 export default function NotificationsPage() {
   return (
     <main>
-      <Errormessage />
+      <ErrorMessage />
     </main>
   );
 }

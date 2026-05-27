@@ -25,12 +25,10 @@ function App() {
   const [favoriteProfiles, setFavoriteProfiles] = useState([]);
 
   const toggleFavoriteProfile = (profile) => {
-    const exists = favoriteProfiles.some((fav) => fav.name === profile.name);
+    const exists = favoriteProfiles.some((fav) => fav.id === profile.id);
 
     if (exists) {
-      setFavoriteProfiles((prev) =>
-        prev.filter((fav) => fav.name !== profile.name),
-      );
+      setFavoriteProfiles((prev) => prev.filter((fav) => fav.id !== profile.id));
     } else {
       setFavoriteProfiles((prev) => [...prev, profile]);
     }
