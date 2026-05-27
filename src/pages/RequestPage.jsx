@@ -1,5 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "../lib/supabaseClient";
+import HovsaOverlay from "../assets/Hovsa-overlay.svg";
+import CTA from "../assets/CTA.svg";
+import Annuller from "../assets/Annuller.svg";
 
 const MAIN_PROFILE_ID = 14;
 
@@ -148,6 +151,65 @@ const styles = {
     color: "#555",
     border: "1.5px solid #c8bfb5",
   },
+  // overlay styles
+  overlayBackdrop: {
+    position: "fixed",
+    inset: 0,
+    backgroundColor: "rgba(0,0,0,0.65)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    zIndex: 60,
+    padding: 20,
+  },
+  overlayCard: {
+    position: "relative",
+    width: "min(360px, 92%)",
+    backgroundColor: "#FAF5EC",
+    borderRadius: 18,
+    padding: "34px 20px",
+    boxShadow: "0 10px 30px rgba(0,0,0,0.25)",
+    textAlign: "center",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    minHeight: 360,
+  },
+  overlayBackground: {
+    position: "absolute",
+    left: "50%",
+    top: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "85%",
+    maxWidth: 320,
+    opacity: 0.12,
+    pointerEvents: "none",
+    zIndex: 0,
+  },
+  overlayContent: {
+    position: "relative",
+    zIndex: 1,
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  overlayTitle: {
+    fontSize: 28,
+    fontWeight: 700,
+    color: "#1a1a1a",
+    marginBottom: 8,
+  },
+  overlayText: { color: "#3a3228", fontSize: 15, marginBottom: 18 },
+  overlayCTAWrap: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 12,
+    alignItems: "center",
+    marginTop: 18,
+  },
+  overlayFrame: {},
   empty: {
     textAlign: "center",
     padding: "48px 24px",
@@ -185,7 +247,7 @@ function ActionButton({ variant, label, onClick }) {
   );
 }
 
-function RequestItem({ person, onAccept, onReject }) {
+function RequestItem({ person, onAccept, onShowRemove }) {
   return (
     <div style={styles.item}>
       <Avatar initials={person.initials} color={person.color} />
@@ -200,7 +262,7 @@ function RequestItem({ person, onAccept, onReject }) {
           <ActionButton
             variant="ghost"
             label="Fjern"
-            onClick={() => onReject(person.id)}
+            onClick={() => onShowRemove(person)}
           />
         </div>
       </div>
@@ -209,7 +271,7 @@ function RequestItem({ person, onAccept, onReject }) {
   );
 }
 
-function ConnectionItem({ person, onRemove }) {
+function ConnectionItem({ person, onShowRemove }) {
   return (
     <div style={styles.item}>
       <Avatar initials={person.initials} color={person.color} />
@@ -224,7 +286,7 @@ function ConnectionItem({ person, onRemove }) {
           <ActionButton
             variant="ghost"
             label="Fjern"
-            onClick={() => onRemove(person.id)}
+            onClick={() => onShowRemove(person)}
           />
         </div>
       </div>
@@ -247,6 +309,8 @@ export default function RequestPage() {
   const [profiles, setProfiles] = useState([]);
   const [matchscores, setMatchscores] = useState([]);
   const [connections, setConnections] = useState([]);
+  const [overlayOpen, setOverlayOpen] = useState(false);
+  const [overlayTarget, setOverlayTarget] = useState(null); // { id, name, mode: 'request'|'connection' }
   const [dismissedProfileIds, setDismissedProfileIds] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -467,6 +531,29 @@ export default function RequestPage() {
     }
   };
 
+  const showRemoveOverlay = (person, mode) => {
+    setOverlayTarget({ id: person.id, name: person.name, mode });
+    setOverlayOpen(true);
+  };
+
+  const closeOverlay = () => {
+    setOverlayOpen(false);
+    setOverlayTarget(null);
+  };
+
+  const confirmRemove = async () => {
+    if (!overlayTarget) return;
+    const { id, mode } = overlayTarget;
+
+    if (mode === "request") {
+      await handleReject(id);
+    } else {
+      await handleRemove(id);
+    }
+
+    closeOverlay();
+  };
+
   if (loading) {
     return (
       <div style={styles.root}>
@@ -531,7 +618,7 @@ export default function RequestPage() {
               <ConnectionItem
                 key={person.id}
                 person={person}
-                onRemove={handleRemove}
+                onShowRemove={(p) => showRemoveOverlay(p, "connection")}
               />
             ))
           )
@@ -543,11 +630,66 @@ export default function RequestPage() {
               key={person.id}
               person={person}
               onAccept={handleAccept}
-              onReject={handleReject}
+              onShowRemove={(p) => showRemoveOverlay(p, "request")}
             />
           ))
         )}
       </div>
+      {overlayOpen && (
+        <div
+          style={styles.overlayBackdrop}
+          onClick={closeOverlay}
+          role="dialog"
+          aria-modal="true"
+        >
+          <div style={styles.overlayCard} onClick={(e) => e.stopPropagation()}>
+            <img src={HovsaOverlay} alt="" style={styles.overlayBackground} />
+            <div style={styles.overlayContent}>
+              {overlayTarget?.mode === "request" ? (
+                <>
+                  <div style={styles.overlayTitle}>Hovsa!</div>
+                  <div style={styles.overlayText}>
+                    Er du sikker på, at du vil fjerne denne anmodning?
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div style={styles.overlayTitle}>Hovsa!</div>
+                  <div style={styles.overlayText}>
+                    Er du sikker på, at du vil fjerne forbindelsen?
+                  </div>
+                </>
+              )}
+
+              <div style={styles.overlayCTAWrap}>
+                <button
+                  type="button"
+                  onClick={confirmRemove}
+                  style={{
+                    border: "none",
+                    background: "transparent",
+                    padding: 0,
+                  }}
+                >
+                  <img src={CTA} alt="Fjern" style={{ width: 220 }} />
+                </button>
+
+                <button
+                  type="button"
+                  onClick={closeOverlay}
+                  style={{
+                    border: "none",
+                    background: "transparent",
+                    padding: 0,
+                  }}
+                >
+                  <img src={Annuller} alt="Annuller" style={{ width: 100 }} />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
