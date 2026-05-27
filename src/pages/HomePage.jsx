@@ -7,7 +7,7 @@ import Component12 from "../assets/Component 12.svg";
 import Component15 from "../assets/Component 15.svg";
 import "./HomePage.css";
 
-export default function HomePage({ favoriteProfiles, toggleFavoriteProfile }) {
+export default function HomePage() {
   const [activeIcon, setActiveIcon] = useState(null);
   const [profiles, setProfiles] = useState([]);
   const containerRef = useRef(null);
@@ -102,6 +102,19 @@ export default function HomePage({ favoriteProfiles, toggleFavoriteProfile }) {
         "left 280ms cubic-bezier(.25,.8,.25,1), width 280ms cubic-bezier(.25,.8,.25,1), opacity 180ms ease",
     });
   }, [activeIcon]);
+
+  // watch for overlay-active body class so we can switch to white SVGs
+  const [overlayActive, setOverlayActive] = useState(
+    document?.body?.classList?.contains("overlay-active") || false,
+  );
+
+  useEffect(() => {
+    const obs = new MutationObserver(() => {
+      setOverlayActive(document.body.classList.contains("overlay-active"));
+    });
+    obs.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+    return () => obs.disconnect();
+  }, []);
 
   if (loading) return <main className="app">Loading…</main>;
   if (error) return <main className="app">Error: {error}</main>;
