@@ -6,6 +6,7 @@ import HeartIcon from "../assets/heart-icon.svg";
 import HeartFilledIcon from "../assets/heart-filled-icon.svg";
 import NotificationsIcon from "../assets/notifications-icon.svg";
 import NotificationsFilledIcon from "../assets/notifications-filled-icon.svg";
+import MenuLogo from "../assets/menu-logo.svg";
 import "./Header.css";
 
 export default function Header() {
@@ -100,6 +101,11 @@ export default function Header() {
               <p>Hjælp og support</p>
               <p>Abonnementer</p>
               <p>Log ud</p>
+              <div img src={HeartIcon} alt="Hjerte" className="overlay-heart" />
+            </div>
+
+            <div className="menu-logo">
+              <img src={MenuLogo} alt="Rumly logo" />
             </div>
           </div>
         </div>
