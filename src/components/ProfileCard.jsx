@@ -1,5 +1,4 @@
 import "./ProfileCard.css";
-import { useState } from "react";
 import LikeButton from "./LikeButton";
 import locationIconPc from "../assets/location-icon-pc.svg";
 import occupationIconPc from "../assets/occupation-icon-pc.svg";
@@ -8,6 +7,7 @@ import verifiedIconPc from "../assets/verified-icon.svg";
 import MatchScore from "../components/MatchScore";
 
 export default function ProfileCard({
+  id,
   name,
   age,
   city,
@@ -16,9 +16,9 @@ export default function ProfileCard({
   occupation,
   interests,
   score,
+  liked,
+  onToggleFavorite,
 }) {
-  const [liked, setLiked] = useState(false);
-
   return (
     <div className="profile-card">
       {/* Billede */}
@@ -27,7 +27,19 @@ export default function ProfileCard({
           <div className="profile-like">
             <LikeButton
               liked={liked}
-              onToggle={() => setLiked((v) => !v)}
+              onToggle={() =>
+                onToggleFavorite({
+                  id,
+                  name,
+                  age,
+                  city,
+                  image,
+                  caption,
+                  occupation,
+                  interests,
+                  score,
+                })
+              }
               label="Like profile"
               size={44}
             />

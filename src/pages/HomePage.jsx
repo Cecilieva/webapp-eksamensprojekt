@@ -7,7 +7,7 @@ import Component12 from "../assets/Component 12.svg";
 import Component15 from "../assets/Component 15.svg";
 import "./HomePage.css";
 
-export default function HomePage() {
+export default function HomePage({ favoriteProfiles, toggleFavoriteProfile }) {
   const [activeIcon, setActiveIcon] = useState(null);
   const [profiles, setProfiles] = useState([]);
   const containerRef = useRef(null);
@@ -170,6 +170,7 @@ export default function HomePage() {
         {profiles.map((p) => (
           <ProfileCard
             key={p.id}
+            id={p.id}
             name={p.name}
             age={p.age}
             city={p.city}
@@ -187,6 +188,8 @@ export default function HomePage() {
             roomiePreference={p.roomie_preference}
             interests={p.interests}
             score={p.score}
+            liked={favoriteProfiles.some((fav) => fav.id === p.id)}
+            onToggleFavorite={toggleFavoriteProfile}
           />
         ))}
       </section>
