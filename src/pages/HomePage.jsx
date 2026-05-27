@@ -1,10 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import { Link } from "react-router-dom";
 import ProfileCard from "../components/ProfileCard";
 import { supabase } from "../lib/supabaseClient";
+import filterIcon from "../assets/filteruden.svg";
+import Component12 from "../assets/Component 12.svg";
+import Component15 from "../assets/Component 15.svg";
 import "./HomePage.css";
 
 export default function HomePage() {
+  const [activeIcon, setActiveIcon] = useState(null);
   const [profiles, setProfiles] = useState([]);
+  const containerRef = useRef(null);
+  const btn12Ref = useRef(null);
+  const btn15Ref = useRef(null);
+  const [fillStyle, setFillStyle] = useState({ opacity: 0 });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -56,11 +65,90 @@ export default function HomePage() {
     loadData();
   }, []);
 
+  // move and mask the fill when activeIcon changes
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    if (!activeIcon) {
+      setFillStyle((s) => ({ ...s, opacity: 0 }));
+      return;
+    }
+
+    const btn = activeIcon === "c12" ? btn12Ref.current : btn15Ref.current;
+    if (!btn) return;
+
+    const containerRect = containerRef.current.getBoundingClientRect();
+    const btnRect = btn.getBoundingClientRect();
+    const left = btnRect.left - containerRect.left;
+    const width = btnRect.width;
+    const svgUrl = activeIcon === "c12" ? Component12 : Component15;
+
+    setFillStyle({
+      left: `${left}px`,
+      width: `${width}px`,
+      top: `0px`,
+      height: `100%`,
+      WebkitMaskImage: `url(${svgUrl})`,
+      maskImage: `url(${svgUrl})`,
+      WebkitMaskSize: "contain",
+      maskSize: "contain",
+      WebkitMaskRepeat: "no-repeat",
+      maskRepeat: "no-repeat",
+      WebkitMaskPosition: "center",
+      maskPosition: "center",
+      backgroundColor: "#4B0129",
+      opacity: 1,
+      transition:
+        "left 280ms cubic-bezier(.25,.8,.25,1), width 280ms cubic-bezier(.25,.8,.25,1), opacity 180ms ease",
+    });
+  }, [activeIcon]);
+
   if (loading) return <main className="app">Loading…</main>;
   if (error) return <main className="app">Error: {error}</main>;
 
   return (
     <div className="home">
+      <div className="home-top-icons" ref={containerRef}>
+        <div className="home-top-fill" style={fillStyle} />
+
+        <button
+          ref={btn12Ref}
+          type="button"
+          className={`home-top-icon-btn ${activeIcon === "c12" ? "active" : ""}`}
+          aria-pressed={activeIcon === "c12"}
+          aria-label="Vis komponent 12"
+          onClick={() => setActiveIcon(activeIcon === "c12" ? null : "c12")}
+        >
+          <img src={Component12} alt="" className="home-top-icon-img" />
+        </button>
+
+        <button
+          ref={btn15Ref}
+          type="button"
+          className={`home-top-icon-btn ${activeIcon === "c15" ? "active" : ""}`}
+          aria-pressed={activeIcon === "c15"}
+          aria-label="Vis komponent 15"
+          onClick={() => setActiveIcon(activeIcon === "c15" ? null : "c15")}
+        >
+          <img src={Component15} alt="" className="home-top-icon-img" />
+        </button>
+      </div>
+
+      <div className="home-filter-row">
+        <Link
+          to="/filtrering"
+          className="home-filter-button"
+          aria-label="Åbn filtre"
+        >
+          <img
+            src={filterIcon}
+            alt=""
+            aria-hidden="true"
+            className="home-filter-icon"
+          />
+        </Link>
+      </div>
+
       <section className="profile-grid" aria-label="Profiler">
         {profiles.length === 0 && (
           <p className="profile-grid-empty">Ingen profiler fundet</p>
