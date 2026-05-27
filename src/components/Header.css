@@ -183,4 +183,5 @@
   margin-top: auto;
   display: flex;
   justify-content: center;
+  transform: translateY(-6.5rem);
 }
