@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
+import Lottie from "lottie-react";
 import { supabase } from "../lib/supabaseClient";
 import HovsaOverlay from "../assets/Hovsa-overlay.svg";
 import CTA from "../assets/CTA.svg";
 import Annuller from "../assets/Annuller.svg";
+import connectionConfetti from "../assets/forbindelse-oprettet-konfetti.json";
 
 const MAIN_PROFILE_ID = 14;
 
@@ -209,7 +211,15 @@ const styles = {
     alignItems: "center",
     marginTop: 18,
   },
-  overlayFrame: {},
+  overlayFrame: {
+    display: "flex",
+    justifyContent: "center",
+    marginBottom: 8,
+  },
+  overlayLottie: {
+    width: "12rem",
+    maxWidth: "100%",
+  },
   empty: {
     textAlign: "center",
     padding: "48px 24px",
@@ -705,6 +715,14 @@ export default function RequestPage() {
         >
           <div style={styles.overlayCard} onClick={(e) => e.stopPropagation()}>
             <div style={styles.overlayContent}>
+              <div style={styles.overlayFrame} aria-hidden="true">
+                <Lottie
+                  animationData={connectionConfetti}
+                  loop={false}
+                  autoplay={true}
+                  style={styles.overlayLottie}
+                />
+              </div>
               <div style={styles.overlayTitle}>Tillykke!</div>
               <div style={styles.overlayText}>
                 Du har nu accepteret {acceptedOverlayName}
