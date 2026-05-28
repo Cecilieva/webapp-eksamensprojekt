@@ -158,7 +158,6 @@ function App() {
           path="/profile"
           element={
             <>
-              <Header />
               <ProfilePage />
               <Botnav />
             </>

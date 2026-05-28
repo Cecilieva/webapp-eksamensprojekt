@@ -152,18 +152,18 @@ body {
 
 /************** RACE STYLING HERFRA ***************/ /* evt. slet? */
 
-.page-title {
+/*.page-title {
   font-size: 3.2em;
   line-height: 1.1;
   margin: 0 0 0.9em;
 }
 
 /* Larger top gap specifically on filtrering page */
-.filtrering .page-title {
+/*.filtrering .page-title {
   margin-top: 40px;
 }
 
-.statusbar-wrap {
+/*.statusbar-wrap {
   display: flex;
   justify-content: center;
   padding-top: 8px;
@@ -291,7 +291,7 @@ body {
 .site-header-filter {
   background-color: transparent;
   /* align header buttons with app content width */
-  --statusbar-width: var(--app-max-width);
+/* --statusbar-width: var(--app-max-width);
 }
 
 .header-btn {
@@ -315,7 +315,7 @@ body {
 }
 
 /* On the filter page, position header buttons lower to sit below the statusbar/title */
-.site-header-filter .header-btn {
+/*.site-header-filter .header-btn {
   top: 56px;
 }
 
@@ -445,41 +445,7 @@ body {
 }
 
 /* Filtrering-specifik styling */
-.filtrering-topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 12px;
-  margin-bottom: 12px;
-}
-
-.filtrering-close {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: inherit;
-  text-decoration: none;
-}
-
-.filtrering-reset {
-  appearance: none;
-  border: 0;
-  background: transparent;
-  color: var(--black);
-  font: inherit;
-  font-weight: 600;
-  padding: 0.5rem 0;
-  cursor: pointer;
-}
-
-.filtrering-close-label {
-  margin-left: 0.5rem;
-  font-weight: 600;
-  color: var(--black);
-  font-size: 1rem;
-}
-
-.filter-panel {
+/*.filter-panel {
   background: transparent;
   display: flex;
   flex-direction: column;
@@ -494,7 +460,7 @@ body {
 .form-row {
   display: grid;
   /* Give the right/control column more horizontal space so fields are longer */
-  grid-template-columns: 1fr 1.6fr;
+/*grid-template-columns: 1fr 1.6fr;
   gap: 0.75rem;
   align-items: start;
   border: 0;
@@ -795,7 +761,7 @@ body {
 }
 
 /* Text-button style controls for age/price fields */
-.text-chip-control {
+/*.text-chip-control {
   position: relative;
   width: 100%;
   min-height: 56px;
@@ -822,7 +788,7 @@ body {
   width: 100%;
   height: 100%;
   /* increase chip height for a more spacious look */
-  min-height: 64px;
+/*min-height: 64px;
   box-sizing: border-box;
   border: none;
   background: transparent;
@@ -853,11 +819,11 @@ body {
 }
 
 /* Dropdown styles for age selection */
-.age-dropdowns {
+/*.age-dropdowns {
   display: grid;
   grid-template-columns: 1fr 1fr;
   /* a bit more gap so the larger boxes breathe */
-  gap: 1rem;
+/*  gap: 1rem;
 }
 
 .dropdown {
@@ -871,9 +837,9 @@ body {
   justify-content: space-between;
   width: 100%;
   /* larger tappable height */
-  min-height: 68px;
+/*min-height: 68px;
   /* more horizontal padding so the boxes look wider */
-  padding: 0 26px;
+/*padding: 0 26px;
   border-radius: 18px;
   background: #faf5ec;
   border: 2px solid #e8ddd8;
@@ -885,7 +851,7 @@ body {
 .dropdown-label {
   color: var(--black);
   /* prevent the label/value from wrapping onto two lines */
-  white-space: nowrap;
+/*white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -1044,7 +1010,7 @@ body {
 }
 
 /* postcard */
-.post-grid {
+/*.post-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1em;

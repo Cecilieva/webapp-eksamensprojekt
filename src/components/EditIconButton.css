@@ -1,0 +1,10 @@
+.edit-icon-button {
+  all: unset;
+  cursor: pointer;
+  display: flex;
+}
+
+.edit-icon-button .profile-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}

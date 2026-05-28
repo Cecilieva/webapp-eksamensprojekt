@@ -1,0 +1,95 @@
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tag-pill,
+.tag-add-button,
+.tag-add-inline {
+  min-height: 2rem;
+  border-radius: 0.5rem;
+}
+
+.tag-pill {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  border: 1px solid var(--bordeaux10);
+  padding: 0 1rem;
+
+  background: transparent;
+}
+
+.tag-pill img,
+.tag-add-button img {
+  width: 1rem;
+  height: 1rem;
+}
+
+.tag-pill img {
+  cursor: pointer;
+}
+
+.tag-add-button {
+  min-height: 2rem;
+
+  border: none;
+  border-radius: 0.5rem;
+
+  padding: 0 1rem;
+
+  background: var(--green);
+  color: var(--black);
+
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  cursor: pointer;
+}
+
+.tag-add-inline {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  min-height: 2rem;
+
+  padding: 0 1rem;
+
+  border-radius: 0.5rem;
+  background: var(--green);
+
+  font-size: 0.875rem;
+}
+
+.tag-add-inline input {
+  width: 8rem;
+
+  border: none;
+  outline: none;
+  background: transparent;
+
+  font: inherit;
+  color: inherit;
+
+  padding: 0;
+  margin: 0;
+}
+
+.tag-add-inline input::placeholder {
+  font: inherit;
+  color: inherit;
+}
+
+.tag-add-inline button {
+  all: unset;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+}
