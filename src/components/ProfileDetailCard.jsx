@@ -12,6 +12,8 @@ import ActiveToggle from "./ActiveToggle";
 import MatchButton from "./MatchButton";
 import EditIconButton from "./EditIconButton";
 import backButton from "../assets/back-button-icon.svg";
+import ConnectionButton from "./connectionbutton";
+import LikeButton from "./LikeButton";
 
 /* komponent til profil detalje kort */
 export default function ProfileDetailCard({
@@ -20,6 +22,10 @@ export default function ProfileDetailCard({
   showActiveToggle = false,
   showMatchButton = false,
   showBackButton = true,
+  showConnectionButton = false,
+  showLikeButton = false,
+  liked = false,
+  onToggleFavorite,
 }) {
   /* state */
   const [profile, setProfile] = useState(null);
@@ -115,6 +121,15 @@ export default function ProfileDetailCard({
           <button className="back-button">
             <img src={backButton} alt="Tilbage" />
           </button>
+        )}
+
+        {showLikeButton && (
+          <LikeButton
+            liked={liked}
+            onToggle={onToggleFavorite}
+            label="Gem profil"
+            className="profile-detail-like-button"
+          />
         )}
 
         <img src={profileImage} alt={profile.name} className="profile-image" />
@@ -228,6 +243,7 @@ export default function ProfileDetailCard({
           <TagList
             items={profile.interests || []}
             editable={canEdit}
+            removable={canEdit}
             onAdd={(value) => addArrayItem("interests", value)}
             onRemove={(value) => removeArrayItem("interests", value)}
           />
@@ -238,6 +254,7 @@ export default function ProfileDetailCard({
           <TagList
             items={profile.house_vibes || []}
             editable={canEdit}
+            removable={canEdit}
             onAdd={(value) => addArrayItem("house_vibes", value)}
             onRemove={(value) => removeArrayItem("house_vibes", value)}
           />
@@ -249,6 +266,7 @@ export default function ProfileDetailCard({
           <TagList
             items={profile.dealbreakers || []}
             editable={canEdit}
+            removable={canEdit}
             onAdd={(value) => addArrayItem("dealbreakers", value)}
             onRemove={(value) => removeArrayItem("dealbreakers", value)}
           />
@@ -329,6 +347,8 @@ export default function ProfileDetailCard({
         {/* ret matchsvar */}
 
         <MatchButton enabled={showMatchButton} />
+
+        <ConnectionButton enabled={showConnectionButton} />
       </section>
     </main>
   );

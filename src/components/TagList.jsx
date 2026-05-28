@@ -7,6 +7,7 @@ import closeIcon from "../assets/close-icon.svg";
 export default function TagList({
   items = [],
   editable = true,
+  removable = true,
   onAdd,
   onRemove,
 }) {
@@ -54,7 +55,9 @@ export default function TagList({
         <div className="tag-pill" key={item}>
           <small>{item}</small>
 
-          <img src={closeIcon} alt="Fjern" onClick={() => onRemove(item)} />
+          {editable && removable && (
+            <img src={closeIcon} alt="Fjern" onClick={() => onRemove(item)} />
+          )}
         </div>
       ))}
 
