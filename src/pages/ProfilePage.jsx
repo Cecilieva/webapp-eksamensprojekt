@@ -8,6 +8,8 @@ export default function ProfilePage() {
       showActiveToggle={true}
       showMatchButton={true}
       showBackButton={false}
+      showConnectionButton={false}
+      showLikeButton={false}
     />
   );
 }
