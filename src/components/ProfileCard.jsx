@@ -110,7 +110,14 @@ export default function ProfileCard({
               ))}
             </div>
           )}
-          <button className="connect-btn">Forbind</button>
+          <button
+            className="connect-btn"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
+            Forbind
+          </button>
         </div>
       </div>
     </div>

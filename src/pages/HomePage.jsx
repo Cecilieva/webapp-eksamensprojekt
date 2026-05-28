@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ProfileCard from "../components/ProfileCard";
 import { supabase } from "../lib/supabaseClient";
 import filterIcon from "../assets/filteruden.svg";
@@ -13,9 +13,13 @@ export default function HomePage({
 }) {
   const [activeIcon, setActiveIcon] = useState(null);
   const [profiles, setProfiles] = useState([]);
+
   const containerRef = useRef(null);
   const btn12Ref = useRef(null);
   const btn15Ref = useRef(null);
+
+  const navigate = useNavigate();
+
   const [fillStyle, setFillStyle] = useState({ opacity: 0 });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -115,7 +119,10 @@ export default function HomePage({
     const obs = new MutationObserver(() => {
       setOverlayActive(document.body.classList.contains("overlay-active"));
     });
-    obs.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+    obs.observe(document.body, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
     return () => obs.disconnect();
   }, []);
 
@@ -171,29 +178,34 @@ export default function HomePage({
         )}
 
         {profiles.map((p) => (
-          <ProfileCard
+          <div
             key={p.id}
-            id={p.id}
-            name={p.name}
-            age={p.age}
-            city={p.city}
-            image={p.image}
-            caption={p.caption}
-            gender={p.gender}
-            occupation={p.occupation}
-            budget={p.budget}
-            maxRent={p.max_rent}
-            seekingRoomie={p.seeking_roomie_boolean_default_false}
-            seekingHousing={p.seeking_housing_boolean_default_false}
-            hasHousing={p.has_housing_boolean_default_false}
-            aboutMe={p.about_me}
-            profileDescription={p.profile_description}
-            roomiePreference={p.roomie_preference}
-            interests={p.interests}
-            score={p.score}
-            liked={favoriteProfiles.some((fav) => fav.id === p.id)}
-            onToggleFavorite={toggleFavoriteProfile}
-          />
+            className="profile-card-link"
+            onClick={() => navigate(`/profiles/${p.id}`)}
+          >
+            <ProfileCard
+              id={p.id}
+              name={p.name}
+              age={p.age}
+              city={p.city}
+              image={p.image}
+              caption={p.caption}
+              gender={p.gender}
+              occupation={p.occupation}
+              budget={p.budget}
+              maxRent={p.max_rent}
+              seekingRoomie={p.seeking_roomie_boolean_default_false}
+              seekingHousing={p.seeking_housing_boolean_default_false}
+              hasHousing={p.has_housing_boolean_default_false}
+              aboutMe={p.about_me}
+              profileDescription={p.profile_description}
+              roomiePreference={p.roomie_preference}
+              interests={p.interests}
+              score={p.score}
+              liked={favoriteProfiles.some((fav) => fav.id === p.id)}
+              onToggleFavorite={toggleFavoriteProfile}
+            />
+          </div>
         ))}
       </section>
     </div>
