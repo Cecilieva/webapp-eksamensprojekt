@@ -14,7 +14,7 @@ import NotificationsPage from "./pages/NotificationsPage";
 import CreatePage from "./pages/CreatePage";
 import PostDetailPage from "./pages/PostDetailPage";
 import UpdatePage from "./pages/UpdatePage";
-import ConnectionsPage from "./pages/ConnectionsPage";
+import RequestPage from "./pages/RequestPage";
 import ProfilePage from "./pages/ProfilePage";
 import Filtrering from "./pages/filtreringPage";
 import Botnav from "./components/Botnav";
@@ -25,11 +25,11 @@ function App() {
   const [favoriteProfiles, setFavoriteProfiles] = useState([]);
 
   const toggleFavoriteProfile = (profile) => {
-    const exists = favoriteProfiles.some((fav) => fav.name === profile.name);
+    const exists = favoriteProfiles.some((fav) => fav.id === profile.id);
 
     if (exists) {
       setFavoriteProfiles((prev) =>
-        prev.filter((fav) => fav.name !== profile.name),
+        prev.filter((fav) => fav.id !== profile.id),
       );
     } else {
       setFavoriteProfiles((prev) => [...prev, profile]);
@@ -126,11 +126,10 @@ function App() {
           }
         />
         <Route
-          path="/connections"
+          path="/requests"
           element={
             <>
-              <Header />
-              <ConnectionsPage />
+              <RequestPage />
               <Botnav />
             </>
           }

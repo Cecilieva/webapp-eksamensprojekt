@@ -79,28 +79,29 @@ export default function Filtrering() {
   const [employment, setEmployment] = useState([]);
   const [matchscore, setMatchscore] = useState("");
 
+  function resetFilters() {
+    setSort("a-z");
+    setGender("");
+    setAgeMin("");
+    setAgeMax("");
+    setPriceMin("");
+    setPriceMax("");
+    setCity("");
+    setPostalCode("");
+    setDistance(5);
+    setLeasePeriod("all");
+    setIncludeDeposit(false);
+    setAvailableDate("");
+    setRoomiesCount(2);
+    setFacilities([]);
+    setEmployment([]);
+    setMatchscore("");
+    setPosts([]);
+  }
+
   useEffect(() => {
-    function onReset() {
-      setSort("a-z");
-      setGender("");
-      setAgeMin("");
-      setAgeMax("");
-      setPriceMin("");
-      setPriceMax("");
-      setCity("");
-      setPostalCode("");
-      setDistance(5);
-      setLeasePeriod("all");
-      setIncludeDeposit(false);
-      setAvailableDate("");
-      setRoomiesCount(2);
-      setFacilities([]);
-      setEmployment([]);
-      setMatchscore("");
-      setPosts([]);
-    }
-    window.addEventListener("resetFilters", onReset);
-    return () => window.removeEventListener("resetFilters", onReset);
+    window.addEventListener("resetFilters", resetFilters);
+    return () => window.removeEventListener("resetFilters", resetFilters);
   }, []);
 
   const AGE_RANGES = [
@@ -185,6 +186,20 @@ export default function Filtrering() {
 
   return (
     <main className="app filtrering">
+      <div className="filtrering-topbar">
+        <Link to="/" className="filtrering-close" aria-label="Tilbage">
+          <span className="filtrering-close-label">Tilbage</span>
+        </Link>
+
+        <button
+          type="button"
+          className="filtrering-reset"
+          onClick={resetFilters}
+        >
+          Nulstil
+        </button>
+      </div>
+
       <h1 className="page-title">Filtrer</h1>
 
       <form className="filter-panel" onSubmit={handleApply}>
