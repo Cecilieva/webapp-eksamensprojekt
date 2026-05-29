@@ -60,7 +60,14 @@ function App() {
   }
 
   if (step === "opening") {
-    return <OpeningPage onFinish={() => setStep("app")} />;
+    return (
+      <OpeningPage
+        onFinish={() => {
+          window.history.pushState({}, "", "/");
+          setStep("app");
+        }}
+      />
+    );
   }
 
   return (
