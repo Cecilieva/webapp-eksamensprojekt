@@ -2,6 +2,8 @@
   min-height: 100vh;
   padding-top: 1.125rem;
   padding-bottom: 6.875rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
 }
 
 .filter-sheet {
@@ -22,7 +24,6 @@
   padding: 0;
   color: var(--black);
   font: inherit;
-  font-size: 0.95rem;
   line-height: 1.2;
   cursor: pointer;
 }
@@ -40,8 +41,9 @@
   margin: 0;
   margin-top: 1.5rem;
   color: var(--black);
-  font-family: var(--font-display);
-  font-size: clamp(2.25rem, 7.5vw, 2.85rem);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
   line-height: 1;
   letter-spacing: -0.02em;
 }
@@ -68,26 +70,14 @@
   color: var(--black);
   font-weight: 700;
   line-height: 1.15;
-}
-
-.filter-section-title {
-  font-size: 1.42rem;
+  font-size: 1rem;
+  font-family: var(--font-body);
 }
 
 .filter-section-title img {
-  width: 1.72rem;
-  height: 1.72rem;
+  width: 2rem;
+  height: 2rem;
   flex: 0 0 auto;
-}
-
-.budget-section .filter-section-title img {
-  width: 3rem;
-  height: 3rem;
-}
-
-.large-icon-section .filter-section-title img {
-  width: 2.75rem;
-  height: 2.75rem;
 }
 
 .filter-section-titleText {
@@ -96,7 +86,7 @@
 
 .filter-section-subtitle {
   font-weight: 400;
-  font-size: 0.92rem;
+  font-size: 1rem;
 }
 
 .sort-options,
@@ -128,8 +118,8 @@
 }
 
 .sort-option .option-marker {
-  width: 3.25rem;
-  height: 3.25rem;
+  width: 2rem;
+  height: 2rem;
   border: 0.25rem solid #e6dbd4;
   border-radius: 0.5rem;
   background: transparent;
@@ -141,8 +131,8 @@
 }
 
 .lease-option .option-marker {
-  width: 1.375rem;
-  height: 1.375rem;
+  width: 2rem;
+  height: 2rem;
   border: 0.1875rem solid #e6dbd4;
   border-radius: 50%;
   background: transparent;
@@ -161,7 +151,7 @@
 }
 
 .option-label {
-  font-size: 1.06rem;
+  font-size: 1rem;
   line-height: 1.2;
 }
 
@@ -198,7 +188,7 @@
   background: #faf6ef;
   color: var(--black);
   font: inherit;
-  font-size: 1.04rem;
+  font-size: 1rem;
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -229,8 +219,8 @@
 .deposit-toggleBox {
   position: relative;
   flex: 0 0 auto;
-  width: 2.625rem;
-  height: 2.625rem;
+  width: 2rem;
+  height: 2rem;
   border: 0.25rem solid #e6dbd4;
   border-radius: 0.5rem;
   background: transparent;
@@ -243,17 +233,17 @@
 .deposit-toggle input:checked + .deposit-toggleBox::after {
   content: "";
   position: absolute;
-  left: 0.6875rem;
-  top: 0.3125rem;
+  left: 50%;
+  top: 50%;
   width: 0.625rem;
   height: 1.125rem;
   border-right: 0.25rem solid var(--orange);
   border-bottom: 0.25rem solid var(--orange);
-  transform: rotate(40deg);
+  transform: translate(-50%, -52%) rotate(40deg);
 }
 
 .deposit-toggleLabel {
-  font-size: 1.06rem;
+  font-size: 1rem;
   line-height: 1.2;
 }
 
@@ -271,7 +261,7 @@
   background: #faf6ef;
   color: var(--black);
   font: inherit;
-  font-size: 1.04rem;
+  font-size: 1rem;
 }
 
 .date-field input:focus {
@@ -298,7 +288,7 @@
   background: #faf6ef;
   color: var(--black);
   font: inherit;
-  font-size: 1.04rem;
+  font-size: 1rem;
 }
 
 .location-inputField input:focus {
@@ -312,7 +302,7 @@
 
 .distance-value {
   display: inline-block;
-  font-size: 0.98rem;
+  font-size: 1rem;
   line-height: 1.2;
   color: var(--black);
 }
@@ -340,9 +330,9 @@
 .distance-slider::-webkit-slider-thumb {
   appearance: none;
   -webkit-appearance: none;
-  width: 2.125rem;
-  height: 2.125rem;
-  margin-top: -0.6875rem;
+  width: 2rem;
+  height: 2rem;
+  margin-top: -0.625rem;
   border: 0;
   border-radius: 50%;
   background: var(--orange);
@@ -350,8 +340,8 @@
 }
 
 .distance-slider::-moz-range-thumb {
-  width: 2.125rem;
-  height: 2.125rem;
+  width: 2rem;
+  height: 2rem;
   border: 0;
   border-radius: 50%;
   background: var(--orange);
@@ -412,7 +402,7 @@
   background: transparent;
   color: var(--black);
   font: inherit;
-  font-size: 1.6rem;
+  font-size: 1rem;
   line-height: 1;
   cursor: pointer;
 }
@@ -420,7 +410,7 @@
 .count-stepperValue {
   min-width: 1.5rem;
   text-align: center;
-  font-size: 1.05rem;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--black);
 }
@@ -448,8 +438,8 @@
 }
 
 .checklist-marker {
-  width: 3rem;
-  height: 3rem;
+  width: 2rem;
+  height: 2rem;
   border: 0.25rem solid #e6dbd4;
   border-radius: 0.5rem;
   background: transparent;
@@ -464,10 +454,10 @@
 .checklist-option input:checked + .checklist-marker::after {
   content: "";
   position: absolute;
-  left: 0.8125rem;
-  top: 0.375rem;
-  width: 0.625rem;
-  height: 1.125rem;
+  left: 0.5rem;
+  top: 0.25rem;
+  width: 0.4375rem;
+  height: 0.8125rem;
   border-right: 0.25rem solid var(--orange);
   border-bottom: 0.25rem solid var(--orange);
   transform: rotate(40deg);
@@ -505,7 +495,7 @@
   background: var(--orange);
   color: var(--black);
   font: inherit;
-  font-size: 1.08rem;
+  font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
   box-shadow: 0 0.625rem 1.25rem rgba(246, 116, 5, 0.16);
@@ -519,7 +509,7 @@
 
 @media (max-width: 26.25rem) {
   .filter-title {
-    font-size: 2.25rem;
+    font-size: 1rem;
   }
 
   .dual-select-grid {
@@ -547,7 +537,7 @@
   }
 
   .checklist-marker {
-    width: 2.625rem;
-    height: 2.625rem;
+    width: 2rem;
+    height: 2rem;
   }
 }
