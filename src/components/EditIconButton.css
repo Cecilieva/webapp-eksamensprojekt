@@ -1,9 +1,11 @@
+/* Fjerner alle default button-styles for at få et helt “rent” ikon-button UI */
 .edit-icon-button {
   all: unset;
   cursor: pointer;
   display: flex;
 }
 
+/* Styrer ikonets størrelse i knappen */
 .edit-icon-button .profile-icon {
   width: 1.5rem;
   height: 1.5rem;

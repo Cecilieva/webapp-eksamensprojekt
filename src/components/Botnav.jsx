@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 
 import "./Botnav.css";
 
+/* Ikoner til navigation (normal + aktiv tilstand) */
 import HomeIcon from "../assets/home-icon.svg";
 import HomeFilledIcon from "../assets/home-filled-icon.svg";
 
@@ -17,6 +18,7 @@ import ChatFilledIcon from "../assets/chat-filled-icon.svg";
 import ProfileIcon from "../assets/profile-icon.svg";
 import ProfileFilledIcon from "../assets/profile-filled-icon.svg";
 
+/* Konfiguration for bottom navigation items */
 const navItems = [
   {
     label: "Hjem",
@@ -52,16 +54,20 @@ const navItems = [
 
 export default function Botnav() {
   return (
+    /* Fast bundnavigation */
     <nav className="bottom-nav">
+      {/* Genererer navigation dynamisk ud fra config-array */}
       {navItems.map((item) => (
         <NavLink key={item.to} to={item.to} className="bottom-nav-link">
           {({ isActive }) => (
             <>
+              {/* Skifter ikon afhængigt af aktiv route */}
               <img
                 src={isActive ? item.activeIcon : item.icon}
                 alt={item.label}
                 className="bottom-nav-icon"
               />
+              {/* Label under ikon */}
               <span>{item.label}</span>
             </>
           )}

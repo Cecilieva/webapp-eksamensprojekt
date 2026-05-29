@@ -1,11 +1,14 @@
+/* Fast placeret CTA-knap over bottom navigation */
 .connection-button {
   position: fixed;
 
   left: 50%;
   bottom: 7rem;
 
+  /* Centrerer knappen horisontalt */
   transform: translateX(-50%);
 
+  /* Responsiv bredde med maks-grænse */
   width: calc(100% - 3rem);
   max-width: 22rem;
 

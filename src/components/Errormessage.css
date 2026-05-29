@@ -1,4 +1,4 @@
-/* styling for error message component */
+/* Error page layout: centreret fallback-skærm */
 .error-page {
   min-height: 60vh;
   display: flex;
@@ -13,18 +13,24 @@
   box-sizing: border-box;
 }
 
+/* Hovedtitel i error state */
 .error-headline {
   color: var(--black);
 }
+
+/* Undertekst i error state */
 .error-subline {
   color: var(--black);
 }
 
+/* Container til illustration */
 .error-image-wrap {
   margin-top: 12px;
   width: 120px;
   height: auto;
 }
+
+/* Selve error-illustrationen */
 .error-image {
   width: 100%;
   height: auto;

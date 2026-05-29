@@ -1,3 +1,4 @@
+/* Profilkort container (card UI med image + info + overlays) */
 .profile-card {
   background: var(--background);
   border-radius: 1rem;
@@ -6,10 +7,14 @@
   gap: 0;
   overflow: hidden;
   width: 14rem;
+
+    /* Skygge (overvej at udskifte med global shadow-variabel) */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Ret shadow til variablen? */
+
   cursor: pointer;
 }
 
+/* Image container (giver fast aspect ratio og mulighed for overlays) */
 .profile-image-wrapper {
   width: 100%;
   aspect-ratio: 4 / 4; /* giver et flot portrætformat */
@@ -19,6 +24,7 @@
   border-bottom-right-radius: 0;
 }
 
+/* Profilbillede (cover + top fokus for ansigter) */
 .profile-img {
   width: 100%;
   height: 100%;
@@ -27,6 +33,7 @@
   display: block;
 }
 
+/* Like-knap overlay på billede */
 .profile-like {
   position: absolute;
   top: 0.5rem;
@@ -34,6 +41,7 @@
   z-index: 2;
 }
 
+/* Match score overlay på billede */
 .profile-score {
   position: absolute;
   top: 0.5rem;
@@ -41,6 +49,7 @@
   z-index: 2;
 }
 
+/* Info-sektion der overlapper billedet (card layering trick) */
 .profile-info-wrapper {
   position: relative;
   background: var(--background);
@@ -50,6 +59,7 @@
   padding-top: 0.25rem; /* lidt luft så radius ikke klippes */
 }
 
+/* Tekstindhold i card */
 .profile-info {
   display: flex;
   flex-direction: column;
@@ -57,23 +67,27 @@
   padding: 0.75rem 1rem 1rem;
 }
 
+/* Profilnavn (primær typografi i card) */
 .profile-name {
   font-size: 20px;
   font-weight: 600;
   margin: 0;
 }
 
+/* Navn + evt. badge/ikon på samme linje */
 .profile-name-row {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
+/* Sektionstitler i card (fx "Om mig", "Interesser") */
 .profile-section h3 {
   margin: 0 0 4px 0;
   font-size: 14px;
 }
 
+/* Interessen badges container (wrap layout) */
 .profile-interests {
   display: flex;
   flex-wrap: wrap;
@@ -81,6 +95,7 @@
   margin-top: 8px;
 }
 
+/* Individuelle interest tags */
 .interest-badge {
   background: transparent;
   padding: 0.25rem 0.5rem;
@@ -88,6 +103,7 @@
   border: 1px solid var(--bordeaux10);
 }
 
+/* CTA knap i card */
 .connect-btn {
   margin-top: 8px;
   padding: 10px;
@@ -98,6 +114,7 @@
   cursor: pointer;
 }
 
+/* Små metadata-rækker (city, occupation, caption) */
 .profile-city,
 .profile-occupation,
 .profile-caption {
@@ -106,6 +123,7 @@
   gap: 0.25rem;
 }
 
+/* Lille verificeringsikon */
 .verified-icon-small {
   width: 1rem;
   height: 1rem;

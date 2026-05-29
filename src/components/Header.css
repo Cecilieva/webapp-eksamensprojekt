@@ -1,3 +1,4 @@
+/* Header wrapper (centreret layout med absolute elementer ovenpå) */
 .site-header {
   position: relative;
   display: flex;
@@ -8,6 +9,7 @@
   z-index: 50;
 }
 
+/* Intern header struktur (venstre, center, højre alignment system) */
 .header-inner {
   width: 100%;
   display: flex;
@@ -26,12 +28,14 @@
   align-items: center;
 }
 
+/* Venstre side af header (fx navigation/burger spacing) */
 .header-left {
   display: flex;
   align-items: center;
   gap: 1.5rem;
 }
 
+/* Burger menu-knap (absolut placeret for at flugte med logo) */
 .burger-btn {
   background: transparent;
   border: none;
@@ -49,12 +53,14 @@
   z-index: 70;
 }
 
+/* Navigation links i header */
 .site-nav {
   display: flex;
   gap: 1.5rem;
   align-items: center;
 }
 
+/* Højre side af header (ikoner) */
 .header-right {
   display: flex;
   align-items: center;
@@ -68,6 +74,7 @@
   z-index: 70;
 }
 
+/* Icon button reset (ren ikon-knap uden default styling) */
 .icon-btn {
   display: inline-flex;
   align-items: center;
@@ -87,7 +94,7 @@
   letter-spacing: normal;
 }
 
-/* Overlay */
+/* Overlay baggrund (fullscreen menu) */
 .overlay {
   position: fixed;
   inset: 0;
@@ -97,7 +104,7 @@
   z-index: 200;
 }
 
-/* Menu panel */
+/* Slide-in menu panel */
 .overlay-content {
   position: relative;
   background: var(--background);
@@ -111,7 +118,7 @@
   flex-direction: column;
 }
 
-/* Header */
+/* Overlay header (titel + close button layout) */
 .overlay-header {
   display: flex;
   align-items: flex-start;
@@ -119,12 +126,14 @@
   margin-bottom: 3rem;
 }
 
+/* Overlay titel container */
 .overlay-title {
   margin: 0;
   display: flex;
   flex-direction: column;
 }
 
+/* Close button (reset + layout til ikon) */
 .overlay-close {
   background: transparent;
   border: none;
@@ -136,13 +145,14 @@
   gap: 2rem;
 }
 
+/* Luk-ikon */
 .close-icon {
   width: 2.5rem;
   height: 2.5rem;
   cursor: pointer;
 }
 
-/* Menu liste */
+/* Menu liste (vertikal navigation) */
 .overlay-list {
   margin: 0;
   padding: 0;
@@ -152,12 +162,13 @@
   cursor: pointer;
 }
 
+/* Menu links (fuld bredde clickable area) */
 .overlay-link {
   width: 100%;
   text-align: left;
 }
 
-/* Sikre at elementer flugter med den venstre kant */
+/* Ens venstre alignment for tekst i menu */
 .overlay-list p,
 .overlay-link {
   margin-left: 0;
@@ -179,7 +190,8 @@
   background: var(--bordeaux10);
   pointer-events: none;
 }
-/* Burger menu logo */
+
+/* Wrapper til menu logo nederst */
 .menu-logo {
   margin-top: auto;
   display: flex;
@@ -187,6 +199,7 @@
   transform: translateY(-6.5rem);
 }
 
+/* Ekstra link reset i logo (sikrer ingen default styling) */
 .logo .nav-link {
   text-decoration: none;
 }

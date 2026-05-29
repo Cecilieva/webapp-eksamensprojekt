@@ -24,7 +24,7 @@ export default function HomePage({
 
   useEffect(() => {
     async function loadData() {
-      // 1. Hent profiler
+      /* 1. Hent alle profiler fra Supabase */
       const { data: profilesData, error: profilesError } = await supabase
         .from("profiles")
         .select("*");
@@ -47,7 +47,7 @@ export default function HomePage({
         return;
       }
 
-      // 3. Join profiler + matchscore
+      /* 3. Kombinér profiler med deres matchscore */
       const profilesWithScore = (profilesData ?? []).map((p) => {
         const match = (matchData ?? []).find((m) => m.profile_b === p.id);
         return {
@@ -68,9 +68,9 @@ export default function HomePage({
     loadData();
   }, []);
 
-  // Filter profiles based on the active top toggle
-  // c12: "Søger roomie" => only profiles seeking a roomie
-  // c15: "Søger roomie & bolig" => profiles seeking a roomie AND seeking housing
+  /* Filtrering baseret på aktiv top-toggle */
+  /* c12: kun brugere der søger roomie */
+  /* c15: brugere der søger både roomie + bolig */
   const filteredProfiles = profiles.filter((p) => {
     if (activeIcon === "c12") {
       return (
@@ -87,14 +87,19 @@ export default function HomePage({
     return true;
   });
 
+  /* Loading state (viser tom skærm mens data hentes) */
   if (loading) return <main className="app"></main>;
+
+  /* Error state fra Supabase */
   if (error) return <main className="app">Error: {error}</main>;
 
   return (
     <div className="home">
+      {/* Top filter toggles */}
       <div className="home-top-icons" ref={containerRef}>
         <div className="home-top-fill" style={fillStyle} />
 
+        {/* Toggle: kun roomie-søgende */}
         <button
           ref={btn12Ref}
           type="button"
@@ -105,6 +110,7 @@ export default function HomePage({
           <p className="text-small">Søger roomie</p>
         </button>
 
+        {/* Toggle: roomie + bolig */}
         <button
           ref={btn15Ref}
           type="button"
@@ -116,6 +122,7 @@ export default function HomePage({
         </button>
       </div>
 
+      {/* Link til filtreringsside */}
       <div className="home-filter-row">
         <Link
           to="/filtrering"
@@ -131,11 +138,13 @@ export default function HomePage({
         </Link>
       </div>
 
+      {/* Profil feed */}
       <section className="profile-grid" aria-label="Profiler">
         {filteredProfiles.length === 0 && (
           <p className="profile-grid-empty">Ingen profiler fundet</p>
         )}
 
+        {/* Render profiler som kort */}
         {filteredProfiles.map((p) => (
           <Link
             key={p.id}

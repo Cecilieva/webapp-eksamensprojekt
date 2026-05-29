@@ -1,9 +1,11 @@
 import Lottie from "lottie-react";
 import loadingAnimation from "../assets/loading.json";
 
+/* Fullscreen loading state med centreret animation */
 export default function Loading() {
   return (
     <div style={styles.container}>
+      {/* Lottie animation som visuel loading feedback */}
       <Lottie
         animationData={loadingAnimation}
         loop={true}
@@ -13,6 +15,7 @@ export default function Loading() {
   );
 }
 
+/* Inline styles til centreret loading layout */
 const styles = {
   container: {
     height: "100vh",

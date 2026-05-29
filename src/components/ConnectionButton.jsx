@@ -1,6 +1,7 @@
 import "./ConnectionButton.css";
 
 export default function ConnectionButton({ enabled = true }) {
+  /* Skjul knappen helt hvis den ikke er aktiveret */
   if (!enabled) return null;
 
   return (

@@ -1,3 +1,4 @@
+/* Toggle-knap komponent (aktiv/inaktiv tilstand) */
 .active-toggle {
   position: relative;
 
@@ -17,16 +18,19 @@
     color 0.2s ease;
 }
 
+/* Aktiv tilstand */
 .active-toggle.is-active {
   background: var(--bordeaux);
   color: var(--white);
 }
 
+/* Inaktiv tilstand */
 .active-toggle.is-inactive {
   background: var(--bordeaux10);
   color: var(--black);
 }
 
+/* Label tekst inde i toggle */
 .toggle-label {
   position: absolute;
   top: 50%;
@@ -36,14 +40,17 @@
   margin: 0;
 }
 
+/* Label placering i aktiv tilstand */
 .is-active .toggle-label {
   left: 1rem;
 }
 
+/* Label placering i inaktiv tilstand */
 .is-inactive .toggle-label {
   right: 1rem;
 }
 
+/* Toggle-knob (den runde “knap” der bevæger sig) */
 .toggle-knob {
   position: absolute;
   top: 0.5rem;
@@ -60,11 +67,13 @@
     background 0.2s ease;
 }
 
+/* Knob position og farve i aktiv tilstand */
 .is-active .toggle-knob {
   left: 5.5rem;
   background: var(--white);
 }
 
+/* Knob position og farve i inaktiv tilstand */
 .is-inactive .toggle-knob {
   left: 1rem;
   background: var(--bordeaux);

@@ -1,30 +1,29 @@
-/* MatchScore badge
-   Important: the parent (e.g. ProfileCard root) must have `position: relative;`
-*/
-
+/* MatchScore badge (cirkulær progress-indikator) */
+/* NOTE: parent skal have position: relative for korrekt placering */
 .matchscore-wrapper {
-  /* percent (set from React inline style) */
+  /* Dynamisk procentværdi fra React (styrer progress-ring) */
   --pct: 0%;
 
-  /* colors */
+ /* Farver til ring, baggrund og center */
   --ring: var(--orange);
   --track: var(--bordeaux10);
   --inner: var(--background);
 }
 
-/* Outer disc (white) */
-
-/* Orange progress ring (drawn inside the outer disc) */
+/* Cirkulær progress-ring (conic-gradient visualisering) */
 .match-score-ring {
   width: 2rem;
   height: 2rem;
   border-radius: 3rem;
+
+   /* Visualiserer score som cirkulær progress */
   background: conic-gradient(var(--ring) var(--pct), var(--track) 0);
+
   display: grid;
   place-items: center;
 }
 
-/* Inner score pill */
+/* Indre score-etiket (giver “badge”-look) */
 .match-score-inner {
   width: 1.7rem;
   height: 1.7rem;
