@@ -19,6 +19,7 @@ import LikeButton from "./LikeButton";
 /* komponent til profil detalje kort */
 export default function ProfileDetailCard({
   profileId,
+  score,
   canEdit = false,
   showActiveToggle = false,
   showMatchButton = false,
@@ -128,7 +129,19 @@ export default function ProfileDetailCard({
         {showLikeButton && (
           <LikeButton
             liked={liked}
-            onToggle={onToggleFavorite}
+            onToggle={() =>
+              onToggleFavorite({
+                id: profile.id,
+                name: profile.name,
+                age: profile.age,
+                city: profile.city,
+                image: profile.image,
+                caption: profile.caption,
+                occupation: profile.occupation,
+                interests: profile.interests,
+                score: score ?? profile.score,
+              })
+            }
             label="Gem profil"
             className="profile-detail-like-button"
           />
