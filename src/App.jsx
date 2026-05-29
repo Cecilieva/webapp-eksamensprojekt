@@ -173,7 +173,11 @@ function App() {
           path="/profiles/:id"
           element={
             <>
-              <ProfileDetailPage /> <Botnav />
+              <ProfileDetailPage
+                favoriteProfiles={favoriteProfiles}
+                toggleFavoriteProfile={toggleFavoriteProfile}
+              />
+              <Botnav />
             </>
           }
         />
