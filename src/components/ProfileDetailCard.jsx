@@ -15,6 +15,7 @@ import EditIconButton from "./EditIconButton";
 import backButton from "../assets/back-button-icon.svg";
 import ConnectionButton from "./ConnectionButton";
 import LikeButton from "./LikeButton";
+import ProfileImageCarousel from "./ProfileImageCarousel";
 
 /* komponent til profil detalje kort */
 export default function ProfileDetailCard({
@@ -147,15 +148,12 @@ export default function ProfileDetailCard({
           />
         )}
 
-        <img src={profileImage} alt={profile.name} className="profile-image" />
-
-        <div className="image-dots">
-          <span className="active"></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
+        <ProfileImageCarousel
+          images={profile.images}
+          fallback={profileImage}
+          alt={profile.name}
+          className="profile-image"
+        />
       </section>
 
       {/* indhold */}
