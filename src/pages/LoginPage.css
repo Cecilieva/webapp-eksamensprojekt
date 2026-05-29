@@ -1,3 +1,4 @@
+/* Layout til login-siden */
 .login-page {
   min-height: 100vh;
   background: var(--background);
@@ -7,10 +8,12 @@
   padding: 6rem 2rem 3rem;
 }
 
+/* Appens logo */
 .big-logo {
   width: 14rem;
 }
 
+/* Velkomsttekst */
 .login-page-text {
   margin-top: 1rem;
   margin-bottom: 3rem;
@@ -18,6 +21,7 @@
   color: var(--bordeaux);
 }
 
+/* Nederste sektion med tekst og knapper */
 .login-page-bottom {
   width: 100%;
   max-width: 20rem;
@@ -27,17 +31,20 @@
   align-items: center;
 }
 
+/* Information om vilkår og privatlivspolitik */
 .login-page-bottom small {
   margin-bottom: 2rem;
   text-align: center;
   color: var(--black);
 }
 
+/* Klikbare tekstlinks */
 .text-link {
   text-decoration: underline;
   cursor: pointer;
 }
 
+/* Fælles styling til login- og opret-konto-knapper */
 .primary-btn,
 .secondary-btn {
   width: 100%;
@@ -50,12 +57,14 @@
   justify-content: center;
 }
 
+/* Fjerner standardmargin på tekst i knapper */
 .primary-btn h4,
 .secondary-btn h4,
 .guest-link p {
   margin: 0;
 }
 
+/* Primær handlingsknap */
 .primary-btn {
   border: none;
   background: var(--green);
@@ -63,6 +72,7 @@
   margin-bottom: 1rem;
 }
 
+/* Sekundær handlingsknap */
 .secondary-btn {
   border: 1px solid var(--bordeaux10);
   background: transparent;
@@ -70,6 +80,7 @@
   margin-top: 1rem;
 }
 
+/* Knap til gæsteadgang */
 .guest-link {
   margin-top: 1rem;
   border: none;
@@ -77,6 +88,7 @@
   cursor: pointer;
 }
 
+/* Tekst til gæsteadgang */
 .guest-link p {
   text-decoration: underline;
   color: var(--black);
