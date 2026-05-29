@@ -3,14 +3,7 @@ import "./LikeButton.css";
 import heartOutlineOrange from "../assets/heart-outline-orange.svg";
 import heartFilledOrange from "../assets/heart-filled-orange.svg";
 
-/**
- * Reusable like button.
- * Props:
- * - liked: boolean
- * - onToggle: () => void
- * - label: string (optional)
- * - className: string (optional)
- */
+/* Reusable like button */
 export default function LikeButton({
   liked = false,
   onToggle,

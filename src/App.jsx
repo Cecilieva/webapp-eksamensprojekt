@@ -11,9 +11,7 @@ import HomePage from "./pages/HomePage";
 import FavoritesPage from "./pages/FavoritesPage";
 import NotificationsPage from "./pages/NotificationsPage";
 
-import CreatePage from "./pages/CreatePage";
 import PostDetailPage from "./pages/PostDetailPage";
-import UpdatePage from "./pages/UpdatePage";
 import RequestPage from "./pages/RequestPage";
 import ProfilePage from "./pages/ProfilePage";
 import Filtrering from "./pages/filtreringPage";
@@ -124,16 +122,7 @@ function App() {
             </>
           }
         />
-        <Route
-          path="/create"
-          element={
-            <>
-              <Header />
-              <CreatePage />
-              <Botnav />
-            </>
-          }
-        />
+
         <Route
           path="/posts/:id"
           element={
@@ -144,16 +133,7 @@ function App() {
             </>
           }
         />
-        <Route
-          path="/posts/:id/update"
-          element={
-            <>
-              <Header />
-              <UpdatePage />
-              <Botnav />
-            </>
-          }
-        />
+
         <Route
           path="/requests"
           element={

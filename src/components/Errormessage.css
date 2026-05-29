@@ -1,4 +1,4 @@
-/* ...styling for error message component... */
+/* styling for error message component */
 .error-page {
   min-height: 60vh;
   display: flex;
@@ -13,9 +13,20 @@
   box-sizing: border-box;
 }
 
-.error-headline { color: var(--black); }
-.error-subline { color: var(--black); }
+.error-headline {
+  color: var(--black);
+}
+.error-subline {
+  color: var(--black);
+}
 
-.error-image-wrap { margin-top: 12px; width: 120px; height: auto; }
-.error-image { width: 100%; height: auto; display: block; }
-/* ...styling for error message component... */
+.error-image-wrap {
+  margin-top: 12px;
+  width: 120px;
+  height: auto;
+}
+.error-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
