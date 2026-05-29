@@ -30,82 +30,84 @@
   display: block;
 }
 
+/* Segmented control (inspiration-like) */
 .home-top-icons {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin: 12px 0 16px;
-  position: relative;
-}
-
-.home-top-icon-btn {
-  background: transparent;
-  border: none;
-  padding: 0;
-  width: 15rem;
-  height: 112px;
-  display: inline-block;
-  position: relative;
-  cursor: pointer;
-}
-
-.home-top-icon-img {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
   width: 100%;
-  height: 100%;
-  display: block;
+  max-width: 520px;
+  margin: 12px auto 16px;
+  position: relative;
+  border: 1.5px solid var(--bordeaux);
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--bordeaux10);
 }
 
-.home-top-icon-mask {
+.home-top-icons::before {
+  content: "";
   position: absolute;
-  inset: 0;
-  display: block;
-  background-color: transparent;
-  -webkit-mask-size: contain;
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  mask-size: contain;
-  mask-repeat: no-repeat;
-  mask-position: center;
-  transition:
-    background-color 180ms ease,
-    opacity 180ms ease;
-  opacity: 0;
-}
-
-.home-top-icon-btn.active .home-top-icon-mask {
-  background-color: #4b0129;
-  opacity: 1;
-}
-
-/* Make dark text/details in the SVG appear light when the icon is active */
-.home-top-icon-btn.active .home-top-icon-img {
-  filter: brightness(0) invert(1);
-  transition: filter 180ms ease;
+  top: 4px;
+  bottom: 4px;
+  left: 50%;
+  width: 1px;
+  background: var(--bordeaux);
+  transform: translateX(-0.5px);
+  pointer-events: none;
+  opacity: 0.9;
 }
 
 .home-top-fill {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  background-color: #4b0129;
-  -webkit-mask-size: contain;
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  mask-size: contain;
-  mask-repeat: no-repeat;
-  mask-position: center;
-  transition:
-    left 280ms cubic-bezier(0.25, 0.8, 0.25, 1),
-    width 280ms cubic-bezier(0.25, 0.8, 0.25, 1),
-    opacity 180ms ease;
-  opacity: 0;
-  pointer-events: none;
-  z-index: 3;
+  display: none;
 }
 
-.home-top-icon-btn {
-  z-index: 2;
+.home-top-toggle {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--black);
+  padding: 12px 14px;
+  min-height: 44px;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+  transition:
+    background-color 180ms ease,
+    color 180ms ease;
+}
+
+.home-top-toggle.active {
+  background-color: var(--bordeaux);
+  color: var(--background);
+}
+
+.home-top-toggle:not(.active):hover {
+  background: rgba(122, 0, 51, 0.08);
+}
+
+.home-top-toggle:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--bordeaux) 35%, transparent);
+  outline-offset: -3px;
+}
+
+/* Legacy image-button rules: keep neutral so they don't affect layout if still present elsewhere */
+.home-top-icon-btn.active {
+  background-color: transparent;
+  color: inherit;
+}
+
+/* Apply active styles only to the actual pill button.
+   If your pill has a different class, rename this selector to match it.
+*/
+
+.home-top-icon-btn.active .home-top-icon-pill {
+  background-color: var(--bordeaux);
+  color: var(--background);
+}
+
+.home-top-icon-btn.active .home-top-icon-pill * {
+  color: var(--background);
 }
 
 .home-filter-button {

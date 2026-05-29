@@ -5,6 +5,7 @@ import HovsaOverlay from "../assets/Hovsa-overlay.svg";
 import CTA from "../assets/CTA.svg";
 import Annuller from "../assets/Annuller.svg";
 import connectionConfetti from "../assets/forbindelse-oprettet-konfetti.json";
+import "./RequestPage.css";
 
 const MAIN_PROFILE_ID = 14;
 
@@ -38,213 +39,47 @@ function getColor(profile, fallback) {
   return profile.color ?? fallback;
 }
 
-const styles = {
-  root: {
-    backgroundColor: "#FAF5EC",
-    minHeight: "100vh",
-    maxWidth: 390,
-    margin: "0 auto",
-    fontFamily: "'Poppins', sans-serif",
-    display: "flex",
-    flexDirection: "column",
-  },
-  header: {
-    padding: "20px 20px 6px",
-    display: "flex",
-    justifyContent: "center",
-  },
-  title: {
-    fontFamily: "'Otomanopee One', sans-serif",
-    fontSize: 27,
-    fontWeight: 400,
-    color: "#1a1a1a",
-  },
-  tabBar: {
-    display: "flex",
-    margin: "10px 16px 16px",
-    backgroundColor: "#e2d9d0",
-    borderRadius: 50,
-    padding: 4,
-    gap: 2,
-  },
-  tab: {
-    flex: 1,
-    padding: "10px 0",
-    border: "none",
-    borderRadius: 50,
-    fontSize: 14,
-    fontFamily: "'Poppins', sans-serif",
-    fontWeight: 600,
-    cursor: "pointer",
-    transition: "all 0.2s ease",
-  },
-  tabOn: { backgroundColor: "#6b1f3a", color: "#fff" },
-  tabOff: { backgroundColor: "transparent", color: "#8a7d74" },
-  banner: {
-    margin: "0 16px 18px",
-    backgroundColor: "#ece4dc",
-    borderRadius: 16,
-    padding: "18px 22px",
-    textAlign: "center",
-    fontSize: 15,
-    color: "#7a6e65",
-    lineHeight: 1.45,
-    fontWeight: 400,
-  },
-  list: {
-    flex: 1,
-    overflowY: "auto",
-  },
-  item: {
-    display: "flex",
-    alignItems: "center",
-    padding: "13px 18px",
-    gap: 13,
-  },
-  avatar: {
-    width: 58,
-    height: 58,
-    borderRadius: "50%",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    fontSize: 17,
-    fontWeight: 700,
-    color: "#fff",
-    flexShrink: 0,
-  },
-  info: {
-    flex: 1,
-    minWidth: 0,
-  },
-  name: {
-    fontSize: 17,
-    fontWeight: 700,
-    color: "#1a1a1a",
-    marginBottom: 7,
-  },
-  btnRow: {
-    display: "flex",
-    gap: 8,
-  },
-  pct: {
-    fontSize: 23,
-    fontWeight: 800,
-    color: "#d97b1a",
-    minWidth: 54,
-    textAlign: "right",
-    flexShrink: 0,
-  },
-  btn: {
-    border: "none",
-    borderRadius: 50,
-    padding: "7px 18px",
-    fontSize: 14,
-    fontFamily: "'Poppins', sans-serif",
-    fontWeight: 600,
-    cursor: "pointer",
-    transition: "transform 0.1s",
-    whiteSpace: "nowrap",
-  },
-  lime: { backgroundColor: "#c8d84e", color: "#3a4800", border: "none" },
-  beige: { backgroundColor: "#e5ddd4", color: "#3a3228", border: "none" },
-  ghost: {
-    backgroundColor: "transparent",
-    color: "#555",
-    border: "1.5px solid #c8bfb5",
-  },
-  // overlay styles
-  overlayBackdrop: {
-    position: "fixed",
-    inset: 0,
-    backgroundColor: "rgba(0,0,0,0.65)",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    zIndex: 60,
-    padding: 20,
-  },
-  overlayCard: {
-    position: "relative",
-    width: "min(360px, 92%)",
-    backgroundColor: "#FAF5EC",
-    borderRadius: 18,
-    padding: "34px 20px",
-    boxShadow: "0 10px 30px rgba(0,0,0,0.25)",
-    textAlign: "center",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    minHeight: 360,
-  },
-  overlayBackground: {
-    position: "absolute",
-    left: "50%",
-    top: "50%",
-    transform: "translate(-50%, -50%)",
-    width: "85%",
-    maxWidth: 320,
-    opacity: 0.12,
-    pointerEvents: "none",
-    zIndex: 0,
-  },
-  overlayContent: {
-    position: "relative",
-    zIndex: 1,
-    width: "100%",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  overlayTitle: {
-    fontSize: 28,
-    fontWeight: 700,
-    color: "#1a1a1a",
-    marginBottom: 8,
-  },
-  overlayText: { color: "#3a3228", fontSize: 15, marginBottom: 18 },
-  overlayCTAWrap: {
-    display: "flex",
-    flexDirection: "column",
-    gap: 12,
-    alignItems: "center",
-    marginTop: 18,
-  },
-  overlayFrame: {
-    display: "flex",
-    justifyContent: "center",
-    marginBottom: 8,
-  },
-  overlayLottie: {
-    width: "12rem",
-    maxWidth: "100%",
-  },
-  empty: {
-    textAlign: "center",
-    padding: "48px 24px",
-    color: "#999",
-    fontSize: 15,
-  },
-};
+function getAvatarImageUrl(profile) {
+  const images = profile?.images;
+  if (!images) return null;
 
-function Avatar({ initials, color }) {
+  const first = Array.isArray(images) ? images[0] : null;
+  return typeof first === "string" && first.trim() ? first : null;
+}
+
+function Avatar({ initials, color, imageUrl, name }) {
   return (
-    <div style={{ ...styles.avatar, backgroundColor: color }}>{initials}</div>
+    <div className="request-avatar" style={{ "--avatar-bg": color }}>
+      {imageUrl ? (
+        <img
+          src={imageUrl}
+          alt={name ? `${name} profilbillede` : "Profilbillede"}
+          className="request-avatarImg"
+          loading="lazy"
+        />
+      ) : (
+        initials
+      )}
+    </div>
   );
 }
 
 function ActionButton({ variant, label, onClick }) {
   const [down, setDown] = useState(false);
 
+  const variantClass =
+    variant === "lime"
+      ? "request-btn--lime"
+      : variant === "beige"
+        ? "request-btn--beige"
+        : variant === "ghost"
+          ? "request-btn--ghost"
+          : "";
+
   return (
     <button
       type="button"
-      style={{
-        ...styles.btn,
-        ...styles[variant],
-        transform: down ? "scale(0.96)" : "scale(1)",
-      }}
+      className={`request-btn ${variantClass} ${down ? "is-down" : ""}`}
       onMouseDown={() => setDown(true)}
       onMouseUp={() => setDown(false)}
       onMouseLeave={() => setDown(false)}
@@ -259,11 +94,16 @@ function ActionButton({ variant, label, onClick }) {
 
 function RequestItem({ person, onAccept, onShowRemove }) {
   return (
-    <div style={styles.item}>
-      <Avatar initials={person.initials} color={person.color} />
-      <div style={styles.info}>
-        <div style={styles.name}>{person.name}</div>
-        <div style={styles.btnRow}>
+    <div className="request-item">
+      <Avatar
+        initials={person.initials}
+        color={person.color}
+        imageUrl={person.imageUrl}
+        name={person.name}
+      />
+      <div className="request-info">
+        <div className="request-name">{person.name}</div>
+        <div className="request-btnRow">
           <ActionButton
             variant="lime"
             label="Accepter"
@@ -276,18 +116,23 @@ function RequestItem({ person, onAccept, onShowRemove }) {
           />
         </div>
       </div>
-      <div style={styles.pct}>{person.match}%</div>
+      <h2 className="request-pct">{person.match}%</h2>
     </div>
   );
 }
 
 function ConnectionItem({ person, onShowRemove }) {
   return (
-    <div style={styles.item}>
-      <Avatar initials={person.initials} color={person.color} />
-      <div style={styles.info}>
-        <div style={styles.name}>{person.name}</div>
-        <div style={styles.btnRow}>
+    <div className="request-item">
+      <Avatar
+        initials={person.initials}
+        color={person.color}
+        imageUrl={person.imageUrl}
+        name={person.name}
+      />
+      <div className="request-info">
+        <p className="request-name">{person.name}</p>
+        <div className="request-btnRow">
           <ActionButton
             variant="beige"
             label="Send besked"
@@ -300,15 +145,15 @@ function ConnectionItem({ person, onShowRemove }) {
           />
         </div>
       </div>
-      <div style={styles.pct}>{person.match}%</div>
+      <h2 className="request-pct">{person.match}%</h2>
     </div>
   );
 }
 
 function EmptyState({ icon, text }) {
   return (
-    <div style={styles.empty}>
-      <div style={{ fontSize: 38, marginBottom: 10 }}>{icon}</div>
+    <div className="request-empty">
+      <div className="request-emptyIcon">{icon}</div>
       {text}
     </div>
   );
@@ -326,15 +171,6 @@ export default function RequestPage() {
   const [dismissedProfileIds, setDismissedProfileIds] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-
-  useEffect(() => {
-    const link = document.createElement("link");
-    link.rel = "stylesheet";
-    link.href =
-      "https://fonts.googleapis.com/css2?family=Otomanopee+One&family=Poppins:wght@400;500;600;700&display=swap";
-    document.head.appendChild(link);
-    return () => document.head.removeChild(link);
-  }, []);
 
   useEffect(() => {
     let ignore = false;
@@ -414,17 +250,20 @@ export default function RequestPage() {
     return ids;
   }, [acceptedConnections]);
 
+  const scoreByProfileIdWithFallback = scoreByProfileId;
+
   const connectionPeople = useMemo(() => {
     return profiles
       .filter((profile) => connectedProfileIds.has(profile.id))
       .map((profile) => ({
         id: profile.id,
         name: profile.name,
-        match: scoreByProfileId.get(profile.id) ?? 0,
+        match: scoreByProfileIdWithFallback.get(profile.id) ?? 0,
         initials: getInitials(profile),
         color: getColor(profile, "#8a9e8c"),
+        imageUrl: getAvatarImageUrl(profile),
       }));
-  }, [connectedProfileIds, profiles, scoreByProfileId]);
+  }, [connectedProfileIds, profiles, scoreByProfileIdWithFallback]);
 
   const requestPeople = useMemo(() => {
     return profiles
@@ -437,12 +276,18 @@ export default function RequestPage() {
       .map((profile) => ({
         id: profile.id,
         name: profile.name,
-        match: scoreByProfileId.get(profile.id) ?? 0,
+        match: scoreByProfileIdWithFallback.get(profile.id) ?? 0,
         initials: getInitials(profile),
         color: getColor(profile, "#c9a882"),
+        imageUrl: getAvatarImageUrl(profile),
       }))
       .sort((a, b) => b.match - a.match);
-  }, [connectedProfileIds, dismissedProfileIds, profiles, scoreByProfileId]);
+  }, [
+    connectedProfileIds,
+    dismissedProfileIds,
+    profiles,
+    scoreByProfileIdWithFallback,
+  ]);
 
   const isConnections = activeTab === "forbindelser";
   const pageTitle = isConnections ? "Forbindelser" : "Anmodninger";
@@ -499,7 +344,6 @@ export default function RequestPage() {
     );
 
     setError("");
-    // show accepted overlay with the person's name
     setAcceptedOverlayName(person.name);
     setAcceptedOverlayOpen(true);
   };
@@ -572,9 +416,9 @@ export default function RequestPage() {
 
   if (loading) {
     return (
-      <div style={styles.root}>
-        <div style={styles.header}>
-          <span style={styles.title}>Anmodninger</span>
+      <div className="request-root">
+        <div className="request-header">
+          <span className="request-title">Anmodninger</span>
         </div>
         <EmptyState icon="⏳" text="Henter data fra Supabase..." />
       </div>
@@ -583,9 +427,9 @@ export default function RequestPage() {
 
   if (error) {
     return (
-      <div style={styles.root}>
-        <div style={styles.header}>
-          <span style={styles.title}>Anmodninger</span>
+      <div className="request-root">
+        <div className="request-header">
+          <span className="request-title">Anmodninger</span>
         </div>
         <EmptyState icon="⚠️" text={`Error: ${error}`} />
       </div>
@@ -593,26 +437,20 @@ export default function RequestPage() {
   }
 
   return (
-    <div style={styles.root}>
-      <div style={styles.header}>
-        <span style={styles.title}>{pageTitle}</span>
+    <div className="request-root">
+      <div className="request-header">
+        <h2 className="request-title">{pageTitle}</h2>
       </div>
 
-      <div style={styles.tabBar}>
+      <div className="request-tabBar">
         <button
-          style={{
-            ...styles.tab,
-            ...(activeTab === "anmodninger" ? styles.tabOn : styles.tabOff),
-          }}
+          className={`request-tab ${activeTab === "anmodninger" ? "is-on" : "is-off"}`}
           onClick={() => setActiveTab("anmodninger")}
         >
           Anmodninger
         </button>
         <button
-          style={{
-            ...styles.tab,
-            ...(activeTab === "forbindelser" ? styles.tabOn : styles.tabOff),
-          }}
+          className={`request-tab ${activeTab === "forbindelser" ? "is-on" : "is-off"}`}
           onClick={() => setActiveTab("forbindelser")}
         >
           Forbindelser
@@ -620,12 +458,12 @@ export default function RequestPage() {
       </div>
 
       {!isConnections && (
-        <div style={styles.banner}>
+        <div className="request-banner">
           Opret en forbindelse, så i kan skrive sammen
         </div>
       )}
 
-      <div style={styles.list}>
+      <div className="request-list">
         {isConnections ? (
           connectionPeople.length === 0 ? (
             <EmptyState icon="🤝" text="Ingen forbindelser endnu" />
@@ -651,94 +489,98 @@ export default function RequestPage() {
           ))
         )}
       </div>
+
       {overlayOpen && (
         <div
-          style={styles.overlayBackdrop}
+          className="request-overlayBackdrop"
           onClick={closeOverlay}
           role="dialog"
           aria-modal="true"
         >
-          <div style={styles.overlayCard} onClick={(e) => e.stopPropagation()}>
-            <img src={HovsaOverlay} alt="" style={styles.overlayBackground} />
-            <div style={styles.overlayContent}>
+          <div
+            className="request-overlayCard"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img
+              src={HovsaOverlay}
+              alt=""
+              className="request-overlayBackground"
+            />
+            <div className="request-overlayContent">
               {overlayTarget?.mode === "request" ? (
                 <>
-                  <div style={styles.overlayTitle}>Hovsa!</div>
-                  <div style={styles.overlayText}>
+                  <div className="request-overlayTitle">Hovsa!</div>
+                  <div className="request-overlayText">
                     Er du sikker på, at du vil fjerne denne anmodning?
                   </div>
                 </>
               ) : (
                 <>
-                  <div style={styles.overlayTitle}>Hovsa!</div>
-                  <div style={styles.overlayText}>
+                  <div className="request-overlayTitle">Hovsa!</div>
+                  <div className="request-overlayText">
                     Er du sikker på, at du vil fjerne forbindelsen?
                   </div>
                 </>
               )}
 
-              <div style={styles.overlayCTAWrap}>
+              <div className="request-overlayCTAWrap">
                 <button
                   type="button"
                   onClick={confirmRemove}
-                  style={{
-                    border: "none",
-                    background: "transparent",
-                    padding: 0,
-                  }}
+                  className="request-overlayBtn"
                 >
-                  <img src={CTA} alt="Fjern" style={{ width: 220 }} />
+                  <img src={CTA} alt="Fjern" className="request-cta" />
                 </button>
 
                 <button
                   type="button"
                   onClick={closeOverlay}
-                  style={{
-                    border: "none",
-                    background: "transparent",
-                    padding: 0,
-                  }}
+                  className="request-overlayBtn"
                 >
-                  <img src={Annuller} alt="Annuller" style={{ width: 100 }} />
+                  <img
+                    src={Annuller}
+                    alt="Annuller"
+                    className="request-annuller"
+                  />
                 </button>
               </div>
             </div>
           </div>
         </div>
       )}
+
       {acceptedOverlayOpen && (
         <div
-          style={styles.overlayBackdrop}
+          className="request-overlayBackdrop"
           onClick={() => setAcceptedOverlayOpen(false)}
           role="dialog"
           aria-modal="true"
         >
-          <div style={styles.overlayCard} onClick={(e) => e.stopPropagation()}>
-            <div style={styles.overlayContent}>
-              <div style={styles.overlayFrame} aria-hidden="true">
+          <div
+            className="request-overlayCard"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="request-overlayContent">
+              <div className="request-overlayFrame" aria-hidden="true">
                 <Lottie
                   animationData={connectionConfetti}
                   loop={false}
                   autoplay={true}
-                  style={styles.overlayLottie}
+                  className="request-overlayLottie"
                 />
               </div>
-              <div style={styles.overlayTitle}>Tillykke!</div>
-              <div style={styles.overlayText}>
+              <div className="request-overlayTitle">Tillykke!</div>
+              <div className="request-overlayText">
                 Du har nu accepteret {acceptedOverlayName}
               </div>
 
-              <div style={styles.overlayCTAWrap}>
+              <div className="request-overlayCTAWrap">
                 <button
                   type="button"
                   onClick={() => setAcceptedOverlayOpen(false)}
-                  style={{
-                    border: "none",
-                    background: "transparent",
-                    padding: 0,
-                  }}
+                  className="request-overlayBtn"
                 >
-                  <img src={CTA} alt="Fortsæt" style={{ width: 220 }} />
+                  <img src={CTA} alt="Fortsæt" className="request-cta" />
                 </button>
               </div>
             </div>

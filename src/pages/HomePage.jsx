@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import ProfileCard from "../components/ProfileCard";
 import { supabase } from "../lib/supabaseClient";
 import filterIcon from "../assets/filteruden.svg";
-import Component12 from "../assets/Component 12.svg";
-import Component15 from "../assets/Component 15.svg";
 import "./HomePage.css";
 
 export default function HomePage({
@@ -16,7 +14,9 @@ export default function HomePage({
   const containerRef = useRef(null);
   const btn12Ref = useRef(null);
   const btn15Ref = useRef(null);
-  const [fillStyle, setFillStyle] = useState({ opacity: 0 });
+
+  const fillStyle = { opacity: 0 };
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -68,56 +68,24 @@ export default function HomePage({
     loadData();
   }, []);
 
-  // move and mask the fill when activeIcon changes
-  useEffect(() => {
-    if (!containerRef.current) return;
-
-    if (!activeIcon) {
-      setFillStyle((s) => ({ ...s, opacity: 0 }));
-      return;
+  // Filter profiles based on the active top toggle
+  // c12: "Søger roomie" => only profiles seeking a roomie
+  // c15: "Søger roomie & bolig" => profiles seeking a roomie AND seeking housing
+  const filteredProfiles = profiles.filter((p) => {
+    if (activeIcon === "c12") {
+      return (
+        !!p.seeking_roomie_boolean_default_false &&
+        !p.seeking_housing_boolean_default_false
+      );
     }
-
-    const btn = activeIcon === "c12" ? btn12Ref.current : btn15Ref.current;
-    if (!btn) return;
-
-    const containerRect = containerRef.current.getBoundingClientRect();
-    const btnRect = btn.getBoundingClientRect();
-    const left = btnRect.left - containerRect.left;
-    const width = btnRect.width;
-    const svgUrl = activeIcon === "c12" ? Component12 : Component15;
-
-    setFillStyle({
-      left: `${left}px`,
-      width: `${width}px`,
-      top: `0px`,
-      height: `100%`,
-      WebkitMaskImage: `url(${svgUrl})`,
-      maskImage: `url(${svgUrl})`,
-      WebkitMaskSize: "contain",
-      maskSize: "contain",
-      WebkitMaskRepeat: "no-repeat",
-      maskRepeat: "no-repeat",
-      WebkitMaskPosition: "center",
-      maskPosition: "center",
-      backgroundColor: "#4B0129",
-      opacity: 1,
-      transition:
-        "left 280ms cubic-bezier(.25,.8,.25,1), width 280ms cubic-bezier(.25,.8,.25,1), opacity 180ms ease",
-    });
-  }, [activeIcon]);
-
-  // watch for overlay-active body class so we can switch to white SVGs
-  const [overlayActive, setOverlayActive] = useState(
-    document?.body?.classList?.contains("overlay-active") || false,
-  );
-
-  useEffect(() => {
-    const obs = new MutationObserver(() => {
-      setOverlayActive(document.body.classList.contains("overlay-active"));
-    });
-    obs.observe(document.body, { attributes: true, attributeFilter: ["class"] });
-    return () => obs.disconnect();
-  }, []);
+    if (activeIcon === "c15") {
+      return (
+        !!p.seeking_roomie_boolean_default_false &&
+        !!p.seeking_housing_boolean_default_false
+      );
+    }
+    return true;
+  });
 
   if (loading) return <main className="app">Loading…</main>;
   if (error) return <main className="app">Error: {error}</main>;
@@ -130,23 +98,21 @@ export default function HomePage({
         <button
           ref={btn12Ref}
           type="button"
-          className={`home-top-icon-btn ${activeIcon === "c12" ? "active" : ""}`}
+          className={`home-top-toggle ${activeIcon === "c12" ? "active" : ""}`}
           aria-pressed={activeIcon === "c12"}
-          aria-label="Vis komponent 12"
           onClick={() => setActiveIcon(activeIcon === "c12" ? null : "c12")}
         >
-          <img src={Component12} alt="" className="home-top-icon-img" />
+          <p className="text-small">Søger roomie</p>
         </button>
 
         <button
           ref={btn15Ref}
           type="button"
-          className={`home-top-icon-btn ${activeIcon === "c15" ? "active" : ""}`}
+          className={`home-top-toggle ${activeIcon === "c15" ? "active" : ""}`}
           aria-pressed={activeIcon === "c15"}
-          aria-label="Vis komponent 15"
           onClick={() => setActiveIcon(activeIcon === "c15" ? null : "c15")}
         >
-          <img src={Component15} alt="" className="home-top-icon-img" />
+          <p className="text-small">Søger roomie & bolig</p>
         </button>
       </div>
 
@@ -166,18 +132,18 @@ export default function HomePage({
       </div>
 
       <section className="profile-grid" aria-label="Profiler">
-        {profiles.length === 0 && (
+        {filteredProfiles.length === 0 && (
           <p className="profile-grid-empty">Ingen profiler fundet</p>
         )}
 
-        {profiles.map((p) => (
+        {filteredProfiles.map((p) => (
           <ProfileCard
             key={p.id}
             id={p.id}
             name={p.name}
             age={p.age}
             city={p.city}
-            image={p.image}
+            images={p.images}
             caption={p.caption}
             gender={p.gender}
             occupation={p.occupation}

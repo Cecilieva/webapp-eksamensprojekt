@@ -11,10 +11,19 @@
 
 .profile-image-wrapper {
   width: 100%;
-  height: 10rem;
+  aspect-ratio: 4 / 4; /* giver et flot portrætformat */
   overflow: hidden;
-  background: #bac1dc; /* midlertidig placeholder */
   position: relative;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.profile-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* fylder hele rammen */
+  object-position: center top; /* viser ansigter bedre */
+  display: block;
 }
 
 .profile-like {
@@ -31,13 +40,6 @@
   z-index: 2;
 }
 
-.profile-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* korrekt: cover/contain på img */
-  object-position: center;
-  display: block;
-}
 
 .profile-info-wrapper {
   position: relative;

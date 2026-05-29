@@ -11,7 +11,7 @@ export default function ProfileCard({
   name,
   age,
   city,
-  image,
+  images,
   caption,
   occupation,
   interests,
@@ -19,6 +19,7 @@ export default function ProfileCard({
   liked,
   onToggleFavorite,
 }) {
+  console.log("IMAGES FOR", name, images);
   return (
     <div className="profile-card">
       {/* Billede */}
@@ -33,7 +34,7 @@ export default function ProfileCard({
                   name,
                   age,
                   city,
-                  image,
+                  images,
                   caption,
                   occupation,
                   interests,
@@ -49,11 +50,7 @@ export default function ProfileCard({
           </div>
         </div>
 
-        <img
-          src={image || "/placeholder.jpg"}
-          alt={name}
-          className="profile-image"
-        />
+        <img src={images[0]} alt={name} className="profile-img" />
       </div>
 
       {/* Grundinfo */}
