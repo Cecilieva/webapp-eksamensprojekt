@@ -126,7 +126,7 @@ export default function HomePage({
     return () => obs.disconnect();
   }, []);
 
-  if (loading) return <main className="app">Loading…</main>;
+  if (loading) return null;
   if (error) return <main className="app">Error: {error}</main>;
 
   return (
