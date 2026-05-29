@@ -1,10 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Lottie from "lottie-react";
 import { supabase } from "../lib/supabaseClient";
 import HovsaOverlay from "../assets/Hovsa-overlay.svg";
 import CTA from "../assets/CTA.svg";
 import connectionConfetti from "../assets/forbindelse-oprettet-konfetti.json";
 import "./RequestPage.css";
+import connectionMatch from "../assets/ForbindelseOprettetMatch.json";
 
 const MAIN_PROFILE_ID = 14; // ID på den aktive bruger
 
@@ -169,6 +171,7 @@ function EmptyState({ icon, text }) {
 
 export default function RequestPage() {
   // State til håndtering af data, overlays og brugerinteraktion
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("anmodninger");
   const [profiles, setProfiles] = useState([]);
   const [matchscores, setMatchscores] = useState([]);
@@ -578,23 +581,39 @@ export default function RequestPage() {
               <div className="request-overlayFrame" aria-hidden="true">
                 <Lottie
                   animationData={connectionConfetti}
-                  loop={false}
+                  loop={true}
                   autoplay={true}
                   className="request-overlayLottie"
                 />
               </div>
-              <div className="request-overlayTitle">Tillykke!</div>
-              <div className="request-overlayText">
-                Du har nu accepteret {acceptedOverlayName}
+              <h2 className="request-overlayTitle">Forbindelse oprettet!</h2>
+              <p className="request-overlayText">
+                Du kan nu skrive med din nye forbindelse {acceptedOverlayName}
+              </p>
+              <div className="request-overlayLottieSecondary">
+                <Lottie
+                  animationData={connectionMatch}
+                  loop={false}
+                  autoplay={true}
+                  className="request-overlayLottieBig"
+                />
               </div>
 
               <div className="request-overlayCTAWrap">
                 <button
                   type="button"
-                  onClick={() => setAcceptedOverlayOpen(false)}
-                  className="request-overlayBtn"
+                  onClick={() => navigate("/chat")}
+                  className="request-textBtn request-textBtn--success"
                 >
-                  <img src={CTA} alt="Fortsæt" className="request-cta" />
+                  <p className="text-small">Send besked</p>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setAcceptedOverlayOpen(false)}
+                  className="request-overlayBtn request-textBtn request-textBtn--cancel"
+                >
+                  <p className="text-small">Annuller</p>
                 </button>
               </div>
             </div>
