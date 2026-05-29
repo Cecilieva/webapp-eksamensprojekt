@@ -42,7 +42,12 @@ function App() {
   }
 
   if (step === "login") {
-    return <LoginPage onCreateAccount={() => setStep("onboarding")} />;
+    return (
+      <LoginPage
+        onCreateAccount={() => setStep("onboarding")}
+        onOpeningPage={() => setStep("opening")}
+      />
+    );
   }
 
   if (step === "onboarding") {

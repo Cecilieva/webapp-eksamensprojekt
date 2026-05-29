@@ -1,7 +1,7 @@
 import "./LoginPage.css";
 import BigLogo from "../assets/big-logo.svg";
 
-export default function LoginPage({ onCreateAccount }) {
+export default function LoginPage({ onCreateAccount, onOpeningPage }) {
   return (
     <div className="login-page">
       <img className="big-logo" src={BigLogo} alt="Rumly logo" />
@@ -24,11 +24,11 @@ export default function LoginPage({ onCreateAccount }) {
           <h4>Opret konto</h4>
         </button>
 
-        <button className="secondary-btn" onClick={onCreateAccount}>
+        <button className="secondary-btn" onClick={onOpeningPage}>
           <h4>Log ind</h4>
         </button>
 
-        <button className="guest-link" type="button" onClick={onCreateAccount}>
+        <button className="guest-link" type="button" onClick={onOpeningPage}>
           <p>Fortsæt som gæst</p>
         </button>
       </div>
