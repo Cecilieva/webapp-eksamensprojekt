@@ -31,26 +31,6 @@
   z-index: 2;
 }
 
-.image-dots {
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  display: flex;
-  gap: 0.5rem;
-  transform: translateX(-50%);
-}
-
-.image-dots span {
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: 50%;
-  background: var(--bordeaux10);
-}
-
-.image-dots .active {
-  background: var(--green);
-}
-
 .profile-content {
   position: relative;
   z-index: 2;

@@ -1,0 +1,40 @@
+.profile-image-carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  touch-action: pan-y;
+  cursor: pointer;
+}
+
+.profile-image-carousel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.image-dots {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+
+  display: flex;
+  gap: 0.5rem;
+
+  z-index: 30;
+  pointer-events: none;
+}
+
+.image-dots span {
+  display: block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--bordeaux10);
+}
+
+.image-dots span.active {
+  background: var(--green);
+}
