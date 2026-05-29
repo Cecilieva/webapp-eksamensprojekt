@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import SplashScreenPage from "./pages/SplashScreenPage";
 import LoginPage from "./pages/LoginPage";
@@ -20,10 +20,26 @@ import Filtrering from "./pages/filtreringPage";
 import Botnav from "./components/Botnav";
 import NotFoundPage from "./pages/NotFoundPage";
 import ProfileDetailPage from "./pages/ProfileDetailPage";
+import Loading from "./components/Loading";
 
 function App() {
+  const [loading, setLoading] = useState(true);
   const [step, setStep] = useState("splash");
   const [favoriteProfiles, setFavoriteProfiles] = useState([]);
+
+  // ⏳ loading ved reload
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  // SHOW LOADING FØRST
+  if (loading) {
+    return <Loading />;
+  }
 
   const toggleFavoriteProfile = (profile) => {
     const exists = favoriteProfiles.some((fav) => fav.id === profile.id);
