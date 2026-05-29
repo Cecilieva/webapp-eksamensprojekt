@@ -7,6 +7,7 @@ import GenderIcon from "../assets/gender-icon.svg";
 import OccupationIcon from "../assets/occupation-icon.svg";
 import CheckmarkIcon from "../assets/checkmark-icon.svg";
 
+/* Icon registry (gør det muligt at vælge ikon dynamisk via string navn) */
 const icons = {
   "big-verified-icon.svg": BigVerifiedIcon,
   "budget-icon.svg": BudgetIcon,
@@ -21,7 +22,9 @@ const icons = {
 export default function ProfileIcon({ name, className = "" }) {
   return (
     <img
+      /* Dynamisk ikon lookup */
       src={icons[name]}
+      /* Dekorativt ikon (skjules for screen readers) */
       alt=""
       aria-hidden="true"
       className={`profile-icon ${className}`}
