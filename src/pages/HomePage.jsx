@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ProfileCard from "../components/ProfileCard";
 import { supabase } from "../lib/supabaseClient";
 import filterIcon from "../assets/filteruden.svg";
@@ -15,8 +15,6 @@ export default function HomePage({
   const containerRef = useRef(null);
   const btn12Ref = useRef(null);
   const btn15Ref = useRef(null);
-
-  const navigate = useNavigate();
 
   const fillStyle = { opacity: 0 };
   const [loading, setLoading] = useState(true);
@@ -139,10 +137,10 @@ export default function HomePage({
         )}
 
         {filteredProfiles.map((p) => (
-          <div
+          <Link
             key={p.id}
             className="profile-card-link"
-            onClick={() => navigate(`/profiles/${p.id}`)}
+            to={`/profiles/${p.id}`}
           >
             <ProfileCard
               id={p.id}
@@ -166,7 +164,7 @@ export default function HomePage({
               liked={favoriteProfiles.some((fav) => fav.id === p.id)}
               onToggleFavorite={toggleFavoriteProfile}
             />
-          </div>
+          </Link>
         ))}
       </section>
     </div>
