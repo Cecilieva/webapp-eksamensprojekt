@@ -63,7 +63,7 @@ export default function ProfileCard({
             <img
               src={verifiedIconPc}
               alt="verificeret"
-              className="verified-icon"
+              className="verified-icon-small"
             />
           </div>
 

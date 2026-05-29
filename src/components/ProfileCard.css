@@ -41,7 +41,6 @@
   z-index: 2;
 }
 
-
 .profile-info-wrapper {
   position: relative;
   background: var(--background);
@@ -105,4 +104,9 @@
   display: flex;
   align-items: center;
   gap: 0.25rem;
+}
+
+.verified-icon-small {
+  width: 1rem;
+  height: 1rem;
 }
