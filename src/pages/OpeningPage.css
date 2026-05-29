@@ -1,3 +1,4 @@
+/* Layout til åbningssiden */
 .opening-page {
   position: fixed;
   inset: 0;
@@ -10,6 +11,7 @@
   background: var(--background);
 }
 
+/* Baggrundseffekt med grøn og pink gradient */
 .opening-page::before {
   content: "";
   position: absolute;
@@ -23,6 +25,7 @@
   filter: blur(90px);
 }
 
+/* Ekstra orange glødeeffekt */
 .opening-page::after {
   content: "";
   position: absolute;
@@ -36,6 +39,7 @@
   filter: blur(90px);
 }
 
+/* Titel på åbningssiden */
 .opening-page h1 {
   position: relative;
   z-index: 2;

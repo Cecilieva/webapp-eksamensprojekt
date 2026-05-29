@@ -1,3 +1,4 @@
+/* Onboardingforløb der introducerer appens funktioner */
 import { useState } from "react";
 import "./OnboardingPage.css";
 import Lottie from "lottie-react";
@@ -8,8 +9,10 @@ import ForbindelseOprettetKonfetti from "../assets/ForbindelseOprettetKonfetti.j
 import ForbindelseOprettetMatch from "../assets/ForbindelseOprettetMatch.json";
 
 export default function OnboardingPage({ onFinish, onBack }) {
+  // Holder styr på hvilket onboarding-slide der vises
   const [slide, setSlide] = useState(0);
 
+  // Indhold til onboarding-slides
   const slides = [
     {
       title: <h3>Find roomies, der passer til dig og dine vaner</h3>,
@@ -36,6 +39,7 @@ export default function OnboardingPage({ onFinish, onBack }) {
     },
   ];
 
+  // Går videre til næste slide eller afslutter onboarding
   function handleNext() {
     if (slide < 3) {
       setSlide(slide + 1);
@@ -44,6 +48,7 @@ export default function OnboardingPage({ onFinish, onBack }) {
     }
   }
 
+  // Går tilbage til forrige slide eller tilbage til forrige side
   function handleBack() {
     if (slide > 0) {
       setSlide(slide - 1);
@@ -54,10 +59,12 @@ export default function OnboardingPage({ onFinish, onBack }) {
 
   return (
     <section className="onboarding-page">
+      {/* Knap til at navigere tilbage */}
       <button className="back-button" onClick={handleBack}>
         <p>Tilbage</p>
       </button>
 
+      {/* Titel og indhold for det aktive slide */}
       <div className="onboarding-content">
         <div className="onboarding-header">
           {slides[slide].title}
@@ -65,6 +72,7 @@ export default function OnboardingPage({ onFinish, onBack }) {
           {slides[slide].text && <>{slides[slide].text}</>}
         </div>
 
+        {/* Viser animation eller forbindelseseksempel afhængigt af slide */}
         <div className="onboarding-card">
           {slide === 2 ? (
             <div className="connection-slide">
@@ -96,6 +104,7 @@ export default function OnboardingPage({ onFinish, onBack }) {
         </div>
       </div>
 
+      {/* Indikator for hvilket slide brugeren er på */}
       <div className="onboarding-dots">
         <div className={slide === 0 ? "dot active" : "dot"}></div>
         <div className={slide === 1 ? "dot active" : "dot"}></div>
@@ -103,6 +112,7 @@ export default function OnboardingPage({ onFinish, onBack }) {
         <div className={slide === 3 ? "dot active" : "dot"}></div>
       </div>
 
+      {/* Knap til næste slide */}
       <button className="onboarding-next" onClick={handleNext}>
         <h4>{slides[slide].button}</h4>
       </button>

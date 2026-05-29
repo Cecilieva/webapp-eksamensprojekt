@@ -1,4 +1,4 @@
-// ...404 side som bruger komponenten...
+/* 404-side som vises, når en side ikke kan findes */
 import ErrorMessage from "../components/Errormessage";
 
 export default function NotFoundPage() {
@@ -12,4 +12,3 @@ export default function NotFoundPage() {
     />
   );
 }
-// ...404 side som bruger komponenten...

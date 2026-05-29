@@ -1,3 +1,4 @@
+/* Overordnet layout til forsiden */
 .home {
   width: 100%;
   max-width: var(--app-width);
@@ -9,6 +10,7 @@
   justify-items: center;
 }
 
+/* Filterknap */
 .home-filter-row {
   display: flex;
   width: 100%;
@@ -16,6 +18,7 @@
   margin: 16px 0 16px;
 }
 
+/* Banner med søgning */
 .home-search-banner {
   display: flex;
   justify-content: center;
@@ -30,7 +33,7 @@
   display: block;
 }
 
-/* Segmented control (inspiration-like) */
+/* Knapper til skift mellem visninger */
 .home-top-icons {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -58,10 +61,12 @@
   opacity: 0.9;
 }
 
+/* Aktiv markering i visningsvælgeren */
 .home-top-fill {
   display: none;
 }
 
+/* Knapper i visningsvælgeren */
 .home-top-toggle {
   appearance: none;
   border: 0;
@@ -91,16 +96,13 @@
   outline-offset: -3px;
 }
 
-/* Legacy image-button rules: keep neutral so they don't affect layout if still present elsewhere */
+/* Aktiv tilstand for ikonknapper */
 .home-top-icon-btn.active {
   background-color: transparent;
   color: inherit;
 }
 
-/* Apply active styles only to the actual pill button.
-   If your pill has a different class, rename this selector to match it.
-*/
-
+/* Aktiv styling på den valgte knap */
 .home-top-icon-btn.active .home-top-icon-pill {
   background-color: var(--bordeaux);
   color: var(--background);
@@ -110,6 +112,7 @@
   color: var(--background);
 }
 
+/* Filterikon */
 .home-filter-button {
   display: inline-flex;
   align-items: center;
@@ -126,6 +129,7 @@
   height: 17px;
 }
 
+/* Grid med profiler */
 .profile-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -134,6 +138,7 @@
   justify-items: center;
 }
 
+/* Vises når der ikke er nogen profiler */
 .profile-grid-empty {
   grid-column: 1 / -1;
   justify-self: center;
@@ -141,7 +146,7 @@
   color: var(--black);
 }
 
-/* Make the whole profile card clickable without looking like a link */
+/* Gør hele profilkortet klikbart */
 .profile-card-link,
 .profile-card-link:visited,
 .profile-card-link:hover,
@@ -150,7 +155,7 @@
   text-decoration: none;
 }
 
-/* Keep a visible focus state for keyboard users, without link styling */
+/* Fokusmarkering til tastaturnavigation */
 .profile-card-link:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 4px;
