@@ -141,11 +141,7 @@ export default function HomePage({
             key={p.id}
             className="profile-card-link"
             to={`/profiles/${p.id}`}
-            onClick={() =>
-              navigate(`/profiles/${p.id}`, {
-                state: { score: p.score },
-              })
-            }
+            state={{ score: p.score }}
           >
             <ProfileCard
               id={p.id}

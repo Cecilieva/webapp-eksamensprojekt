@@ -25,6 +25,7 @@ export default function LikeButton({
       type="button"
       className={`like-button ${liked ? "is-liked" : ""} ${className}`}
       onClick={(e) => {
+        e.preventDefault();
         e.stopPropagation();
 
         if (onToggle) {
