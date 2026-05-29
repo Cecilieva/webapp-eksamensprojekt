@@ -343,21 +343,21 @@ export default function ProfileDetailCard({
           </EditableTextCard>
         </ProfileSection>
 
-        {/* bolig card */}
+        {profile.has_housing_boolean_default_false && (
+          <div className="housing-card">
+            <h4>Dit boligopslag</h4>
 
-        <div className="housing-card">
-          <h4>Dit boligopslag</h4>
+            <div className="housing-content">
+              <img src="/apartment.jpg" alt="Bolig" />
 
-          <div className="housing-content">
-            <img src="/apartment.jpg" alt="Bolig" />
+              <div>
+                <p>Titel</p>
 
-            <div>
-              <p>Titel</p>
-
-              <button type="button">Forhåndsvisning</button>
+                <button type="button">Forhåndsvisning</button>
+              </div>
             </div>
           </div>
-        </div>
+        )}
 
         {/* ret matchsvar */}
 
