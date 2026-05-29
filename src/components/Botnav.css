@@ -1,24 +1,38 @@
+/* Fast bundnavigation (sticky mobile navigation bar) */
 .bottom-nav {
   position: fixed;
   left: 50%;
   bottom: 0;
+
+  /* Centrerer elementet horisontalt med transform-trick */
   transform: translateX(-50%);
+
   width: 100%;
   max-width: none;
+
   padding: 1.5rem 2.25rem;
+
   background-color: var(--bordeaux10);
+
+  /* Kun top-hjørner afrundes (bottom sheet-agtig UI) */
   border-top-left-radius: 2rem;
   border-top-right-radius: 2rem;
+
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
+
   box-shadow: var(--shadow-top);
+
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   height: 4.5rem;
+
   z-index: 1000;
 }
 
+/* Navigation links (ikon + tekst i kolonne) */
 .bottom-nav-link {
   text-decoration: none;
   display: flex;
@@ -31,6 +45,7 @@
   font-family: var(--font-body);
 }
 
+/* Ikon-størrelse i navigationen */
 .bottom-nav-icon {
   width: 2rem;
   height: 2rem;

@@ -14,9 +14,11 @@ export default function Header() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  /* Route checks til aktiv state styling */
   const isOnNotifications = location.pathname === "/notifications";
   const isOnFavorites = location.pathname === "/favorites";
 
+  /* Lukker overlay menu */
   function close() {
     setOpen(false);
   }
@@ -25,6 +27,7 @@ export default function Header() {
     <header className="site-header">
       <div className="header-inner">
         <div className="header-left">
+          {/* Burger button åbner overlay menu */}
           <button
             className="burger-btn"
             onClick={() => setOpen(true)}
@@ -32,7 +35,7 @@ export default function Header() {
           >
             <img src={BurgerIcon} alt="Menu" className="burger-icon" />
           </button>
-
+          {/* Logo / home link */}
           <nav className="site-nav" aria-label="Main navigation">
             <h1 className="logo">
               <NavLink to="/" className="nav-link">
@@ -43,6 +46,7 @@ export default function Header() {
         </div>
 
         <div className="header-right">
+          {/* Notifikationer (aktiv state styret af route) */}
           <button
             type="button"
             className={`icon-btn ${isOnNotifications ? "active" : ""}`}
@@ -59,6 +63,7 @@ export default function Header() {
             />
           </button>
 
+          {/* Favoritter (aktiv state styret af route) */}
           <button
             type="button"
             className={`icon-btn ${isOnFavorites ? "active" : ""}`}
@@ -75,6 +80,7 @@ export default function Header() {
         </div>
       </div>
 
+      {/* Overlay menu (modal/drawer pattern) */}
       {open && (
         <div
           className="overlay"
@@ -83,8 +89,11 @@ export default function Header() {
           onClick={close}
         >
           <div className="overlay-content" onClick={(e) => e.stopPropagation()}>
+            {/* Overlay header */}
             <div className="overlay-header">
               <h2 className="overlay-title">Menu</h2>
+
+              {/* Luk menu knap */}
               <button
                 className="overlay-close"
                 onClick={close}
@@ -94,6 +103,7 @@ export default function Header() {
               </button>
             </div>
 
+            {/* Menu links (statisk liste – kunne senere gøres dynamisk) */}
             <div className="overlay-list">
               <p>Privatlivspolitik</p>
               <p>Om Rumly</p>
@@ -101,9 +111,12 @@ export default function Header() {
               <p>Hjælp og support</p>
               <p>Abonnementer</p>
               <p>Log ud</p>
+
+              {/* NOTE: dette element er ugyldigt HTML (div med img props) */}
               <div img src={HeartIcon} alt="Hjerte" className="overlay-heart" />
             </div>
 
+            {/* Branding nederst i menu */}
             <div className="menu-logo">
               <img src={MenuLogo} alt="Rumly logo" />
             </div>

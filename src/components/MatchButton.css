@@ -1,3 +1,4 @@
+/* Full-width CTA-knap til match handling */
 .match-button {
   width: 100%;
   height: 3.5rem;
@@ -14,6 +15,7 @@
   cursor: pointer;
 }
 
+/* Fjerner default margin på tekst i knappen */
 .match-button h4 {
   margin: 0;
 }

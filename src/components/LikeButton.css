@@ -1,7 +1,4 @@
-/* LikeButton.css */
-
-/* fælles styling */
-
+/* Base styling for like-knap (genbrugelig UI-komponent) */
 .like-button {
   display: inline-flex;
   align-items: center;
@@ -19,28 +16,29 @@
   box-shadow: var(--shadow-bottom);
 }
 
+/* Visuel feedback ved klik */
 .like-button:active {
   transform: translateY(0.5px);
 }
 
+/* Sikrer at ikon ikke påvirkes af inline baseline */
 .like-button-icon {
   display: block;
 }
 
-/* lille varian til ProfileCard*/
-
+/* Variant: like-knap i profile card (mindre størrelse) */
 .profile-card-like-button {
   width: 2rem;
   height: 2rem;
 }
 
+/* Ikonstørrelse til profile card variant */
 .profile-card-like-button .like-button-icon {
   width: 0.75rem;
   height: 0.75rem;
 }
 
-/* detailcard variant */
-
+/* Variant: like-knap i profile detail view (større + overlay position) */
 .like-button.profile-detail-like-button {
   width: 3rem;
   height: 3rem;
@@ -55,6 +53,7 @@
   z-index: 3;
 }
 
+/* Ikonstørrelse i detail variant */
 .like-button.profile-detail-like-button img {
   width: 1rem;
   height: 1rem;

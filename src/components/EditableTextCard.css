@@ -1,3 +1,4 @@
+/* Grid-layout: tekst + ikon/handling i højre side */
 .editable-card {
   display: grid;
   grid-template-columns: 1fr 1.5rem;
@@ -5,6 +6,7 @@
   align-items: start;
 }
 
+/* Ens styling for både tekst og input (samme visuelle baseline) */
 .editable-card p,
 .card-input {
   margin: 0;
@@ -13,16 +15,20 @@
   line-height: inherit;
 }
 
+/* Input der opfører sig som "tekstfelt" uden synlig UI */
 .card-input {
   width: 100%;
 
   border: none;
   outline: none;
+
+  /* Tillader dynamisk højde uden scroll */
   resize: none;
   overflow: hidden;
 
   background: transparent;
 
+  /* Ekstra bundpadding til plads til tekst/markør */
   padding: 0 0 2rem 0;
 
   font: inherit;
