@@ -45,6 +45,7 @@ export default function ProfileCard({
                 })
               }
               label="Like profile"
+              className="profile-card-like-button"
               size={44}
             />
           </div>
