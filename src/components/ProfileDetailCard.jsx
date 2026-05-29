@@ -13,7 +13,7 @@ import ActiveToggle from "./ActiveToggle";
 import MatchButton from "./MatchButton";
 import EditIconButton from "./EditIconButton";
 import backButton from "../assets/back-button-icon.svg";
-import ConnectionButton from "./connectionbutton";
+import ConnectionButton from "./ConnectionButton";
 import LikeButton from "./LikeButton";
 
 /* komponent til profil detalje kort */

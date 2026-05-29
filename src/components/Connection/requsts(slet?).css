@@ -63,7 +63,7 @@
   border-radius: 999px;
   font-family: var(--font-body);
   font-size: var(--fs-small);
-  color: var(--black);
+  color: var(--blue);
 }
 
 .connection-score {
