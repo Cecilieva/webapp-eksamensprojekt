@@ -509,17 +509,17 @@ export default function RequestPage() {
             <div className="request-overlayContent">
               {overlayTarget?.mode === "request" ? (
                 <>
-                  <div className="request-overlayTitle">Hovsa!</div>
-                  <div className="request-overlayText">
+                  <h2 className="request-overlayTitle">Hovsa!</h2>
+                  <p className="request-overlayText">
                     Er du sikker på, at du vil fjerne denne anmodning?
-                  </div>
+                  </p>
                 </>
               ) : (
                 <>
-                  <div className="request-overlayTitle">Hovsa!</div>
-                  <div className="request-overlayText">
+                  <h2 className="request-overlayTitle">Hovsa!</h2>
+                  <p className="request-overlayText">
                     Er du sikker på, at du vil fjerne forbindelsen?
-                  </div>
+                  </p>
                 </>
               )}
 
@@ -527,21 +527,17 @@ export default function RequestPage() {
                 <button
                   type="button"
                   onClick={confirmRemove}
-                  className="request-overlayBtn"
+                  className="request-overlayBtn request-textBtn request-textBtn--danger"
                 >
-                  <img src={CTA} alt="Fjern" className="request-cta" />
+                  <p className="text-small">Fjern</p>
                 </button>
 
                 <button
                   type="button"
                   onClick={closeOverlay}
-                  className="request-overlayBtn"
+                  className="request-overlayBtn request-textBtn request-textBtn--cancel"
                 >
-                  <img
-                    src={Annuller}
-                    alt="Annuller"
-                    className="request-annuller"
-                  />
+                  <p className="text-small">Annuller</p>
                 </button>
               </div>
             </div>

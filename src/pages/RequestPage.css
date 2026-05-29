@@ -210,12 +210,14 @@
 
 .request-overlayTitle {
   color: var(--black);
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: var(--fs-h2);
 }
 
 .request-overlayText {
   color: var(--black);
   margin-bottom: 1rem;
+  font-size: var(--fs-p);
 }
 
 .request-overlayCTAWrap {
@@ -239,6 +241,7 @@
 
 .request-annuller {
   width: 6rem;
+  font-size: var(--fs-small);
 }
 
 .request-overlayFrame {
@@ -250,4 +253,27 @@
 .request-overlayLottie {
   width: 1rem;
   max-width: 100%;
+}
+
+.request-textBtn {
+  border: none;
+  cursor: pointer;
+  font-size: var(--fs-small);
+  transition: transform 0.15s ease;
+  border-radius: 2rem;
+}
+
+.request-textBtn--danger {
+  background-color: var(--error-red);
+  color: var(--black);
+  width: 12rem;   /* 192px */
+  height: 2.5rem; /* 40px */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fs-small);
+}
+
+.request-textBtn:active {
+  transform: scale(0.97);
 }
