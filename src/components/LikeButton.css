@@ -3,8 +3,8 @@
 /* LikeButton.css */
 
 .like-button {
-  width: var(--like-button-size, 3rem);
-  height: var(--like-button-size, 3rem);
+  width: var(--like-button-size, 2rem);
+  height: var(--like-button-size, 2rem);
 
   display: inline-flex;
   align-items: center;
@@ -24,15 +24,6 @@
 
 .like-button:active {
   transform: translateY(0.5px);
-}
-
-/* ikon */
-
-.like-button-icon {
-  width: var(--like-icon-size, 1rem);
-  height: var(--like-icon-size, 1rem);
-
-  display: block;
 }
 
 /* detailcard variant */

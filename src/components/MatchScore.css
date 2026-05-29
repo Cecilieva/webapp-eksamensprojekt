@@ -3,7 +3,6 @@
 */
 
 .matchscore-wrapper {
-
   /* percent (set from React inline style) */
   --pct: 0%;
 
@@ -17,9 +16,9 @@
 
 /* Orange progress ring (drawn inside the outer disc) */
 .match-score-ring {
-  width: 48px;
-  height: 48px;
-  border-radius: 999px;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 3rem;
   background: conic-gradient(var(--ring) var(--pct), var(--track) 0);
   display: grid;
   place-items: center;
@@ -27,11 +26,10 @@
 
 /* Inner score pill */
 .match-score-inner {
-  width: 40px;
-  height: 40px;
-  border-radius: 999px;
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 3rem;
   background: var(--inner);
   display: grid;
-  font-size: 14px;
   place-items: center;
 }
