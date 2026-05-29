@@ -1,3 +1,4 @@
+/* Genanvendelig sektion til visning af profiloplysninger */
 import EditIconButton from "./EditIconButton";
 
 export default function ProfileSection({
@@ -8,11 +9,13 @@ export default function ProfileSection({
 }) {
   return (
     <section className="profile-section">
+      {/* Sektionens titel og redigeringsknap */}
       <div className="section-title">
         <h4>{title}</h4>
         <EditIconButton enabled={editable} onClick={onEdit} />
       </div>
 
+      {/* Indhold i sektionen */}
       {children}
     </section>
   );
