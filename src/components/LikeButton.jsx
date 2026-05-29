@@ -24,7 +24,13 @@ export default function LikeButton({
     <button
       type="button"
       className={`like-button ${liked ? "is-liked" : ""} ${className}`}
-      onClick={onToggle}
+      onClick={(e) => {
+        e.stopPropagation();
+
+        if (onToggle) {
+          onToggle();
+        }
+      }}
       aria-pressed={liked}
       aria-label={ariaLabel}
     >

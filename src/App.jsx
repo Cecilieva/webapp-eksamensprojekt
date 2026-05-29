@@ -19,6 +19,7 @@ import ProfilePage from "./pages/ProfilePage";
 import Filtrering from "./pages/filtreringPage";
 import Botnav from "./components/Botnav";
 import NotFoundPage from "./pages/NotFoundPage";
+import ProfileDetailPage from "./pages/ProfileDetailPage";
 
 function App() {
   const [step, setStep] = useState("splash");
@@ -41,7 +42,12 @@ function App() {
   }
 
   if (step === "login") {
-    return <LoginPage onCreateAccount={() => setStep("onboarding")} />;
+    return (
+      <LoginPage
+        onCreateAccount={() => setStep("onboarding")}
+        onOpeningPage={() => setStep("opening")}
+      />
+    );
   }
 
   if (step === "onboarding") {
@@ -158,9 +164,16 @@ function App() {
           path="/profile"
           element={
             <>
-              <Header />
               <ProfilePage />
               <Botnav />
+            </>
+          }
+        />
+        <Route
+          path="/profiles/:id"
+          element={
+            <>
+              <ProfileDetailPage /> <Botnav />
             </>
           }
         />

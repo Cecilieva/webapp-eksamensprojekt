@@ -1,0 +1,24 @@
+.connection-button {
+  position: fixed;
+
+  left: 50%;
+  bottom: 7rem;
+
+  transform: translateX(-50%);
+
+  width: calc(100% - 3rem);
+  max-width: 22rem;
+
+  border: none;
+  border-radius: 1rem;
+
+  background: var(--green);
+
+  padding: 1rem;
+
+  box-shadow: var(--shadow-bottom);
+  color: var(--black);
+  cursor: pointer;
+
+  z-index: 100;
+}
