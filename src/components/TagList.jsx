@@ -1,3 +1,4 @@
+/* Genanvendelig komponent til visning og redigering af tags */
 import { useEffect, useRef, useState } from "react";
 import "./TagList.css";
 import addIcon from "../assets/add-icon.svg";
@@ -11,10 +12,14 @@ export default function TagList({
   onAdd,
   onRemove,
 }) {
+  // State til håndtering af tilføjelse af nye tags
   const [isAdding, setIsAdding] = useState(false);
   const [newValue, setNewValue] = useState("");
+
+  // Reference til inputfeltet ved oprettelse af nyt tag
   const addRef = useRef(null);
 
+  // Lukker inputfeltet hvis brugeren klikker udenfor
   useEffect(() => {
     function handleClickOutside(event) {
       if (addRef.current && !addRef.current.contains(event.target)) {
@@ -32,6 +37,7 @@ export default function TagList({
     };
   }, [isAdding]);
 
+  // Gemmer et nyt tag
   async function handleSave() {
     const value = newValue.trim();
 
@@ -51,6 +57,7 @@ export default function TagList({
 
   return (
     <div className="tag-list">
+      {/* Liste over eksisterende tags */}
       {items.map((item) => (
         <div className="tag-pill" key={item}>
           <small>{item}</small>
@@ -61,6 +68,7 @@ export default function TagList({
         </div>
       ))}
 
+      {/* Knap til tilføjelse af nyt tag */}
       {editable && !isAdding && (
         <button
           type="button"
@@ -72,6 +80,7 @@ export default function TagList({
         </button>
       )}
 
+      {/* Inputfelt til oprettelse af nyt tag */}
       {editable && isAdding && (
         <div className="tag-add-inline" ref={addRef}>
           <input
