@@ -1,3 +1,4 @@
+/* Reusable edit icon button */
 import ProfileIcon from "./ProfileIcon";
 import "./EditIconButton.css";
 
