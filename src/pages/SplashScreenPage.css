@@ -1,3 +1,4 @@
+/* Container til splash screenen */
 .splash-screen {
   height: 100vh;
   background: var(--background);
@@ -7,6 +8,7 @@
   justify-content: center;
 }
 
+/* Tekst under animation */
 .splash-screen-text {
   margin-top: 2rem;
   text-align: center;

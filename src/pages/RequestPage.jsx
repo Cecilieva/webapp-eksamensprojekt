@@ -3,12 +3,12 @@ import Lottie from "lottie-react";
 import { supabase } from "../lib/supabaseClient";
 import HovsaOverlay from "../assets/Hovsa-overlay.svg";
 import CTA from "../assets/CTA.svg";
-import Annuller from "../assets/Annuller.svg";
 import connectionConfetti from "../assets/forbindelse-oprettet-konfetti.json";
 import "./RequestPage.css";
 
-const MAIN_PROFILE_ID = 14;
+const MAIN_PROFILE_ID = 14; // ID på den aktive bruger
 
+// Finder ID'et på den profil, der er forbundet med den aktive bruger
 function getOtherProfileId(connection) {
   if (!connection) return null;
 
@@ -23,6 +23,7 @@ function getOtherProfileId(connection) {
   return null;
 }
 
+// Genererer initialer ud fra profilnavn, hvis de ikke findes i databasen
 function getInitials(profile) {
   if (profile.initials) return profile.initials;
 
@@ -35,10 +36,12 @@ function getInitials(profile) {
     .join("");
 }
 
+// Returnerer profilens farve eller en fallback-farve
 function getColor(profile, fallback) {
   return profile.color ?? fallback;
 }
 
+// Henter profilens første billede
 function getAvatarImageUrl(profile) {
   const images = profile?.images;
   if (!images) return null;
@@ -47,6 +50,7 @@ function getAvatarImageUrl(profile) {
   return typeof first === "string" && first.trim() ? first : null;
 }
 
+// Genanvendelig komponent med billede eller initialer
 function Avatar({ initials, color, imageUrl, name }) {
   return (
     <div className="request-avatar" style={{ "--avatar-bg": color }}>
@@ -64,6 +68,7 @@ function Avatar({ initials, color, imageUrl, name }) {
   );
 }
 
+// Genanvendelig knap-komponent med forskellige designvarianter
 function ActionButton({ variant, label, onClick }) {
   const [down, setDown] = useState(false);
 
@@ -92,6 +97,7 @@ function ActionButton({ variant, label, onClick }) {
   );
 }
 
+// Viser en enkelt anmodning med mulighed for at acceptere eller fjerne
 function RequestItem({ person, onAccept, onShowRemove }) {
   return (
     <div className="request-item">
@@ -121,6 +127,7 @@ function RequestItem({ person, onAccept, onShowRemove }) {
   );
 }
 
+// Viser en eksisterende forbindelse mellem brugere
 function ConnectionItem({ person, onShowRemove }) {
   return (
     <div className="request-item">
@@ -150,6 +157,7 @@ function ConnectionItem({ person, onShowRemove }) {
   );
 }
 
+// Vises når der ikke findes anmodninger eller forbindelser
 function EmptyState({ icon, text }) {
   return (
     <div className="request-empty">
@@ -160,6 +168,7 @@ function EmptyState({ icon, text }) {
 }
 
 export default function RequestPage() {
+  // State til håndtering af data, overlays og brugerinteraktion
   const [activeTab, setActiveTab] = useState("anmodninger");
   const [profiles, setProfiles] = useState([]);
   const [matchscores, setMatchscores] = useState([]);
@@ -172,6 +181,7 @@ export default function RequestPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
+  // Henter profiler, matchscores og forbindelser fra Supabase ved sideindlæsning
   useEffect(() => {
     let ignore = false;
 
@@ -218,6 +228,7 @@ export default function RequestPage() {
     };
   }, []);
 
+  // Opretter et opslag over matchscore baseret på profil-ID
   const scoreByProfileId = useMemo(() => {
     const map = new Map();
 
@@ -228,6 +239,7 @@ export default function RequestPage() {
     return map;
   }, [matchscores]);
 
+  // Filtrerer accepterede forbindelser for den aktive bruger
   const acceptedConnections = useMemo(() => {
     return connections.filter(
       (connection) =>
@@ -237,6 +249,7 @@ export default function RequestPage() {
     );
   }, [connections]);
 
+  // Samler ID'er på profiler, som brugeren allerede er forbundet med
   const connectedProfileIds = useMemo(() => {
     const ids = new Set();
 
@@ -252,6 +265,7 @@ export default function RequestPage() {
 
   const scoreByProfileIdWithFallback = scoreByProfileId;
 
+  // Opretter listen over eksisterende forbindelser
   const connectionPeople = useMemo(() => {
     return profiles
       .filter((profile) => connectedProfileIds.has(profile.id))
@@ -265,6 +279,7 @@ export default function RequestPage() {
       }));
   }, [connectedProfileIds, profiles, scoreByProfileIdWithFallback]);
 
+  // Opretter listen over anmodninger sorteret efter matchscore
   const requestPeople = useMemo(() => {
     return profiles
       .filter(
@@ -292,6 +307,7 @@ export default function RequestPage() {
   const isConnections = activeTab === "forbindelser";
   const pageTitle = isConnections ? "Forbindelser" : "Anmodninger";
 
+  // Accepterer en anmodning og opretter/opfatter forbindelsen
   const handleAccept = async (person) => {
     const id = person.id;
     const existingRequest = connections.find(
@@ -348,6 +364,7 @@ export default function RequestPage() {
     setAcceptedOverlayOpen(true);
   };
 
+  // Afviser en anmodning og skjuler den fra listen
   const handleReject = async (id) => {
     const request = connections.find(
       (connection) =>
@@ -372,6 +389,7 @@ export default function RequestPage() {
     setError("");
   };
 
+  // Fjerner en eksisterende forbindelse
   const handleRemove = async (id) => {
     const connection = acceptedConnections.find(
       (item) => getOtherProfileId(item) === id,
@@ -391,6 +409,7 @@ export default function RequestPage() {
     }
   };
 
+  // Åbner bekræftelses-overlay ved fjernelse
   const showRemoveOverlay = (person, mode) => {
     setOverlayTarget({ id: person.id, name: person.name, mode });
     setOverlayOpen(true);
@@ -401,6 +420,7 @@ export default function RequestPage() {
     setOverlayTarget(null);
   };
 
+  // Bekræfter og udfører fjernelse af anmodning eller forbindelse
   const confirmRemove = async () => {
     if (!overlayTarget) return;
     const { id, mode } = overlayTarget;
@@ -414,8 +434,10 @@ export default function RequestPage() {
     closeOverlay();
   };
 
+  // Viser loading-state mens data hentes
   if (loading) return <main className="app"></main>;
 
+  // Viser fejlmeddelelse hvis data ikke kunne indlæses
   if (error) {
     return (
       <div className="request-root">
@@ -433,6 +455,7 @@ export default function RequestPage() {
         <h2 className="request-title">{pageTitle}</h2>
       </div>
 
+      {/* Faner til skift mellem anmodninger og forbindelser */}
       <div className="request-tabBar">
         <button
           className={`request-tab ${activeTab === "anmodninger" ? "is-on" : "is-off"}`}
@@ -448,12 +471,14 @@ export default function RequestPage() {
         </button>
       </div>
 
+      {/* Informationsbanner til nye anmodninger */}
       {!isConnections && (
         <div className="request-banner">
           Opret en forbindelse, så i kan skrive sammen
         </div>
       )}
 
+      {/* Liste over forbindelser eller anmodninger */}
       <div className="request-list">
         {isConnections ? (
           connectionPeople.length === 0 ? (
@@ -481,6 +506,7 @@ export default function RequestPage() {
         )}
       </div>
 
+      {/* Bekræftelses-popup ved fjernelse */}
       {overlayOpen && (
         <div
           className="request-overlayBackdrop"
@@ -536,6 +562,7 @@ export default function RequestPage() {
         </div>
       )}
 
+      {/* Popup der vises når en forbindelse er accepteret */}
       {acceptedOverlayOpen && (
         <div
           className="request-overlayBackdrop"
