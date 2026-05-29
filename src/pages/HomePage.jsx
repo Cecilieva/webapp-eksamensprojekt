@@ -87,7 +87,7 @@ export default function HomePage({
     return true;
   });
 
-  if (loading) return <main className="app">Loading…</main>;
+  if (loading) return <main className="app"></main>;
   if (error) return <main className="app">Error: {error}</main>;
 
   return (

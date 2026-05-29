@@ -414,16 +414,7 @@ export default function RequestPage() {
     closeOverlay();
   };
 
-  if (loading) {
-    return (
-      <div className="request-root">
-        <div className="request-header">
-          <span className="request-title">Anmodninger</span>
-        </div>
-        <EmptyState icon="⏳" text="Henter data fra Supabase..." />
-      </div>
-    );
-  }
+  if (loading) return <main className="app"></main>;
 
   if (error) {
     return (
