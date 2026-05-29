@@ -136,10 +136,10 @@ export default function ProfileDetailCard({
                 name: profile.name,
                 age: profile.age,
                 city: profile.city,
-                image: profile.image,
+                images: profile.images || [],
                 caption: profile.caption,
                 occupation: profile.occupation,
-                interests: profile.interests,
+                interests: profile.interests || [],
                 score: score ?? profile.score,
               })
             }
