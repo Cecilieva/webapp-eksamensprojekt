@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getProfile, updateProfile } from "../lib/api";
 
 import "./ProfileDetailCard.css";
@@ -28,6 +29,7 @@ export default function ProfileDetailCard({
   onToggleFavorite,
 }) {
   /* state */
+  const navigate = useNavigate();
   const [profile, setProfile] = useState(null);
   const [editing, setEditing] = useState(null);
   const [editValue, setEditValue] = useState("");
@@ -109,7 +111,7 @@ export default function ProfileDetailCard({
   }
 
   /* render */
-  if (!profile) return <p>Loading...</p>;
+  if (!profile) return null;
 
   /* hero */
   const profileImage = profile.images?.[0] || "/default-profile.jpg";
@@ -118,7 +120,7 @@ export default function ProfileDetailCard({
     <main className="profile-page">
       <section className="profile-hero">
         {showBackButton && (
-          <button className="back-button">
+          <button className="back-button" onClick={() => navigate(-1)}>
             <img src={backButton} alt="Tilbage" />
           </button>
         )}

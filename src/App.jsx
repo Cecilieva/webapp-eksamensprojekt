@@ -168,7 +168,7 @@ function App() {
           path="/profiles/:id"
           element={
             <>
-              <Header /> <ProfileDetailPage /> <Botnav />
+              <ProfileDetailPage /> <Botnav />
             </>
           }
         />
