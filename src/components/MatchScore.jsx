@@ -12,7 +12,7 @@ export default function MatchScore({ score, breakdown, className = "" }) {
     <div className={`matchscore-wrapper ${className}`.trim()} style={ringStyle}>
       <div className="match-score" aria-label={`Match score: ${value}%`}>
         <div className="match-score-ring">
-          <h2 className="match-score-inner">{value}</h2>
+          <h5 className="match-score-inner">{value}</h5>
         </div>
       </div>
 
