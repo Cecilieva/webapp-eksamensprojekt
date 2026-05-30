@@ -19,10 +19,6 @@ export default function ProfileCard({
   liked,
   onToggleFavorite,
 }) {
-  /* Debug logging af billeder fra backend */
-  console.log("IMAGES FOR", name, images);
-
-  /* Sikrer at images altid er et array */
   const safeImages = Array.isArray(images) ? images : [];
 
   /* Første billede bruges som profilbillede */

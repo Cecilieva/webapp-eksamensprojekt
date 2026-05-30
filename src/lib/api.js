@@ -9,7 +9,7 @@ const headers = {
   apikey: SUPABASE_KEY,
   Authorization: `Bearer ${SUPABASE_KEY}`,
   "Content-Type": "application/json",
-
+  Accept: "application/json",
   /* Returnerer opdaterede records efter POST/PATCH */
   Prefer: "return=representation",
 };
