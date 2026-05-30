@@ -57,7 +57,7 @@ export default function ProfileHousingCard({ profileId, onPreview }) {
   // Sammensæt “meta”-linjen (vis kun værdier der findes)
   const meta = [
     housingCard.rent != null ? `${formatNumber(housingCard.rent)} kr.` : null,
-    housingCard.rooms != null ? String(housingCard.rooms) : null,
+    housingCard.rooms != null ? `${housingCard.rooms} vær.` : null,
     housingCard.square_meters != null
       ? `${formatNumber(housingCard.square_meters)} m²`
       : null,
@@ -82,12 +82,12 @@ export default function ProfileHousingCard({ profileId, onPreview }) {
           {meta.length > 0 ? (
             <div className="profile-housing-meta" aria-label="Bolig fakta">
               {meta.map((item, index) => (
-                <p
+                <h5
                   key={`${item}-${index}`}
                   className="profile-housing-metaItem"
                 >
                   {item}
-                </p>
+                </h5>
               ))}
             </div>
           ) : null}
