@@ -1,3 +1,4 @@
+/* Genanvendelig række til visning og redigering af profiloplysninger */
 import EditIconButton from "./EditIconButton";
 
 export default function ProfileInfoRow({
@@ -11,12 +12,15 @@ export default function ProfileInfoRow({
   onSave,
   editable = true,
 }) {
+  // Tjekker om det aktuelle felt er i redigeringstilstand
   const isEditing = editing === field;
 
   return (
     <div className="info-row">
+      {/* Ikon for profiloplysningen */}
       <span className="info-icon">{icon}</span>
 
+      {/* Viser inputfelt ved redigering, ellers vises værdien */}
       {isEditing ? (
         <p className="info-input-wrapper">
           <input
@@ -29,6 +33,7 @@ export default function ProfileInfoRow({
         <p>{value}</p>
       )}
 
+      {/* Knap til redigering eller gemning */}
       <EditIconButton
         enabled={editable}
         editing={isEditing}
