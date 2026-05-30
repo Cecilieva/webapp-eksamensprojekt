@@ -19,7 +19,7 @@ export default function ProfileCard({
   liked,
   onToggleFavorite,
 }) {
-  console.log("IMAGES FOR", name, images);
+
   const safeImages = Array.isArray(images) ? images : [];
   const profileImage = safeImages[0] || "/placeholder.jpg";
 

@@ -16,6 +16,7 @@ import backButton from "../assets/back-button-icon.svg";
 import ConnectionButton from "./ConnectionButton";
 import LikeButton from "./LikeButton";
 import ProfileImageCarousel from "./ProfileImageCarousel";
+import ProfileHousingCard from "./ProfileHousingCard";
 
 /* komponent til profil detalje kort */
 export default function ProfileDetailCard({
@@ -341,22 +342,13 @@ export default function ProfileDetailCard({
           </EditableTextCard>
         </ProfileSection>
 
-        {profile.has_housing_boolean_default_false && (
-          <div className="housing-card">
-            <h4>Dit boligopslag</h4>
-
-            <div className="housing-content">
-              <img src="/apartment.jpg" alt="Bolig" />
-
-              <div>
-                <p>Titel</p>
-
-                <button type="button">Forhåndsvisning</button>
-              </div>
-            </div>
-          </div>
-        )}
-
+        {/* Viser boligkort hvis profilen har et tilknyttet boligopslag (hentes internt i ProfileHousingCard) */}
+        <ProfileSection title="Dit boligopslag">
+          <ProfileHousingCard
+            profileId={profile.id}
+            onPreview={(housing) => console.log("Preview bolig:", housing?.id)}
+          />
+        </ProfileSection>
         {/* ret matchsvar */}
 
         <MatchButton enabled={showMatchButton} />
