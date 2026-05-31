@@ -1,0 +1,94 @@
+/* Container for alle roomies */
+.housing-roomies {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background-color: var(--white);
+  border: var(--border);
+  border-radius: var(--border-radius-large);
+  padding: 16px;
+}
+
+/* Liste af roomies */
+.housing-roomies-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* En række for hver roomie */
+.housing-roomie-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* Venstre side med avatar og info */
+.housing-roomie-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 0;
+}
+
+/* Avatar billede */
+.housing-roomie-avatar {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  object-fit: cover;
+  flex: 0 0 auto;
+}
+
+/* Placeholder for avatar */
+.housing-roomie-avatar--placeholder {
+  display: inline-block;
+}
+
+/* Meta-info (navn, alder, job) */
+.housing-roomie-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+/* Navn på roomie */
+.housing-roomie-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 0.25rem;
+}
+
+/* Knap til profil */
+.housing-roomie-profile-btn {
+  background: var(--green);
+  border: 0;
+  color: var(--black);
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.housing-roomie-profile-btn:hover {
+  filter: brightness(0.97);
+}
+
+/* Knap til besked */
+.housing-roomies-message-btn {
+  width: 100%;
+  border: 1px solid #29232a;
+  color: var(--black);
+  background: transparent;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius-small);
+  cursor: pointer;
+}
+
+.housing-roomies-message-btn:hover {
+  background: rgba(0, 0, 0, 0.03);
+}

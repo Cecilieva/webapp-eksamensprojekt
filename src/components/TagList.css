@@ -3,14 +3,25 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+
+  font-size: 0.875rem; /* matches .text-small */
+  line-height: 1.2;
+
+  font-family: "Poppins", sans-serif;
 }
 
 /* Fælles styling til tags og tilføjelsesfelter */
 .tag-pill,
 .tag-add-button,
-.tag-add-inline {
+.tag-add-inline,
+.tag-add-input {
   min-height: 2rem;
   border-radius: 0.5rem;
+
+  font-size: 0.875rem; /* matches .text-small */
+  line-height: 1.2;
+
+  font-family: "Poppins", sans-serif;
 }
 
 /* Eksisterende tags */
@@ -68,8 +79,6 @@
 
   border-radius: 0.5rem;
   background: var(--green);
-
-  font-size: 0.875rem;
 }
 
 /* Tekstinput til nyt tag */
@@ -81,6 +90,7 @@
   background: transparent;
 
   font: inherit;
+  font-family: inherit;
   color: inherit;
 
   padding: 0;
@@ -90,6 +100,7 @@
 /* Placeholder-tekst i inputfeltet */
 .tag-add-inline input::placeholder {
   font: inherit;
+  font-family: inherit;
   color: inherit;
 }
 
@@ -102,4 +113,13 @@
   justify-content: center;
 
   cursor: pointer;
+}
+
+.tag-pill small,
+.tag-add-button small {
+  font-size: inherit;
+}
+
+.tag-add-input {
+  font: inherit;
 }

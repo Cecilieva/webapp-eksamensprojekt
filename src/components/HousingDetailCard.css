@@ -1,0 +1,327 @@
+/* Hele boligdetaljesiden */
+.housing-detail-card {
+  width: 100%;
+  max-width: var(--app-max-width);
+  margin: 0 auto;
+  min-height: 100vh;
+  background: var(--background);
+  color: var(--black);
+  padding-bottom: 8rem; /* plads til navigation */
+}
+
+/* Hero sektion med billede/carousel */
+.housing-hero {
+  position: relative;
+  height: 19rem;
+  overflow: hidden;
+}
+
+/* Carousel billede */
+.housing-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Tilbageknap ovenpå hero image */
+.back-button {
+  position: absolute;
+  top: 0.5rem;
+  left: 0rem;
+  width: 3rem;
+  height: 3rem;
+  border: none;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+/* Hovedindhold overlapper hero-sektionen */
+.housing-detail-content {
+  position: relative;
+  z-index: 2;
+  margin-top: -1rem;
+  padding: 1.5rem 1rem 2.5rem;
+  background: var(--background);
+  border-radius: 1.5rem 1.5rem 0 0;
+}
+
+/* Header med titel */
+.housing-header {
+  margin-bottom: 1.5rem;
+}
+
+.housing-header h2 {
+  margin: 0;
+}
+
+/* Titel og redigering */
+.housing-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.housing-title-text {
+  margin: 0;
+  flex: 1;
+}
+
+/* Input skal ligne h2 under redigering */
+.housing-title-input {
+  width: 100%;
+  border: 0;
+  outline: none;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+}
+
+/* Sektioner opdeles med border (samme som profile-section) */
+.housing-section {
+  border-top: 1px solid var(--bordeaux10);
+  margin-top: 2rem;
+  padding-top: 2rem;
+}
+
+.housing-section-title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+/****** Info scroller (chips)  *******/
+.housing-info-scroller {
+  display: flex;
+  gap: 1rem;
+  align-items: stretch;
+  overflow-x: auto;
+  padding: 1rem 0;
+}
+
+.housing-info-box {
+  flex: 0 0 96px;
+  text-align: center;
+}
+
+/* Ikon i info-boks */
+.housing-info-box-icon {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 0.5rem;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  line-height: 0;
+}
+
+.housing-info-box-icon:disabled {
+  cursor: default;
+}
+
+.housing-info-box-icon img {
+  object-fit: contain;
+  display: block;
+}
+
+/* Input i info-boks */
+.housing-info-box-input {
+  width: 96px;
+  max-width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  border: 0;
+  border-bottom: 1px solid var(--bordeaux10);
+  background: transparent;
+  outline: none;
+  font: inherit;
+  padding: 0.1rem 0;
+}
+
+/* Number input: hide spinner controls */
+.housing-info-box-input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.housing-info-box-input[type="number"]::-webkit-outer-spin-button,
+.housing-info-box-input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Date input: reduce built-in space before the calendar icon */
+.housing-info-box-input[type="date"] {
+  padding-right: 0.15rem;
+}
+
+.housing-info-box-input[type="date"]::-webkit-calendar-picker-indicator {
+  margin: 0;
+  padding: 0;
+}
+
+/* Tekst i info-boks */
+.housing-info-box-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Beskrivelse af lejligheden */
+.housing-description {
+  line-height: 1.5;
+  color: var(--black);
+}
+
+/* Facilities (tag-style) */
+.facility-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.facility-pill,
+.facility-add-button,
+.facility-add-inline {
+  min-height: 2rem;
+  border-radius: 0.5rem;
+}
+
+/* Enkelt facility-tag */
+.facility-pill {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  border: 1px solid var(--bordeaux10);
+  padding: 0 1rem;
+
+  background: transparent;
+}
+
+.facility-pill img,
+.facility-add-button img {
+  width: 1rem;
+  height: 1rem;
+  cursor: pointer;
+}
+
+/* Tilføj-knap til facility */
+.facility-add-button {
+  border: none;
+  padding: 0 1rem;
+
+  background: var(--green);
+  color: var(--black);
+
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  cursor: pointer;
+}
+
+/* Inline add-facility felt */
+.facility-add-inline {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  padding: 0 1rem;
+
+  background: var(--green);
+  font-size: 0.875rem;
+}
+
+/* Input til tilføj facility */
+.facility-add-input {
+  width: 8rem;
+  border: none;
+  outline: none;
+  background: transparent;
+
+  font: inherit;
+  color: inherit;
+}
+
+.facility-add-input::placeholder {
+  color: inherit;
+}
+
+.facility-add-inline button {
+  all: unset;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* Roomies container */
+.housing-roomies {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Roomie kort */
+.roomie-card {
+  background: var(--bordeaux10);
+  padding: 1rem;
+  border-radius: 0.75rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.roomie-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.roomie-info strong {
+  font-size: 1rem;
+}
+
+.roomie-info span {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+.roomie-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.roomie-actions button {
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.5rem;
+  border: none;
+
+  background: var(--green);
+  color: var(--black);
+
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.roomie-actions button:hover {
+  opacity: 0.9;
+}
+
+/* HousingSection uden title: behold border men fjern ekstra luft */
+.housing-section.no-title {
+  margin-top: 2rem;
+  padding-top: 2rem;
+}
+
+.housing-section.no-title .housing-section-content {
+  margin-top: 0;
+}

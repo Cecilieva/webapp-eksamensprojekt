@@ -28,14 +28,16 @@ export async function getHousingIdForProfile(profileId) {
   return data?.housing_id ?? null;
 }
 
-// Henter en boliglisting ud fra housingId (kun felter der bruges i boligkortet)
+// Henter en boliglisting ud fra housingId
 export async function getHousingById(housingId) {
   // Guard: ingen id => ingen listing
   if (!housingId) return null;
 
   const { data, error } = await supabase
     .from("housing_listings")
-    .select("id, title, images, rent, rooms, square_meters")
+    .select(
+      "id, title, images, rent, rooms, square_meters, city, description, facilities, seeking_roomies, aconto, deposit, move_in_date"
+    )
     .eq("id", housingId)
     .maybeSingle();
 
@@ -54,7 +56,27 @@ export async function getHousingById(housingId) {
     rent: data.rent ?? null,
     rooms: data.rooms ?? null,
     square_meters: data.square_meters ?? null,
+    city: data.city ?? "",
+    description: data.description ?? "",
+    facilities: Array.isArray(data.facilities) ? data.facilities : [],
+    seeking_roomies: data.seeking_roomies ?? null,
+    aconto: data.aconto ?? null,
+    deposit: data.deposit ?? null,
+    move_in_date: data.move_in_date ?? null,
   };
+}
+
+// Opdater boligopslag på id
+export async function updateHousing(id, updates) {
+  const { data, error } = await supabase
+    .from("housing_listings")
+    .update(updates)
+    .eq("id", id)
+    .select("*")
+    .single();
+
+  if (error) throw error;
+  return data;
 }
 
 // Convenience: alt UI-data til boligkortet ud fra en profileId
@@ -76,4 +98,18 @@ export async function getHousingCardForProfile(profileId) {
     rooms: listing.rooms,
     square_meters: listing.square_meters,
   };
+}
+
+// Slå housing_id op ud fra profile_id via housing_roomies
+export async function getHousingIdByProfileId(profileId) {
+  const { data, error } = await supabase
+    .from("housing_roomies")
+    .select("housing_id")
+    .eq("profile_id", profileId)
+    .single();
+
+  if (error) throw error;
+  if (!data?.housing_id)
+    throw new Error("Ingen housing_id fundet for profilen.");
+  return data.housing_id;
 }
