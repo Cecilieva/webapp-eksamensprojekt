@@ -12,7 +12,6 @@ import matchscoreIcon from "../assets/matchscoreikon.svg";
 import leaseIcon from "../assets/ur.svg";
 import "./filtreringPage.css";
 
-// Muligheder for sortering af søgeresultater
 const SORT_OPTIONS = [
   { value: "a-z", label: "A - Å" },
   { value: "z-a", label: "Å - A" },
@@ -20,7 +19,6 @@ const SORT_OPTIONS = [
   { value: "old-new", label: "Ældste - Nyeste" },
 ];
 
-// Tilgængelige aldersintervaller
 const AGE_RANGES = [
   "18 - 20 år",
   "20 - 22 år",
@@ -31,7 +29,6 @@ const AGE_RANGES = [
   "30 - 32 år",
 ];
 
-// Budgetintervaller pr. måned
 const PRICE_RANGES = [
   "1.000 kr.",
   "2.000 kr.",
@@ -45,7 +42,6 @@ const PRICE_RANGES = [
   "10.000 kr.",
 ];
 
-// Muligheder for ønsket lejeperiode
 const LEASE_PERIOD_OPTIONS = [
   { value: "all", label: "Alle har interesse" },
   { value: "1-11", label: "1-11 måneder" },
@@ -54,7 +50,6 @@ const LEASE_PERIOD_OPTIONS = [
   { value: "unlimited", label: "Ubegrænset" },
 ];
 
-// Mulige kønsmuligheder
 const GENDER_OPTIONS = [
   { value: "mand", label: "Mand" },
   { value: "kvinde", label: "Kvinde" },
@@ -62,7 +57,6 @@ const GENDER_OPTIONS = [
   { value: "ingen-preference", label: "Ingen præference" },
 ];
 
-// Tilgængelige boligfaciliteter
 const FACILITIES = [
   "Opvaskemaskine",
   "Vaskemaskine",
@@ -71,7 +65,6 @@ const FACILITIES = [
   "Altan",
 ];
 
-// Mulige beskæftigelsestyper
 const EMPLOYMENT_OPTIONS = [
   "Studerende",
   "Fuldtidsarbejde",
@@ -80,10 +73,8 @@ const EMPLOYMENT_OPTIONS = [
   "Andet",
 ];
 
-// Filtrering baseret på minimum matchscore
 const MATCHSCORE_OPTIONS = ["70+", "80+", "90+"];
 
-// Konverterer dato til et format der kan bruges i filtreringen
 function normalizeDateInput(value) {
   const trimmed = value.trim();
 
@@ -109,7 +100,6 @@ function normalizeDateInput(value) {
   return "";
 }
 
-// Genanvendelig komponent til filtersektioner
 function FilterSection({ icon, title, subtitle, children, className = "" }) {
   return (
     <fieldset className={`filter-section ${className}`.trim()}>
@@ -125,7 +115,6 @@ function FilterSection({ icon, title, subtitle, children, className = "" }) {
   );
 }
 
-// Genanvendelig dropdown-komponent
 function SelectField({ value, onChange, options, placeholder, ariaLabel }) {
   return (
     <label className="selectField">
@@ -143,7 +132,6 @@ function SelectField({ value, onChange, options, placeholder, ariaLabel }) {
   );
 }
 
-// Tilføjer eller fjerner et valgt filter fra en liste
 function toggleSelection(currentValues, value, setter) {
   setter(
     currentValues.includes(value)
@@ -152,11 +140,9 @@ function toggleSelection(currentValues, value, setter) {
   );
 }
 
-/* Side til filtrering af profiler og boligopslag */
 export default function Filtrering() {
   const navigate = useNavigate();
 
-  // States til håndtering af filtervalg og resultater
   const [sort, setSort] = useState("");
   const [ageMin, setAgeMin] = useState("");
   const [ageMax, setAgeMax] = useState("");
@@ -176,7 +162,6 @@ export default function Filtrering() {
   const [resultCount, setResultCount] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  // Samler alle aktive filtre i ét objekt
   const buildFilters = useCallback(
     (overrides = {}) => ({
       sort,
@@ -217,7 +202,6 @@ export default function Filtrering() {
     ],
   );
 
-  // Henter antal resultater baseret på de valgte filtre
   const refreshResultCount = useCallback(
     async (nextFilters = buildFilters()) => {
       try {
@@ -230,7 +214,6 @@ export default function Filtrering() {
     [buildFilters],
   );
 
-  // Nulstiller alle filtre til standardværdier
   function resetFilters() {
     setSort("");
     setAgeMin("");
@@ -250,7 +233,6 @@ export default function Filtrering() {
     setLeasePeriod("all");
   }
 
-  // Opdaterer resultatantal og lytter efter nulstilling af filtre
   useEffect(() => {
     const timerId = window.setTimeout(() => {
       void refreshResultCount();
@@ -285,7 +267,6 @@ export default function Filtrering() {
     };
   }, [refreshResultCount]);
 
-  // Opdaterer resultatlisten ved filtrering
   async function handleSubmit(event) {
     event.preventDefault();
     setLoading(true);
@@ -293,7 +274,6 @@ export default function Filtrering() {
     setLoading(false);
   }
 
-  // Lukker filtervinduet og navigerer tilbage
   function handleClose() {
     if (window.history.length > 1) {
       navigate(-1);
@@ -303,14 +283,12 @@ export default function Filtrering() {
     navigate("/");
   }
 
-  // Tekst til knappen der viser antal fundne resultater
   const buttonLabel =
     resultCount === null ? "Vis resultater" : `Vis ${resultCount} resultater`;
 
   return (
     <main className="app filtrering-page">
       <section className="filter-sheet">
-        {/* Topbar med luk- og nulstil-knapper */}
         <header className="filter-topbar">
           <button
             type="button"
@@ -329,7 +307,6 @@ export default function Filtrering() {
           </button>
         </header>
 
-        {/* Formular med alle filtreringsmuligheder */}
         <form className="filter-form" onSubmit={handleSubmit}>
           <FilterSection icon={sortIcon} title="Sortér">
             <div className="sort-options" role="radiogroup" aria-label="Sortér">
@@ -639,7 +616,6 @@ export default function Filtrering() {
             </div>
           </FilterSection>
 
-          {/* Viser antal resultater baseret på de valgte filtre */}
           <button type="submit" className="filter-submit" disabled={loading}>
             {loading ? "Viser…" : buttonLabel}
           </button>
