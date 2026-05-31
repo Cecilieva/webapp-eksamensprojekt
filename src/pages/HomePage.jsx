@@ -8,6 +8,7 @@ import "./HomePage.css";
 export default function HomePage({
   favoriteProfiles = [],
   toggleFavoriteProfile = () => {},
+  onOpenConnectionOverlay,
 }) {
   const [activeIcon, setActiveIcon] = useState(null);
   const [profiles, setProfiles] = useState([]);
@@ -173,6 +174,7 @@ export default function HomePage({
               score={p.score}
               liked={favoriteProfiles.some((fav) => fav.id === p.id)}
               onToggleFavorite={toggleFavoriteProfile}
+              onOpenConnectionOverlay={onOpenConnectionOverlay}
             />
           </Link>
         ))}

@@ -20,10 +20,20 @@ import NotFoundPage from "./pages/NotFoundPage";
 import ProfileDetailPage from "./pages/ProfileDetailPage";
 import Loading from "./components/Loading";
 
+import ConnectionRequestOverlay from "./components/ConnectionRequestOverlay";
+
 function App() {
   const [loading, setLoading] = useState(true);
   const [step, setStep] = useState("splash");
   const [favoriteProfiles, setFavoriteProfiles] = useState([]);
+
+  // Connection overlay state
+  const [connectionOverlayOpen, setConnectionOverlayOpen] = useState(false);
+
+  // Åbn overlay
+  const openConnectionOverlay = () => {
+    setConnectionOverlayOpen(true);
+  };
 
   // ⏳ loading ved reload
   useEffect(() => {
@@ -95,6 +105,7 @@ function App() {
               <HomePage
                 favoriteProfiles={favoriteProfiles}
                 toggleFavoriteProfile={toggleFavoriteProfile}
+                onOpenConnectionOverlay={openConnectionOverlay}
               />
               <Botnav />
             </>
@@ -179,6 +190,7 @@ function App() {
               <ProfileDetailPage
                 favoriteProfiles={favoriteProfiles}
                 toggleFavoriteProfile={toggleFavoriteProfile}
+                onOpenConnectionOverlay={openConnectionOverlay}
               />
               <Botnav />
             </>
@@ -196,6 +208,11 @@ function App() {
           }
         />
       </Routes>
+
+      <ConnectionRequestOverlay
+        open={connectionOverlayOpen}
+        onClose={() => setConnectionOverlayOpen(false)}
+      />
     </BrowserRouter>
   );
 }
