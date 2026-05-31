@@ -24,6 +24,7 @@ import Botnav from "./components/Botnav";
 import NotFoundPage from "./pages/NotFoundPage";
 import ProfileDetailPage from "./pages/ProfileDetailPage";
 import Loading from "./components/Loading";
+import HousingDetailPage from "./pages/HousingDetailPage";
 
 function App() {
   /* Loading state ved app reload */
@@ -195,6 +196,18 @@ function App() {
           }
         />
 
+        {/* Chat page (midlertidig) */}
+        <Route
+          path="/chat/:id"
+          element={
+            <>
+              <Header />
+              <NotFoundPage />
+              <Botnav />
+            </>
+          }
+        />
+
         {/* Own profile */}
         <Route
           path="/profile"
@@ -222,6 +235,17 @@ function App() {
 
         {/* Filter page */}
         <Route path="/filtrering" element={<Filtrering />} />
+
+        {/* Housing details */}
+        <Route
+          path="/housing/:id"
+          element={
+            <>
+              <HousingDetailPage />
+              <Botnav />
+            </>
+          }
+        />
 
         {/* Fallback route */}
         <Route

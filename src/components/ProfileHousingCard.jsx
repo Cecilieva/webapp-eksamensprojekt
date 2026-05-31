@@ -7,6 +7,7 @@
  */
 
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getHousingCardForProfile } from "../lib/housing";
 import "./ProfileHousingCard.css";
 
@@ -19,6 +20,8 @@ function formatNumber(value) {
 }
 
 export default function ProfileHousingCard({ profileId, onPreview }) {
+  const navigate = useNavigate();
+
   // Lokal state: data til kortet (null => ingen bolig eller ikke hentet endnu)
   const [housingCard, setHousingCard] = useState(null);
 
@@ -92,11 +95,15 @@ export default function ProfileHousingCard({ profileId, onPreview }) {
             </div>
           ) : null}
 
-          {/* CTA: send housingCard tilbage til parent */}
+          {/* CTA: gå til bolig-detaljeside (URL bruger profileId) */}
           <button
             type="button"
             className="profile-housing-previewButton"
-            onClick={() => onPreview?.(housingCard)}
+            onClick={() => {
+              // Behold evt. eksisterende callback
+              onPreview?.(housingCard);
+              navigate(`/housing/${profileId}`, { state: { housingCard } });
+            }}
           >
             <h5>Se boligopslag</h5>
           </button>

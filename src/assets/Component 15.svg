@@ -1,9 +1,0 @@
-<svg width="207" height="40" viewBox="0 0 207 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-	<rect x="0.5" y="0.5" width="206" height="39" rx="15.5" fill="#E8DDD8"/>
-	<rect x="0.5" y="0.5" width="206" height="39" rx="15.5" stroke="#4B0129"/>
-	<style>
-		.label { font-family: 'Poppins', sans-serif; font-size: 14px; fill: #000; }
-		.overlay .label { fill: #fff; }
-	</style>
-	<text class="label" x="50%" y="50%" text-anchor="middle" dominant-baseline="middle">Søger roomie &amp; bolig</text>
-</svg>
