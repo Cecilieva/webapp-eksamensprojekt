@@ -12,4 +12,5 @@
 .splash-screen-text {
   margin-top: 2rem;
   text-align: center;
+  color: var(--bordeaux);
 }

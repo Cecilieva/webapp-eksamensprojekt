@@ -351,12 +351,16 @@ export default function ProfileDetailCard({
         </ProfileSection>
 
         {/* Viser boligkort hvis profilen har et tilknyttet boligopslag (hentes internt i ProfileHousingCard) */}
-        <ProfileSection title="Dit boligopslag">
-          <ProfileHousingCard
-            profileId={profile.id}
-            onPreview={(housing) => console.log("Preview bolig:", housing?.id)}
-          />
-        </ProfileSection>
+        {profile.has_housing_boolean_default_false && (
+          <ProfileSection title="Dit boligopslag">
+            <ProfileHousingCard
+              profileId={profile.id}
+              onPreview={(housing) =>
+                console.log("Preview bolig:", housing?.id)
+              }
+            />
+          </ProfileSection>
+        )}
         {/* ret matchsvar */}
         <MatchButton enabled={showMatchButton} />
 
