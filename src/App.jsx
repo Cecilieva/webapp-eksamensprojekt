@@ -202,7 +202,6 @@ function App() {
           path="/chat"
           element={
             <>
-              <Header />
               <ChatPage />
               <Botnav />
             </>
@@ -214,7 +213,6 @@ function App() {
           path="/chat/:id"
           element={
             <>
-              <Header />
               <ChatPage />
               <Botnav />
             </>
