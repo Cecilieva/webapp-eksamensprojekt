@@ -8,8 +8,8 @@ import "./RequestPage.css";
 import connectionMatch from "../assets/ForbindelseOprettetMatch.json";
 import MenuLogo from "../assets/menu-logo.svg";
 import RequestItem from "../components/Request/RequestItem";
-import ConnectionItem from "../components/request/ConnectionItem";
-import EmptyState from "../components/request/EmptyState";
+import ConnectionItem from "../components/Request/ConnectionItem";
+import EmptyState from "../components/Request/EmptyState";
 
 const MAIN_PROFILE_ID = 14; // ID på den aktive bruger
 
