@@ -25,6 +25,7 @@ import NotFoundPage from "./pages/NotFoundPage";
 import ProfileDetailPage from "./pages/ProfileDetailPage";
 import Loading from "./components/Loading";
 import HousingDetailPage from "./pages/HousingDetailPage";
+import ChatPage from "./pages/ChatPage";
 
 import ConnectionRequestOverlay from "./components/ConnectionRequestOverlay";
 
@@ -202,7 +203,7 @@ function App() {
           element={
             <>
               <Header />
-              <NotFoundPage />
+              <ChatPage />
               <Botnav />
             </>
           }
@@ -214,7 +215,7 @@ function App() {
           element={
             <>
               <Header />
-              <NotFoundPage />
+              <ChatPage />
               <Botnav />
             </>
           }
