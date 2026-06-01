@@ -7,16 +7,16 @@
   padding-right: var(--app-padding-x);
   padding-bottom: calc(var(--app-padding-bottom) + 86px);
   padding-top: 2rem;
-  justify-items: center;
 }
 
-/* Gitter med favoritprofiler */
 .favorite-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
-  align-items: start;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 0.5rem;
+  row-gap: 1rem;
   justify-items: center;
+  align-items: start;
+  width: 100%;
 }
 
 /* Vises når der ikke er nogen profiler */
