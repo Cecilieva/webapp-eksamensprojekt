@@ -62,6 +62,7 @@ export default function RequestPage({ initialTab = "anmodninger" }) {
   const [dismissedProfileIds, setDismissedProfileIds] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  
   // Henter profiler, matchscores og forbindelser fra Supabase ved sideindlæsning
   useEffect(() => {
     let ignore = false;
@@ -100,6 +101,7 @@ export default function RequestPage({ initialTab = "anmodninger" }) {
       ignore = true;
     };
   }, []);
+  
   // Opretter et opslag over matchscore baseret på profil-ID
   const scoreByProfileId = useMemo(() => {
     const map = new Map();
@@ -108,6 +110,7 @@ export default function RequestPage({ initialTab = "anmodninger" }) {
     }
     return map;
   }, [matchscores]);
+  
   // Filtrerer accepterede forbindelser for den aktive bruger
   const acceptedConnections = useMemo(() => {
     return connections.filter(
@@ -117,6 +120,7 @@ export default function RequestPage({ initialTab = "anmodninger" }) {
           connection.receiver_id === MAIN_PROFILE_ID),
     );
   }, [connections]);
+  
   // Samler ID'er på profiler, som brugeren allerede er forbundet med
   const connectedProfileIds = useMemo(() => {
     const ids = new Set();
@@ -129,6 +133,7 @@ export default function RequestPage({ initialTab = "anmodninger" }) {
     return ids;
   }, [acceptedConnections]);
   const scoreByProfileIdWithFallback = scoreByProfileId;
+  
   // Opretter listen over eksisterende forbindelser
   const connectionPeople = useMemo(() => {
     return profiles
@@ -142,6 +147,7 @@ export default function RequestPage({ initialTab = "anmodninger" }) {
         imageUrl: getAvatarImageUrl(profile),
       }));
   }, [connectedProfileIds, profiles, scoreByProfileIdWithFallback]);
+  
   // Opretter listen over anmodninger sorteret efter matchscore
   const requestPeople = useMemo(() => {
     return profiles
@@ -168,6 +174,7 @@ export default function RequestPage({ initialTab = "anmodninger" }) {
   ]);
   const isConnections = activeTab === "forbindelser";
   const pageTitle = isConnections ? "Forbindelser" : "Anmodninger";
+  
   // Accepterer en anmodning og opretter/opfatter forbindelsen
   const handleAccept = async (person) => {
     const id = person.id;
@@ -217,6 +224,7 @@ export default function RequestPage({ initialTab = "anmodninger" }) {
     setAcceptedOverlayName(person.name);
     setAcceptedOverlayOpen(true);
   };
+  
   // Afviser en anmodning og skjuler den fra listen
   const handleReject = async (id) => {
     const request = connections.find(
@@ -238,6 +246,7 @@ export default function RequestPage({ initialTab = "anmodninger" }) {
     );
     setError("");
   };
+  
   // Fjerner en eksisterende forbindelse
   const handleRemove = async (id) => {
     const connection = acceptedConnections.find(
@@ -253,6 +262,7 @@ export default function RequestPage({ initialTab = "anmodninger" }) {
       setError(deleteError.message);
     }
   };
+  
   // Åbner bekræftelses-overlay ved fjernelse
   const showRemoveOverlay = (person, mode) => {
     setOverlayTarget({ id: person.id, name: person.name, mode });
@@ -262,6 +272,7 @@ export default function RequestPage({ initialTab = "anmodninger" }) {
     setOverlayOpen(false);
     setOverlayTarget(null);
   };
+  
   // Bekræfter og udfører fjernelse af anmodning eller forbindelse
   const confirmRemove = async () => {
     if (!overlayTarget) return;
@@ -273,17 +284,21 @@ export default function RequestPage({ initialTab = "anmodninger" }) {
     }
     closeOverlay();
   };
+  
   // Viser loading-state mens data hentes
   if (loading) return <main className="app"></main>;
+  
   // Viser fejlmeddelelse hvis data ikke kunne indlæses
   if (error) {
     return <EmptyState title="Noget gik galt" subtitle={error} />;
   }
+
   return (
     <div className="request-root">
       <div className="request-header">
         <h2 className="request-title">{pageTitle}</h2>
       </div>
+      
       {/* Faner til skift mellem anmodninger og forbindelser */}
       <div className="request-tabBar">
         <button
@@ -292,6 +307,7 @@ export default function RequestPage({ initialTab = "anmodninger" }) {
         >
           <small>Forbindelser</small>
         </button>
+        
         <button
           className={`request-tab ${activeTab === "anmodninger" ? "is-on" : "is-off"}`}
           onClick={() => setActiveTab("anmodninger")}
@@ -299,6 +315,7 @@ export default function RequestPage({ initialTab = "anmodninger" }) {
           <small>Anmodninger</small>
         </button>
       </div>
+
       {/* Informationsbanner til nye anmodninger */}
       {!isConnections && (
         <div className="request-banner">
@@ -360,17 +377,16 @@ export default function RequestPage({ initialTab = "anmodninger" }) {
             <div className="request-overlayContent">
               {overlayTarget?.mode === "request" ? (
                 <>
-                  <h2 className="request-overlayTitle">Hovsa!</h2>
-                  <p className="request-overlayText">
+                  <h2>Hovsa!</h2>
+                  <small>
                     Er du sikker på, at du vil fjerne denne anmodning?
-                  </p>
+                  </small>
                 </>
               ) : (
                 <>
-                  <h2 className="request-overlayTitle">Hovsa!</h2>
-                  <p className="request-overlayText">
-                    Er du sikker på, at du vil fjerne forbindelsen?
-                  </p>
+                  <h2>Hovsa!</h2>
+                  <small>Er du sikker på, at du vil fjerne forbindelsen?
+                  </small>
                 </>
               )}
               <div className="request-overlayCTAWrap">
@@ -379,7 +395,7 @@ export default function RequestPage({ initialTab = "anmodninger" }) {
                   onClick={confirmRemove}
                   className="request-overlayBtn request-textBtn request-textBtn--danger"
                 >
-                  <p className="text-small">Fjern</p>
+                  <small>Fjern</small>
                 </button>
                 <button
                   type="button"

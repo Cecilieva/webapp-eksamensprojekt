@@ -23,7 +23,7 @@ function ActionButton({ variant, label, onClick }) {
       onTouchEnd={() => setDown(false)}
       onClick={onClick}
     >
-      {label}
+      <small>{label}</small>
     </button>
   );
 }

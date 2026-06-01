@@ -25,6 +25,7 @@ function ConnectionItem({ person, onShowRemove, onSendMessage }) {
             variant="ghost"
             label="Fjern"
             onClick={() => onShowRemove(person)}
+      
           />
         </div>
       </div>
