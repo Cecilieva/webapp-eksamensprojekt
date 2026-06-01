@@ -16,7 +16,7 @@ export default function ProfileDetailPage({
 
   return (
     <ProfileDetailCard
-      profileId={id}
+      profileId={profileId}
       score={score}
       canEdit={false}
       showActiveToggle={false}
@@ -24,6 +24,7 @@ export default function ProfileDetailPage({
       showConnectionButton={true}
       showLikeButton={true}
       showBackButton={true}
+      showMatchscore={true}
       // Tjekker om profilen er markeret som favorit
       liked={favoriteProfiles.some((fav) => fav.id === profileId)}
       // Håndterer tilføjelse eller fjernelse af favoritprofil
