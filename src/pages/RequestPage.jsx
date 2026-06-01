@@ -6,6 +6,7 @@ import HovsaOverlay from "../assets/Hovsa-overlay.svg";
 import connectionConfetti from "../assets/forbindelse-oprettet-konfetti.json";
 import "./RequestPage.css";
 import connectionMatch from "../assets/ForbindelseOprettetMatch.json";
+import MenuLogo from "../assets/menu-logo.svg";
 
 const MAIN_PROFILE_ID = 14; // ID på den aktive bruger
 
@@ -478,7 +479,17 @@ export default function RequestPage({ initialTab = "anmodninger" }) {
       <div className="request-list">
         {isConnections ? (
           connectionPeople.length === 0 ? (
-            <EmptyState text="Du har ingen forbindelser endnu" />
+            <div className="request-empty">
+              <h3 className="request-emptyTitle">Ingen forbindelser</h3>
+              <p className="request-emptySubtitle">
+                Du har ingen forbindelser endnu
+              </p>
+              <img
+                src={MenuLogo}
+                alt="Rumly logo"
+                className="request-emptyLogo"
+              />
+            </div>
           ) : (
             connectionPeople.map((person) => (
               <ConnectionItem
@@ -490,7 +501,17 @@ export default function RequestPage({ initialTab = "anmodninger" }) {
             ))
           )
         ) : requestPeople.length === 0 ? (
-          <EmptyState text="Du har ingen nye anmodninger" />
+          <div className="request-empty">
+            <h3 className="request-emptyTitle">Ingen anmodninger</h3>
+            <p className="request-emptySubtitle">
+              Du har ingen nye anmodninger
+            </p>
+            <img
+              src={MenuLogo}
+              alt="Rumly logo"
+              className="request-emptyLogo"
+            />
+          </div>
         ) : (
           requestPeople.map((person) => (
             <RequestItem
