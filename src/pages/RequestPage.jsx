@@ -7,7 +7,7 @@ import connectionConfetti from "../assets/forbindelse-oprettet-konfetti.json";
 import "./RequestPage.css";
 import connectionMatch from "../assets/ForbindelseOprettetMatch.json";
 import MenuLogo from "../assets/menu-logo.svg";
-import RequestItem from "../components/request/requestItem";
+import RequestItem from "../components/Request/RequestItem";
 import ConnectionItem from "../components/request/ConnectionItem";
 import EmptyState from "../components/request/EmptyState";
 
