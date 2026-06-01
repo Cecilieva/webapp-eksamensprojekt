@@ -2,11 +2,11 @@
 .housing-roomies {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 1rem;
   background-color: var(--white);
   border: var(--border);
   border-radius: var(--border-radius-large);
-  padding: 16px;
+  padding: 1rem;
 }
 
 /* Liste af roomies */
@@ -67,9 +67,8 @@
   background: var(--green);
   border: 0;
   color: var(--black);
-  font-weight: 600;
   padding: 0.5rem 1rem;
-  border-radius: 10px;
+  border-radius: var(--border-radius-small);
   cursor: pointer;
   white-space: nowrap;
 }
@@ -81,7 +80,7 @@
 /* Knap til besked */
 .housing-roomies-message-btn {
   width: 100%;
-  border: 1px solid #29232a;
+  border: 1px solid var(--black);
   color: var(--black);
   background: transparent;
   padding: 0.5rem 1rem;

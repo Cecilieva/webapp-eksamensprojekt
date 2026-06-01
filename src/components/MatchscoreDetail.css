@@ -1,7 +1,7 @@
 .matchscore-detail-layout {
   display: flex;
   align-items: center;
-  gap: 80px; /* afstand mellem score og lottie */
+  gap: 5rem; /* afstand mellem score og lottie */
 }
 
 /* Matchscore 3x større */
@@ -12,12 +12,8 @@
 
 /* Gør Lottie mindre */
 .matchscore-lottie {
-  width: 220px;
-  height: 220px;
-}
-
-.matchscore-section .section-title h4 {
-  font-size: var(--fs-h2);
+  width: 14rem;
+  height: 14rem;
 }
 
 .matchscore-section .section-title {

@@ -42,7 +42,7 @@
   margin-top: -1rem;
   padding: 1.5rem 1rem 2.5rem;
   background: var(--background);
-  border-radius: 1.5rem 1.5rem 0 0;
+  border-radius: var(--border-radius-large);
 }
 
 /* Header med navn + toggle */
@@ -110,7 +110,7 @@
 /* Reusable card style */
 .white-card {
   background: var(--white);
-  border-radius: 1rem;
+  border-radius: var(--border-radius-large);
   padding: 1rem;
   box-shadow: var(--shadow-bottom);
 }
@@ -125,10 +125,10 @@
 /* Individuelle "thing" cards */
 .single-thing-card {
   background: var(--white);
-  border-radius: 1rem;
+  border-radius: var(--border-radius-large);
   padding: 1rem 1rem;
   display: grid;
-  grid-template-columns: 1fr 24px;
+  grid-template-columns: 1fr 1.5rem;
   gap: 1rem;
   align-items: center;
   box-shadow: var(--shadow-bottom);
@@ -137,7 +137,7 @@
 .housing-card {
   margin-top: 2.5rem;
   background: var(--white);
-  border-radius: 1rem;
+  border-radius: var(--border-radius-large);
   padding: 1.5rem;
   box-shadow: var(--shadow-bottom);
 }
@@ -158,7 +158,7 @@
 .housing-content img {
   width: 8rem;
   height: 8rem;
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius-small);
   object-fit: cover;
 }
 
@@ -169,7 +169,7 @@
 .housing-content button {
   width: 100%;
   border: none;
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius-small);
   background: var(--green);
   padding: 1rem;
 }
@@ -200,7 +200,7 @@
 
   background: var(--white);
 
-  border-radius: 1rem;
+  border-radius: var(--border-radius-large);
 
   padding: 0 1rem;
 

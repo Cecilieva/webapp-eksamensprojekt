@@ -76,7 +76,7 @@ export default function HousingFacilities({
 
       {/* Inline input */}
       {editable && isAdding && (
-        <div className="tag-add-inline" ref={addRef}>
+        <small className="tag-add-inline" ref={addRef}>
           <input
             className="tag-add-input"
             value={newValue}
@@ -88,7 +88,7 @@ export default function HousingFacilities({
           <button type="button" onClick={handleSave}>
             <img src={blackCheckmark} alt="Gem" />
           </button>
-        </div>
+        </small>
       )}
     </div>
   );

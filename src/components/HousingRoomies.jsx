@@ -96,7 +96,7 @@ export default function HousingRoomies({ housingId, roomies }) {
                   type="button"
                   onClick={() => navigate(`/profiles/${id}`)}
                 >
-                  Se profil
+                  <h5>Se profil</h5>
                 </button>
               )}
             </div>
@@ -115,7 +115,7 @@ export default function HousingRoomies({ housingId, roomies }) {
             if (firstId) navigate(`/profiles/${firstId}`);
           }}
         >
-          Se profil
+          <h5>Se profil</h5>
         </button>
       ) : (
         <button

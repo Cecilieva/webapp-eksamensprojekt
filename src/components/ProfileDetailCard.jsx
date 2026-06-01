@@ -269,7 +269,10 @@ export default function ProfileDetailCard({
 
         {/* Matchscore sektion */}
         {showMatchSection && (
-          <ProfileSection title="Vi matcher på" className="matchscore-section">
+          <ProfileSection
+            title={<h2>Vi matcher på</h2>}
+            className="matchscore-section"
+          >
             <div className="matchscore-detail-layout">
               <MatchScore
                 score={score ?? profile.score}
