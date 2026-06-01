@@ -3,6 +3,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
 import BrandMark from "../assets/responsivtlogo.svg";
 import ComposeIcon from "../assets/edit-icon.svg";
+import ChatHeader from "../components/Chat/ChatHeader.jsx";
+import ChatSearch from "../components/Chat/ChatSearch.jsx";
+import ChatStories from "../components/Chat/ChatStories.jsx";
+import ChatFilters from "../components/Chat/ChatFilters.jsx";
+import ChatThreadList from "../components/Chat/ChatThreadList.jsx";
 import "./ChatPage.css";
 
 const STORIES = [
@@ -52,88 +57,12 @@ const THREADS = [
   },
 ];
 
-function initials(name) {
-  return name
-    .split(/\s+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((part) => part[0]?.toUpperCase() ?? "")
-    .join("");
-}
-
-function getAvatarImageUrl(profile) {
+function getUserImageUrl(profile) {
   const images = profile?.images;
   if (!images) return null;
 
   const first = Array.isArray(images) ? images[0] : null;
   return typeof first === "string" && first.trim() ? first : null;
-}
-
-function Avatar({ name, avatar, size = "thread", color = "#e4d64b" }) {
-  return (
-    <div
-      className={`chat-avatar chat-avatar--${size}`}
-      style={{ "--avatar-bg": color }}
-    >
-      {avatar ? <img src={avatar} alt={name} /> : <span>{initials(name)}</span>}
-    </div>
-  );
-}
-
-function Story({ name, color, avatar }) {
-  return (
-    <button type="button" className="chat-story">
-      <div className="chat-storyAvatar">
-        <Avatar name={name} color={color} avatar={avatar} size="story" />
-        <span className="chat-storyDot" aria-hidden="true" />
-      </div>
-      <span className="chat-storyName">{name}</span>
-    </button>
-  );
-}
-
-function ThreadItem({ thread, active, onOpen }) {
-  return (
-    <button
-      type="button"
-      className={`chat-thread ${active ? "is-active" : ""}`}
-      onClick={() => onOpen(thread)}
-    >
-      <div className="chat-threadAvatarWrap">
-        {thread.isGroup ? (
-          <>
-            <Avatar
-              name={thread.name.split(",")[0]}
-              avatar={thread.primaryAvatar}
-              color="#d8c56c"
-              size="groupA"
-            />
-            <Avatar
-              name={thread.name.split(",")[1]?.trim() ?? thread.name}
-              avatar={thread.secondaryAvatar}
-              color="#e4d64b"
-              size="groupB"
-            />
-          </>
-        ) : (
-          <Avatar name={thread.name} avatar={thread.avatar} size="thread" />
-        )}
-      </div>
-
-      <div className="chat-threadContent">
-        <div className="chat-threadTop">
-          <h3>{thread.name}</h3>
-          <span>{thread.time}</span>
-        </div>
-        <div className="chat-threadBottom">
-          <p className={thread.unread ? "is-bold" : ""}>{thread.preview}</p>
-          {thread.unread && (
-            <span className="chat-unreadDot" aria-hidden="true" />
-          )}
-        </div>
-      </div>
-    </button>
-  );
 }
 
 export default function ChatPage() {
@@ -186,7 +115,7 @@ export default function ChatPage() {
 
       return {
         ...story,
-        avatar: getAvatarImageUrl(profile),
+        user: getUserImageUrl(profile),
       };
     });
   }, [profileByName]);
@@ -204,8 +133,8 @@ export default function ChatPage() {
 
         return {
           ...thread,
-          primaryAvatar: getAvatarImageUrl(firstProfile),
-          secondaryAvatar: getAvatarImageUrl(secondProfile),
+          primaryUser: getUserImageUrl(firstProfile),
+          secondaryUser: getUserImageUrl(secondProfile),
         };
       }
 
@@ -213,7 +142,7 @@ export default function ChatPage() {
 
       return {
         ...thread,
-        avatar: getAvatarImageUrl(profile),
+        user: getUserImageUrl(profile),
       };
     });
   }, [profileByName]);
@@ -240,72 +169,27 @@ export default function ChatPage() {
   return (
     <main className="app chat-pageShell">
       <section className="chat-page" aria-label="Beskeder">
-        <header className="chat-header">
-          <img src={BrandMark} alt="Rumly" className="chat-brand" />
-          <h1>Beskeder</h1>
-          <button
-            type="button"
-            className="chat-compose"
-            aria-label="Ny besked"
-            onClick={() => navigate("/requests")}
-          >
-            <img src={ComposeIcon} alt="" aria-hidden="true" />
-          </button>
-        </header>
+        <ChatHeader
+          brandMark={BrandMark}
+          composeIcon={ComposeIcon}
+          onCompose={() => navigate("/requests")}
+        />
 
-        <label className="chat-search">
-          <span className="sr-only">Søg i beskeder</span>
-          <input
-            type="search"
-            placeholder="Søg..."
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-          />
-        </label>
+        <ChatSearch value={query} onChange={setQuery} />
 
-        <div className="chat-stories" aria-label="Hurtige kontakter">
-          {enrichedStories.map((story) => (
-            <Story
-              key={story.id}
-              name={story.name}
-              color={story.color}
-              avatar={story.avatar}
-            />
-          ))}
-        </div>
+        <ChatStories stories={enrichedStories} />
 
-        <div className="chat-filters" aria-label="Filtre">
-          {[
-            ["alle", "Alle"],
-            ["ulæst", "Ulæst"],
-            ["grupper", "Grupper"],
-            ["anmodninger", "(3) Anmodninger"],
-          ].map(([value, label]) => (
-            <button
-              key={value}
-              type="button"
-              className={`chat-chip ${activeFilter === value ? "is-active" : ""}`}
-              onClick={() => setActiveFilter(value)}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
+        <ChatFilters activeFilter={activeFilter} onChange={setActiveFilter} />
 
         {activeThread && (
           <p className="chat-selected">Åbnet: {activeThread.name}</p>
         )}
 
-        <div className="chat-list">
-          {filteredThreads.map((thread) => (
-            <ThreadItem
-              key={thread.id}
-              thread={thread}
-              active={String(thread.id) === String(id)}
-              onOpen={(nextThread) => navigate(`/chat/${nextThread.id}`)}
-            />
-          ))}
-        </div>
+        <ChatThreadList
+          threads={filteredThreads}
+          activeThreadId={id}
+          onOpen={(nextThread) => navigate(`/chat/${nextThread.id}`)}
+        />
       </section>
     </main>
   );
