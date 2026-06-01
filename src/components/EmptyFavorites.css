@@ -5,6 +5,7 @@
   justify-content: center;
   margin-top: 8rem;
   text-align: center;
+  gap: 1rem;
 }
 
 .empty-favorites h1 {
