@@ -11,6 +11,7 @@ export default function ProfilePage() {
       showBackButton={false} // Viser tilbage-knap
       showConnectionButton={false} // Viser forbindelse-knap
       showLikeButton={false} // Viser like-knap
+      showMatchSection={false} // Viser ikke match animation
     />
   );
 }
