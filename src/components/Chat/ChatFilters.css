@@ -1,0 +1,27 @@
+/* Container til filter-knapper */
+.chat-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.5rem 0 1.5rem;
+}
+
+/* Fælles styling for alle filter-knapper */
+.chat-chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 0;
+  border-radius: var(--border-radius-large);
+  background: var(--bordeaux10);
+  color: var(--black);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+/* Aktivt filter */
+.chat-chip.is-active {
+  background: var(--bordeaux);
+  color: var(--white);
+}

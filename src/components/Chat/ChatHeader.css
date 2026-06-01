@@ -1,0 +1,40 @@
+/* Header med logo, titel og ny besked-knap */
+.chat-header {
+  display: grid;
+  grid-template-columns: 4rem 1fr 4rem;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Rumly-logo */
+.chat-brand {
+  width: 3rem;
+  height: auto;
+}
+
+/* Sidetitel */
+.chat-header h2 {
+  text-align: center;
+  color: var(--black);
+}
+
+/* Knap til ny besked */
+.chat-compose {
+  justify-self: end;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* Ikon i knappen */
+.chat-compose img {
+  width: 2rem;
+  height: 2rem;
+}

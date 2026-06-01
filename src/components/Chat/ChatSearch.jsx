@@ -1,7 +1,9 @@
+import "./ChatSearch.css";
+
 export default function ChatSearch({ value, onChange }) {
   return (
+    /* Søgefelt til filtrering af beskeder */
     <label className="chat-search">
-      <span className="sr-only">Søg i beskeder</span>
       <input
         type="search"
         placeholder="Søg..."

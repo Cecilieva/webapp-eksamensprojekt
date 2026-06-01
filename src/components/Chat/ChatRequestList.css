@@ -1,0 +1,55 @@
+/* Liste med beskedanmodninger */
+.chat-requests {
+  display: grid;
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+/* En enkelt beskedanmodning */
+.chat-request {
+  display: grid;
+  grid-template-columns: 4rem 1fr;
+  gap: 1rem;
+  align-items: center;
+}
+
+/* Indhold ved siden af billedet */
+.chat-requestContent {
+  display: grid;
+  gap: 0.125rem;
+}
+
+/* Knapper til accepter/fjern */
+.chat-requestActions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+/* Fælles styling for knapper */
+.chat-requestActions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0.25rem 1rem;
+
+  border-radius: var(--border-radius-large);
+  font: inherit;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* Accepter-knap */
+.chat-requestAccept {
+  border: 0;
+  background: var(--green);
+  color: var(--black);
+}
+
+/* Fjern-knap */
+.chat-requestRemove {
+  border: 1px solid var(--bordeaux10);
+  background: transparent;
+  color: var(--black);
+}

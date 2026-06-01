@@ -1,3 +1,6 @@
+import "./ChatUser.css";
+
+/* Danner initialer ud fra brugerens navn */
 function initials(name) {
   return name
     .split(/\s+/)
@@ -7,17 +10,11 @@ function initials(name) {
     .join("");
 }
 
-export default function ChatUser({
-  name,
-  user,
-  size = "thread",
-  color = "#e4d64b",
-}) {
+/* billede med profilbillede eller initialer */
+export default function ChatUser({ name, user, size = "thread" }) {
   return (
-    <div
-      className={`chat-avatar chat-avatar--${size}`}
-      style={{ "--avatar-bg": color }}
-    >
+    <div className={`chat-avatar chat-avatar--${size}`}>
+      {/* Viser profilbillede hvis det findes, ellers initialer */}
       {user ? <img src={user} alt={name} /> : <span>{initials(name)}</span>}
     </div>
   );

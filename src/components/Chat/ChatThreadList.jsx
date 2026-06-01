@@ -1,25 +1,27 @@
 import ChatUser from "./ChatUser.jsx";
+import "./ChatThreadList.css";
 
-function ChatThreadItem({ thread, active, onOpen }) {
+/* En enkelt chattråd */
+function ChatThreadItem({ thread, active }) {
   return (
     <button
       type="button"
       className={`chat-thread ${active ? "is-active" : ""}`}
-      onClick={() => onOpen(thread)}
     >
+      {/* Profilbillede eller gruppeavatar */}
       <div className="chat-threadAvatarWrap">
         {thread.isGroup ? (
           <>
             <ChatUser
               name={thread.name.split(",")[0]}
               user={thread.primaryUser}
-              color="#d8c56c"
+              color="var(--bordeaux10)"
               size="groupA"
             />
             <ChatUser
               name={thread.name.split(",")[1]?.trim() ?? thread.name}
               user={thread.secondaryUser}
-              color="#e4d64b"
+              color="var(--bordeaux10)"
               size="groupB"
             />
           </>
@@ -28,13 +30,19 @@ function ChatThreadItem({ thread, active, onOpen }) {
         )}
       </div>
 
+      {/* Indhold i chattråden */}
       <div className="chat-threadContent">
         <div className="chat-threadTop">
-          <h3>{thread.name}</h3>
-          <span>{thread.time}</span>
+          <p>{thread.name}</p>
+          <small>{thread.time}</small>
         </div>
         <div className="chat-threadBottom">
-          <p className={thread.unread ? "is-bold" : ""}>{thread.preview}</p>
+          {thread.isUnreadMessage ? (
+            <h5>{thread.preview}</h5>
+          ) : (
+            <small>{thread.preview}</small>
+          )}
+          {/* Ulæst indikator */}
           {thread.unread && (
             <span className="chat-unreadDot" aria-hidden="true" />
           )}
@@ -44,7 +52,8 @@ function ChatThreadItem({ thread, active, onOpen }) {
   );
 }
 
-export default function ChatThreadList({ threads, activeThreadId, onOpen }) {
+/* Liste med chattråde */
+export default function ChatThreadList({ threads, activeThreadId }) {
   return (
     <div className="chat-list">
       {threads.map((thread) => (
@@ -52,7 +61,6 @@ export default function ChatThreadList({ threads, activeThreadId, onOpen }) {
           key={thread.id}
           thread={thread}
           active={String(thread.id) === String(activeThreadId)}
-          onOpen={onOpen}
         />
       ))}
     </div>

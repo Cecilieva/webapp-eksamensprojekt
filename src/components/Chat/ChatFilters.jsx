@@ -1,3 +1,6 @@
+import "./ChatFilters.css";
+
+/* Tilgængelige filtre */
 const FILTERS = [
   ["alle", "Alle"],
   ["ulæst", "Ulæst"],
@@ -7,7 +10,8 @@ const FILTERS = [
 
 export default function ChatFilters({ activeFilter, onChange }) {
   return (
-    <div className="chat-filters" aria-label="Filtre">
+    /* Filter-knapper */
+    <nav className="chat-filters" aria-label="Filtre">
       {FILTERS.map(([value, label]) => (
         <button
           key={value}
@@ -15,9 +19,10 @@ export default function ChatFilters({ activeFilter, onChange }) {
           className={`chat-chip ${activeFilter === value ? "is-active" : ""}`}
           onClick={() => onChange(value)}
         >
-          {label}
+          {/* Filter-navn */}
+          <small>{label}</small>
         </button>
       ))}
-    </div>
+    </nav>
   );
 }
