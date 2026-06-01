@@ -8,7 +8,8 @@
   border-radius: 2rem 2rem 0 0;
   background: #faf5ec;
   padding: 1rem 0.25rem 2rem;
-  font-family: var(--font-body);
+  font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+    sans-serif;
 }
 
 .chat-header {
@@ -28,7 +29,8 @@
   text-align: center;
   font-size: 1.5rem;
   line-height: 1;
-  font-family: var(--font-display);
+  font-family:  "Otomanopee One", system-ui, -apple-system, Segoe UI, Roboto, Helvetica,
+    Arial, sans-serif;
   color: var(--black);
 }
 

@@ -162,10 +162,47 @@
   padding: 3rem 1.5rem;
   color: var(--black);
   font-size: 1rem;
+  font-family: "poppins", sans-serif;
 }
 
-.request-emptyIcon {
-  margin-bottom: 0.5rem;
+.request-emptyTitle {
+  font-size: 1.6rem;
+  margin: 0 0 0.5rem;
+  color: var(--black);
+  font-weight: 700;
+  font-family:
+    "Otomanopee One",
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+}
+
+.request-emptySubtitle {
+
+  color: var(--black);
+  opacity: 0.9;
+  margin: 0 0 0.75rem;
+  font-family:
+    "Poppins",
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+}
+
+.request-emptyLogo {
+  display: block;
+  margin: 2rem auto 0;
+  width: 5.5rem;
+  height: auto;
+  opacity: 0.95;
 }
 
 /* Overlay/popups */
