@@ -1,5 +1,5 @@
 import Avatar from "./Avatar";
-import ActionButton from "./Actionbutton";
+import ActionButton from "./ActionButton";
 
 function RequestItem({ person, onAccept, onShowRemove }) {
   return (
