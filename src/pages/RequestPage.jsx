@@ -159,13 +159,8 @@ function ConnectionItem({ person, onShowRemove }) {
 }
 
 // Vises når der ikke findes anmodninger eller forbindelser
-function EmptyState({ icon, text }) {
-  return (
-    <div className="request-empty">
-      <div className="request-emptyIcon">{icon}</div>
-      {text}
-    </div>
-  );
+function EmptyState({ text }) {
+  return <div className="request-empty">{text}</div>;
 }
 
 export default function RequestPage() {
@@ -446,7 +441,6 @@ export default function RequestPage() {
         <div className="request-header">
           <span className="request-title">Anmodninger</span>
         </div>
-        <EmptyState icon="⚠️" text={`Error: ${error}`} />
       </div>
     );
   }
@@ -484,7 +478,7 @@ export default function RequestPage() {
       <div className="request-list">
         {isConnections ? (
           connectionPeople.length === 0 ? (
-            <EmptyState icon="🤝" text="Ingen forbindelser endnu" />
+            <EmptyState text="Ingen forbindelser endnu" />
           ) : (
             connectionPeople.map((person) => (
               <ConnectionItem
@@ -495,7 +489,7 @@ export default function RequestPage() {
             ))
           )
         ) : requestPeople.length === 0 ? (
-          <EmptyState icon="🎉" text="Ingen nye anmodninger" />
+          <EmptyState text="Ingen nye anmodninger" />
         ) : (
           requestPeople.map((person) => (
             <RequestItem
@@ -556,7 +550,7 @@ export default function RequestPage() {
                   onClick={closeOverlay}
                   className="request-overlayBtn request-textBtn request-textBtn--cancel"
                 >
-                  <p className="text-small">Annuller</p>
+                  <small className="text-small">Annuller</small>
                 </button>
               </div>
             </div>

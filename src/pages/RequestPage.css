@@ -160,7 +160,7 @@
 .request-empty {
   text-align: center;
   padding: 3rem 1.5rem;
-  color: var(--bordeaux);
+  color: var(--black);
   font-size: 1rem;
 }
 
@@ -177,12 +177,12 @@
   align-items: center;
   justify-content: center;
   z-index: 60;
-  padding: 20px;
+  padding: 1.5rem;
 }
 
 .request-overlayCard {
   position: relative;
-  width: min(360px, 92%);
+  width: min(22.5rem, 92%);
   background-color: var(--background);
   border-radius: 1rem;
   padding: 2rem 2rem;
@@ -219,13 +219,11 @@
 .request-overlayTitle {
   color: var(--black);
   margin-bottom: 1rem;
-  font-size: var(--fs-h2);
 }
 
 .request-overlayText {
   color: var(--black);
   margin-bottom: 1rem;
-  font-size: var(--fs-p);
 }
 
 .request-overlayCTAWrap {
@@ -249,7 +247,6 @@
 
 .request-annuller {
   width: 6rem;
-  font-size: var(--fs-small);
 }
 
 .request-overlayFrame {
@@ -265,7 +262,6 @@
 .request-textBtn {
   border: none;
   cursor: pointer;
-  font-size: var(--fs-small);
   transition: transform 0.15s ease;
   border-radius: 2rem;
 }
@@ -273,12 +269,11 @@
 .request-textBtn--danger {
   background-color: var(--error-red);
   color: var(--black);
-  width: 12rem; /* 192px */
-  height: 2.5rem; /* 40px */
+  width: 12rem;
+  height: 2.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: var(--fs-small);
 }
 
 .request-textBtn:active {

@@ -5,7 +5,7 @@
   margin: 0 auto;
   padding-left: var(--app-padding-x);
   padding-right: var(--app-padding-x);
-  padding-bottom: calc(var(--app-padding-bottom) + 86px);
+  padding-bottom: calc(var(--app-padding-bottom) + 5rem);
   padding-top: 2rem;
 }
 
