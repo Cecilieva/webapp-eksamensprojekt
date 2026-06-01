@@ -380,12 +380,12 @@ export default function ProfileDetailCard({
         {/* ret matchsvar */}
         <MatchButton enabled={showMatchButton} />
 
+        {/* Connection CTA */}
         <ConnectionButton
           enabled={showConnectionButton}
           onOpenOverlay={onOpenConnectionOverlay}
         />
-        {/* Connection CTA */}
-        <ConnectionButton enabled={showConnectionButton} />
+        
       </section>
     </main>
   );
