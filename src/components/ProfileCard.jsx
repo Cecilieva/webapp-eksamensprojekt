@@ -18,6 +18,7 @@ export default function ProfileCard({
   score,
   liked,
   onToggleFavorite,
+  onOpenConnectionOverlay,
 }) {
   const safeImages = Array.isArray(images) ? images : [];
 
@@ -125,8 +126,10 @@ export default function ProfileCard({
           <button
             className="connect-btn"
             onClick={(e) => {
+              e.preventDefault();
               /* Forhindrer card navigation når der klikkes på knappen */
               e.stopPropagation();
+              onOpenConnectionOverlay();
             }}
           >
             Forbind

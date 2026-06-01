@@ -26,6 +26,8 @@ import ProfileDetailPage from "./pages/ProfileDetailPage";
 import Loading from "./components/Loading";
 import HousingDetailPage from "./pages/HousingDetailPage";
 
+import ConnectionRequestOverlay from "./components/ConnectionRequestOverlay";
+
 function App() {
   /* Loading state ved app reload */
   const [loading, setLoading] = useState(true);
@@ -36,6 +38,15 @@ function App() {
   /* Gemmer favorit profiler */
   const [favoriteProfiles, setFavoriteProfiles] = useState([]);
 
+  // Connection overlay state
+  const [connectionOverlayOpen, setConnectionOverlayOpen] = useState(false);
+
+  // Åbn overlay
+  const openConnectionOverlay = () => {
+    setConnectionOverlayOpen(true);
+  };
+
+  // ⏳ loading ved reload
   /* Simulerer loading screen */
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -118,6 +129,7 @@ function App() {
               <HomePage
                 favoriteProfiles={favoriteProfiles}
                 toggleFavoriteProfile={toggleFavoriteProfile}
+                onOpenConnectionOverlay={openConnectionOverlay}
               />
               <Botnav />
             </>
@@ -227,6 +239,7 @@ function App() {
               <ProfileDetailPage
                 favoriteProfiles={favoriteProfiles}
                 toggleFavoriteProfile={toggleFavoriteProfile}
+                onOpenConnectionOverlay={openConnectionOverlay}
               />
               <Botnav />
             </>
@@ -259,6 +272,11 @@ function App() {
           }
         />
       </Routes>
+
+      <ConnectionRequestOverlay
+        open={connectionOverlayOpen}
+        onClose={() => setConnectionOverlayOpen(false)}
+      />
     </BrowserRouter>
   );
 }

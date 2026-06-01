@@ -5,6 +5,7 @@ import ProfileDetailCard from "../components/ProfileDetailCard";
 export default function ProfileDetailPage({
   favoriteProfiles = [],
   toggleFavoriteProfile,
+  onOpenConnectionOverlay,
 }) {
   // Henter profil-ID fra URL'en
   const { id } = useParams();
@@ -27,6 +28,7 @@ export default function ProfileDetailPage({
       liked={favoriteProfiles.some((fav) => fav.id === profileId)}
       // Håndterer tilføjelse eller fjernelse af favoritprofil
       onToggleFavorite={toggleFavoriteProfile}
+      onOpenConnectionOverlay={onOpenConnectionOverlay}
     />
   );
 }

@@ -30,6 +30,7 @@ export default function ProfileDetailCard({
   showLikeButton = false,
   liked = false,
   onToggleFavorite,
+  onOpenConnectionOverlay,
 }) {
   /* Navigation */
   const navigate = useNavigate();
@@ -364,6 +365,10 @@ export default function ProfileDetailCard({
         {/* ret matchsvar */}
         <MatchButton enabled={showMatchButton} />
 
+        <ConnectionButton
+          enabled={showConnectionButton}
+          onOpenOverlay={onOpenConnectionOverlay}
+        />
         {/* Connection CTA */}
         <ConnectionButton enabled={showConnectionButton} />
       </section>
