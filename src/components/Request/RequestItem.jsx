@@ -1,5 +1,5 @@
 import Avatar from "./Avatar";
-import ActionButton from "./ActionButton";
+import ActionButton from "./Actionbutton";
 
 function RequestItem({ person, onAccept, onShowRemove }) {
   return (
@@ -10,14 +10,17 @@ function RequestItem({ person, onAccept, onShowRemove }) {
         imageUrl={person.imageUrl}
         name={person.name}
       />
+
       <div className="request-info">
         <div className="request-name">{person.name}</div>
+
         <div className="request-btnRow">
           <ActionButton
             variant="lime"
             label="Accepter"
             onClick={() => onAccept(person)}
           />
+
           <ActionButton
             variant="ghost"
             label="Fjern"
@@ -25,8 +28,10 @@ function RequestItem({ person, onAccept, onShowRemove }) {
           />
         </div>
       </div>
+
       <h2 className="request-pct">{person.match}%</h2>
     </div>
   );
 }
+
 export default RequestItem;

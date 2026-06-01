@@ -10,14 +10,17 @@ function ConnectionItem({ person, onShowRemove, onSendMessage }) {
         imageUrl={person.imageUrl}
         name={person.name}
       />
+
       <div className="request-info">
         <p className="request-name">{person.name}</p>
+
         <div className="request-btnRow">
           <ActionButton
             variant="beige"
             label="Send besked"
             onClick={() => onSendMessage(person)}
           />
+
           <ActionButton
             variant="ghost"
             label="Fjern"
@@ -25,8 +28,10 @@ function ConnectionItem({ person, onShowRemove, onSendMessage }) {
           />
         </div>
       </div>
+
       <h2 className="request-pct">{person.match}%</h2>
     </div>
   );
 }
+
 export default ConnectionItem;

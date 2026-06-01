@@ -14,4 +14,5 @@ function Avatar({ initials, color, imageUrl, name }) {
     </div>
   );
 }
+
 export default Avatar;

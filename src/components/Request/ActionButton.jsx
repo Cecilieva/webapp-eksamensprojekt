@@ -2,6 +2,7 @@ import { useState } from "react";
 
 function ActionButton({ variant, label, onClick }) {
   const [down, setDown] = useState(false);
+
   const variantClass =
     variant === "lime"
       ? "request-btn--lime"
@@ -10,6 +11,7 @@ function ActionButton({ variant, label, onClick }) {
         : variant === "ghost"
           ? "request-btn--ghost"
           : "";
+
   return (
     <button
       type="button"
@@ -25,4 +27,5 @@ function ActionButton({ variant, label, onClick }) {
     </button>
   );
 }
+
 export default ActionButton;
