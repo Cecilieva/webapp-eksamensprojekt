@@ -129,7 +129,7 @@ function RequestItem({ person, onAccept, onShowRemove }) {
 }
 
 // Viser en eksisterende forbindelse mellem brugere
-function ConnectionItem({ person, onShowRemove }) {
+function ConnectionItem({ person, onShowRemove, onSendMessage }) {
   return (
     <div className="request-item">
       <Avatar
@@ -144,7 +144,7 @@ function ConnectionItem({ person, onShowRemove }) {
           <ActionButton
             variant="beige"
             label="Send besked"
-            onClick={() => {}}
+            onClick={() => onSendMessage(person)}
           />
           <ActionButton
             variant="ghost"
@@ -490,6 +490,7 @@ export default function RequestPage() {
               <ConnectionItem
                 key={person.id}
                 person={person}
+                onSendMessage={(p) => navigate(`/chat/${p.id}`)}
                 onShowRemove={(p) => showRemoveOverlay(p, "connection")}
               />
             ))
