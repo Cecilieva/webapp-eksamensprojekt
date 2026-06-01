@@ -1,0 +1,93 @@
+/* Liste med chattråde */
+.chat-list {
+  display: grid;
+  gap: 1.5rem;
+  padding-bottom: 0.5rem;
+}
+
+/* En enkelt chattråd */
+.chat-thread {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 1rem;
+
+  width: 100%;
+  border: 0;
+  background: transparent;
+  padding: 0;
+
+  text-align: left;
+  cursor: pointer;
+}
+
+/* Container til billeder */
+.chat-threadAvatarWrap {
+  position: relative;
+  width: 4rem;
+  height: 4rem;
+}
+
+/* Første billede i gruppechat */
+.chat-threadAvatarWrap .chat-avatar--groupA {
+  position: absolute;
+  left: 0;
+  top: 0.5rem;
+  z-index: 2;
+}
+
+/* Andet billede i gruppechat */
+.chat-threadAvatarWrap .chat-avatar--groupB {
+  position: absolute;
+  left: 1.5rem;
+  top: 0;
+  z-index: 1;
+}
+
+/* Indhold ved siden af billede */
+.chat-threadContent {
+  min-width: 0;
+}
+
+/* Øverste og nederste række */
+.chat-threadTop,
+.chat-threadBottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* Chatnavn */
+.chat-threadTop p {
+  color: var(--black);
+}
+
+/* Tidspunkt */
+.chat-threadTop small {
+  flex: 0 0 auto;
+  color: var(--black);
+}
+
+/* Nederste række */
+.chat-threadBottom {
+  margin-top: 0.125rem;
+}
+
+/* Besked-preview */
+.chat-threadBottom p {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--black);
+}
+
+/* Ulæst indikator */
+.chat-unreadDot {
+  flex: 0 0 auto;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--blue);
+}

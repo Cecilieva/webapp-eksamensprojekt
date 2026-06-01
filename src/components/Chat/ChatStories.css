@@ -1,0 +1,56 @@
+/* Vandret liste med hurtige kontakter */
+.chat-stories {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding: 0.5rem 0 1rem;
+  margin-bottom: 0.5rem;
+
+  /* Skjuler scrollbar */
+  scrollbar-width: none;
+}
+
+/* Skjuler scrollbar i WebKit-browsere */
+.chat-stories::-webkit-scrollbar {
+  display: none;
+}
+
+/* En enkelt story */
+.chat-story {
+  flex: 0 0 auto;
+  width: 5rem;
+  display: grid;
+  justify-items: center;
+  gap: 0.5rem;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* Container til avatar */
+.chat-storyAvatar {
+  position: relative;
+}
+
+/* Statusindikator */
+.chat-storyDot {
+  position: static;
+  display: inline-block;
+
+  width: 0.5rem;
+  height: 0.5rem;
+
+  border-radius: 50%;
+  background: var(--green);
+  flex-shrink: 0;
+}
+
+/* Navn under avatar */
+.chat-storyName {
+  color: var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}

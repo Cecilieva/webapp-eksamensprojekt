@@ -1,15 +1,18 @@
-export default function ChatHeader({ brandMark, composeIcon, onCompose }) {
+import EditMessageIcon from "../../assets/edit-message-icon.svg";
+import "./ChatHeader.css";
+
+export default function ChatHeader({ brandMark }) {
   return (
+    /* Header med logo, titel og ny besked-knap */
     <header className="chat-header">
       <img src={brandMark} alt="Rumly" className="chat-brand" />
-      <h1>Beskeder</h1>
-      <button
-        type="button"
-        className="chat-compose"
-        aria-label="Ny besked"
-        onClick={onCompose}
-      >
-        <img src={composeIcon} alt="" aria-hidden="true" />
+
+      {/* Sidetitel */}
+      <h2>Beskeder</h2>
+
+      {/* Knap til ny besked */}
+      <button type="button" className="chat-compose" aria-label="Ny besked">
+        <img src={EditMessageIcon} alt="" aria-hidden="true" />
       </button>
     </header>
   );

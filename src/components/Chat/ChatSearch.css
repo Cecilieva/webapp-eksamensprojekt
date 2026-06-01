@@ -1,0 +1,32 @@
+/* Container til søgefelt */
+.chat-search {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+/* Søgeinput */
+.chat-search input {
+  width: 100%;
+  border: 0.125rem solid var(--bordeaux10);
+  border-radius: var(--border-radius-large);
+  background: var(--background);
+  padding: 1rem 1.25rem;
+
+  /* Arver typografi fra parent-element */
+  font: inherit;
+
+  color: var(--black);
+  outline: none;
+  box-shadow: var(--shadow-bottom);
+}
+
+/* Placeholder-tekst */
+.chat-search input::placeholder {
+  color: var(--black);
+}
+
+/* Fokus-tilstand */
+.chat-search input:focus {
+  border: 0.125rem solid var(--bordeaux10);
+  box-shadow: var(--shadow-bottom);
+}

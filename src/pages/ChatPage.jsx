@@ -1,41 +1,32 @@
 import { useEffect, useMemo, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
 import BrandMark from "../assets/responsivtlogo.svg";
-import ComposeIcon from "../assets/edit-icon.svg";
 import ChatHeader from "../components/Chat/ChatHeader.jsx";
 import ChatSearch from "../components/Chat/ChatSearch.jsx";
 import ChatStories from "../components/Chat/ChatStories.jsx";
 import ChatFilters from "../components/Chat/ChatFilters.jsx";
 import ChatThreadList from "../components/Chat/ChatThreadList.jsx";
+import ChatRequestList from "../components/Chat/ChatRequestList.jsx";
 import "./ChatPage.css";
 
-const STORIES = [
-  { id: 1, name: "Sarah", color: "#e4d64b" },
-  { id: 2, name: "Karoline", color: "#e4d64b" },
-  { id: 3, name: "Ella", color: "#8f8a44" },
-  { id: 4, name: "Emil", color: "#d8c56c" },
-  { id: 5, name: "Mads", color: "#c7b96a" },
-];
-
+/* Midlertidige chattråde ved vores tidlige prototype */
 const THREADS = [
   {
-    id: 15,
-    name: "Karoline",
+    profileName: "Karoline",
     preview: "Dig: Enig! Skal vi tage en kaffe...",
     time: "nu",
     unread: false,
   },
   {
-    id: 16,
-    name: "Emil",
+    profileName: "Emil",
     preview: "Den sidste roomie jeg havde...",
     time: "17:04",
     unread: true,
+    isUnreadMessage: true,
   },
   {
-    id: 17,
-    name: "Sarah",
+    profileName: "Sarah",
     preview: "Dig: Ved ikke helt om jeg kan...",
     time: "14:39",
     unread: false,
@@ -47,16 +38,24 @@ const THREADS = [
     time: "17:04",
     unread: true,
     isGroup: true,
+    isUnreadMessage: true,
   },
   {
-    id: 18,
-    name: "Ella",
+    profileName: "Ella",
     preview: "Har du set den nye bolig?",
     time: "I går",
     unread: false,
   },
 ];
 
+/* Midlertidige beskedanmodninger ved vores tidlige prototype */
+const REQUESTS = [
+  { profileName: "Cecilia", text: "Har sendt dig en besked!" },
+  { profileName: "Bastian", text: "Har sendt dig en besked!" },
+  { profileName: "Lea", text: "Har sendt dig en besked!" },
+];
+
+/* Henter første profilbillede fra en profil */
 function getUserImageUrl(profile) {
   const images = profile?.images;
   if (!images) return null;
@@ -66,12 +65,12 @@ function getUserImageUrl(profile) {
 }
 
 export default function ChatPage() {
-  const navigate = useNavigate();
   const { id } = useParams();
   const [query, setQuery] = useState("");
   const [activeFilter, setActiveFilter] = useState("alle");
   const [profiles, setProfiles] = useState([]);
 
+  /* Henter profiler fra Supabase */
   useEffect(() => {
     let ignore = false;
 
@@ -93,6 +92,7 @@ export default function ChatPage() {
     };
   }, []);
 
+  /* Opretter opslagstabel med profiler baseret på navn */
   const profileByName = useMemo(() => {
     const map = new Map();
 
@@ -105,21 +105,16 @@ export default function ChatPage() {
     return map;
   }, [profiles]);
 
-  const activeThread = useMemo(() => {
-    return THREADS.find((thread) => String(thread.id) === String(id));
-  }, [id]);
-
+  /* profilbilleder med navne i scroll */
   const enrichedStories = useMemo(() => {
-    return STORIES.map((story) => {
-      const profile = profileByName.get(story.name.toLowerCase());
+    return profiles.slice(0, 5).map((profile) => ({
+      id: profile.id,
+      name: profile.name,
+      user: getUserImageUrl(profile),
+    }));
+  }, [profiles]);
 
-      return {
-        ...story,
-        user: getUserImageUrl(profile),
-      };
-    });
-  }, [profileByName]);
-
+  /* Chattråde koblet sammen med profiler */
   const enrichedThreads = useMemo(() => {
     return THREADS.map((thread) => {
       if (thread.isGroup) {
@@ -138,15 +133,32 @@ export default function ChatPage() {
         };
       }
 
-      const profile = profileByName.get(thread.name.toLowerCase());
+      const profile = profileByName.get(thread.profileName?.toLowerCase());
 
       return {
         ...thread,
+        id: profile?.id ?? thread.profileName,
+        name: profile?.name ?? thread.profileName,
         user: getUserImageUrl(profile),
       };
     });
   }, [profileByName]);
 
+  /* Beskedanmodninger koblet sammen med profiler */
+  const enrichedRequests = useMemo(() => {
+    return REQUESTS.map((request) => {
+      const profile = profileByName.get(request.profileName.toLowerCase());
+
+      return {
+        ...request,
+        id: profile?.id ?? request.profileName,
+        name: profile?.name ?? request.profileName,
+        user: getUserImageUrl(profile),
+      };
+    });
+  }, [profileByName]);
+
+  /* Filtrerer chats ud fra søgning og valgt filter */
   const filteredThreads = useMemo(() => {
     const search = query.trim().toLowerCase();
 
@@ -156,11 +168,19 @@ export default function ChatPage() {
         thread.name.toLowerCase().includes(search) ||
         thread.preview.toLowerCase().includes(search);
 
-      const matchesFilter =
-        activeFilter === "alle" ||
-        (activeFilter === "ulæst" && thread.unread) ||
-        (activeFilter === "grupper" && thread.isGroup) ||
-        (activeFilter === "anmodninger" ? false : true);
+      let matchesFilter = true;
+
+      if (activeFilter === "ulæst") {
+        matchesFilter = thread.unread === true;
+      }
+
+      if (activeFilter === "grupper") {
+        matchesFilter = thread.isGroup === true;
+      }
+
+      if (activeFilter === "anmodninger") {
+        matchesFilter = false;
+      }
 
       return matchesSearch && matchesFilter;
     });
@@ -169,27 +189,27 @@ export default function ChatPage() {
   return (
     <main className="app chat-pageShell">
       <section className="chat-page" aria-label="Beskeder">
-        <ChatHeader
-          brandMark={BrandMark}
-          composeIcon={ComposeIcon}
-          onCompose={() => navigate("/requests")}
-        />
+        {/* Sidehoved */}
+        <ChatHeader brandMark={BrandMark} />
 
+        {/* Søgefelt */}
         <ChatSearch value={query} onChange={setQuery} />
 
+        {/* Hurtige kontakter */}
         <ChatStories stories={enrichedStories} />
 
+        {/* Filterknapper */}
         <ChatFilters activeFilter={activeFilter} onChange={setActiveFilter} />
 
-        {activeThread && (
-          <p className="chat-selected">Åbnet: {activeThread.name}</p>
+        {/* Chattråde */}
+        {activeFilter !== "anmodninger" && (
+          <ChatThreadList threads={filteredThreads} activeThreadId={id} />
         )}
 
-        <ChatThreadList
-          threads={filteredThreads}
-          activeThreadId={id}
-          onOpen={(nextThread) => navigate(`/chat/${nextThread.id}`)}
-        />
+        {/* Beskedanmodninger */}
+        {(activeFilter === "alle" || activeFilter === "anmodninger") && (
+          <ChatRequestList requests={enrichedRequests} />
+        )}
       </section>
     </main>
   );
