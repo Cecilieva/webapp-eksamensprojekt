@@ -1,5 +1,5 @@
 import Avatar from "./Avatar";
-import ActionButton from "./ActionButton";
+import ActionButton from "./Actionbutton";
 
 function ConnectionItem({ person, onShowRemove, onSendMessage }) {
   return (
