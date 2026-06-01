@@ -55,7 +55,7 @@ const navItems = [
 export default function Botnav() {
   return (
     /* Fast bundnavigation */
-    <nav className="bottom-nav">
+    <small className="bottom-nav">
       {/* Genererer navigation dynamisk ud fra config-array */}
       {navItems.map((item) => (
         <NavLink key={item.to} to={item.to} className="bottom-nav-link">
@@ -73,6 +73,6 @@ export default function Botnav() {
           )}
         </NavLink>
       ))}
-    </nav>
+    </small>
   );
 }

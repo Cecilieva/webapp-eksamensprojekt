@@ -13,7 +13,7 @@
   width: 100%;
   max-width: 500px;
   background: var(--background);
-  border-radius: 2rem 2rem 0 0;
+  border-radius: var(--border-radius-large);
   padding: 1rem 1.5rem 2rem;
   animation: slideUp 0.25s ease;
 }
@@ -22,7 +22,7 @@
   width: 7rem;
   height: 0.45rem;
   background: var(--bordeaux);
-  border-radius: 999px;
+  border-radius: 3rem;
   margin: 0 auto 2rem;
 }
 
@@ -51,11 +51,10 @@
 .connection-overlayBtn {
   width: 100%;
   border: none;
-  border-radius: 1.25rem;
+  border-radius: var(--border-radius-small);
   padding: 1.2rem;
   cursor: pointer;
   margin-bottom: 1rem;
-  font-size: 1rem;
 }
 
 .connection-overlayBtn--lime {
@@ -80,14 +79,13 @@
 .connection-successIcon {
   width: 4rem;
   height: 4rem;
-  border: 4px solid #d7d63f;
+  border: 4px solid var(--green);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 2rem;
-  font-size: 2rem;
-  color: #d7d63f;
+  color: var(--green);
 }
 
 @keyframes slideUp {
