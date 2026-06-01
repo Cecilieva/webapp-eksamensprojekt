@@ -163,10 +163,10 @@ function EmptyState({ text }) {
   return <div className="request-empty">{text}</div>;
 }
 
-export default function RequestPage() {
+export default function RequestPage({ initialTab = "anmodninger" }) {
   // State til håndtering af data, overlays og brugerinteraktion
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState("anmodninger");
+  const [activeTab, setActiveTab] = useState(initialTab);
   const [profiles, setProfiles] = useState([]);
   const [matchscores, setMatchscores] = useState([]);
   const [connections, setConnections] = useState([]);
@@ -454,16 +454,16 @@ export default function RequestPage() {
       {/* Faner til skift mellem anmodninger og forbindelser */}
       <div className="request-tabBar">
         <button
-          className={`request-tab ${activeTab === "anmodninger" ? "is-on" : "is-off"}`}
-          onClick={() => setActiveTab("anmodninger")}
-        >
-          Anmodninger
-        </button>
-        <button
           className={`request-tab ${activeTab === "forbindelser" ? "is-on" : "is-off"}`}
           onClick={() => setActiveTab("forbindelser")}
         >
           Forbindelser
+        </button>
+        <button
+          className={`request-tab ${activeTab === "anmodninger" ? "is-on" : "is-off"}`}
+          onClick={() => setActiveTab("anmodninger")}
+        >
+          Anmodninger
         </button>
       </div>
 
@@ -478,7 +478,7 @@ export default function RequestPage() {
       <div className="request-list">
         {isConnections ? (
           connectionPeople.length === 0 ? (
-            <EmptyState text="Ingen forbindelser endnu" />
+            <EmptyState text="Du har ingen forbindelser endnu" />
           ) : (
             connectionPeople.map((person) => (
               <ConnectionItem
@@ -490,7 +490,7 @@ export default function RequestPage() {
             ))
           )
         ) : requestPeople.length === 0 ? (
-          <EmptyState text="Ingen nye anmodninger" />
+          <EmptyState text="Du har ingen nye anmodninger" />
         ) : (
           requestPeople.map((person) => (
             <RequestItem
