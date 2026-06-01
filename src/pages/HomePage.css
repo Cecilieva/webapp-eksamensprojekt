@@ -28,7 +28,7 @@
   margin: 1rem auto 1rem;
   position: relative;
   border: 1px solid var(--bordeaux);
-  border-radius: 1rem;
+  border-radius: var(--border-radius-large);
   overflow: hidden;
   background: var(--bordeaux10);
 }
@@ -144,5 +144,5 @@
 .profile-card-link:focus-visible {
   outline: 1px solid currentColor;
   outline-offset: 0.5rem;
-  border-radius: 1rem;
+  border-radius: var(--border-radius-large);
 }

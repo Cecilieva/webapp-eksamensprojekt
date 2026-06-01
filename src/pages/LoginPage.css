@@ -49,7 +49,7 @@
 .secondary-btn {
   width: 100%;
   height: 3rem;
-  border-radius: 1rem;
+  border-radius: var(--border-radius-large);
   cursor: pointer;
 
   display: flex;

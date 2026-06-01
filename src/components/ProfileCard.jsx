@@ -78,46 +78,46 @@ export default function ProfileCard({
           </div>
 
           {/* Lokation */}
-          <div className="profile-city text-small">
+          <small className="profile-city">
             <img
               src={locationIconPc}
               alt="Lokation"
               className="location-icon"
             />
             <span>{city}</span>
-          </div>
+          </small>
 
           {/* Occupation vises kun hvis data findes */}
           {occupation && (
-            <div className="profile-occupation text-small">
+            <small className="profile-occupation">
               <img
                 src={occupationIconPc}
                 alt="Beskæftigelse"
                 className="occupation-icon"
               />
               <span>{occupation}</span>
-            </div>
+            </small>
           )}
 
           {/* Kort profiltekst */}
           {caption && (
-            <div className="profile-caption text-small">
+            <small className="profile-caption">
               <img
                 src={personIconPc}
                 alt="Profiltekst"
                 className="person-icon"
               />
               <span>{caption}</span>
-            </div>
+            </small>
           )}
 
           {/* Interesse-tags */}
           {interests && interests.length > 0 && (
             <div className="profile-interests">
               {interests.map((txt, i) => (
-                <p key={i} className="interest-badge text-small">
+                <small key={i} className="interest-badge">
                   {txt}
-                </p>
+                </small>
               ))}
             </div>
           )}

@@ -108,7 +108,7 @@ export default function HomePage({
           aria-pressed={activeIcon === "c12"}
           onClick={() => setActiveIcon(activeIcon === "c12" ? null : "c12")}
         >
-          <p className="text-small">Søger roomie</p>
+          <small>Søger roomie</small>
         </button>
 
         {/* Toggle: roomie + bolig */}
@@ -119,7 +119,7 @@ export default function HomePage({
           aria-pressed={activeIcon === "c15"}
           onClick={() => setActiveIcon(activeIcon === "c15" ? null : "c15")}
         >
-          <p className="text-small">Søger roomie & bolig</p>
+          <small>Søger roomie & bolig</small>
         </button>
       </div>
 

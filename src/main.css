@@ -115,7 +115,7 @@ p {
   line-height: var(--lh-125);
 }
 
-.text-small {
+small {
   font-size: var(--fs-small);
   font-family: var(--font-body);
   font-weight: 400; /* regular */
