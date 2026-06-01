@@ -6,9 +6,10 @@ export default function ProfileSection({
   children,
   onEdit,
   editable = false,
+  className = "",
 }) {
   return (
-    <section className="profile-section">
+    <section className={`profile-section ${className}`}>
       {/* Sektionens titel og redigeringsknap */}
       <div className="section-title">
         <h4>{title}</h4>
