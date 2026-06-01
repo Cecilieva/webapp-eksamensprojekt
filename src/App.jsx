@@ -185,6 +185,17 @@ function App() {
           }
         />
 
+        {/* Connections */}
+        <Route
+          path="/connections"
+          element={
+            <>
+              <RequestPage initialTab="forbindelser" />
+              <Botnav />
+            </>
+          }
+        />
+
         {/* Map page */}
         <Route
           path="/map"

@@ -28,7 +28,7 @@ const navItems = [
   },
   {
     label: "Forbindelser",
-    to: "/requests",
+    to: "/connections",
     icon: ConnectionsIcon,
     activeIcon: ConnectionsFilledIcon,
   },
