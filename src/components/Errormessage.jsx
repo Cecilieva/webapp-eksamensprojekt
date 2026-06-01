@@ -13,9 +13,9 @@ export default function ErrorMessage({
     /* Accessible error container (læses af screen readers) */
     <div className="error-page" role="alert" aria-live="polite">
       {/* Error kode + titel (visuel statusoverskrift) */}
-      <h1 className="error-code">
+      <h2 className="error-code">
         {code} <span className="error-title">{title}</span>
-      </h1>
+      </h2>
 
       {/* Primær fejlbesked */}
       <p className="error-headline">{headline}</p>

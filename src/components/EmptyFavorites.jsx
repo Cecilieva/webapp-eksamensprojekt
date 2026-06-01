@@ -5,7 +5,7 @@ import "./EmptyFavorites.css";
 export default function EmptyFavorites() {
   return (
     <div className="empty-favorites">
-      <h1>Ingen favoritter</h1>
+      <h2>Ingen favoritter</h2>
 
       <p>Lige nu har du ingen favoritter. Like dine favoritter</p>
 

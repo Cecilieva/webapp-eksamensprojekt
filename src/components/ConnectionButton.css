@@ -13,7 +13,7 @@
   max-width: 22rem;
 
   border: none;
-  border-radius: 1rem;
+  border-radius: var(--border-radius-large);
 
   background: var(--green);
 

@@ -40,18 +40,18 @@ export default function ConnectionRequestOverlay({ open, onClose }) {
             </p>
 
             <button className="connection-overlayBtn connection-overlayBtn--lime">
-              Anmod om forbindelse med besked
+              <p>Anmod om forbindelse med besked</p>
             </button>
 
             <button
               className="connection-overlayBtn connection-overlayBtn--outline"
               onClick={handleRequestWithoutMessage}
             >
-              Anmod om forbindelse uden besked
+              <p>Anmod om forbindelse uden besked</p>
             </button>
 
             <button className="connection-overlayCancel" onClick={handleClose}>
-              Annuller
+              <small>Annuller</small>
             </button>
           </div>
         )}
@@ -71,11 +71,11 @@ export default function ConnectionRequestOverlay({ open, onClose }) {
               className="connection-overlayBtn connection-overlayBtn--lime"
               onClick={handleClose}
             >
-              Fortsæt
+              <h4>Fortsæt</h4>
             </button>
 
             <button className="connection-overlayCancel" onClick={handleClose}>
-              Fortryd
+              <small>Fortryd</small>
             </button>
           </div>
         )}
