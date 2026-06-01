@@ -7,6 +7,9 @@ import connectionConfetti from "../assets/forbindelse-oprettet-konfetti.json";
 import "./RequestPage.css";
 import connectionMatch from "../assets/ForbindelseOprettetMatch.json";
 import MenuLogo from "../assets/menu-logo.svg";
+import RequestItem from "../components/request/RequestItem";
+import ConnectionItem from "../components/request/ConnectionItem";
+import EmptyState from "../components/request/EmptyState";
 
 const MAIN_PROFILE_ID = 14; // ID på den aktive bruger
 
@@ -24,6 +27,7 @@ function getOtherProfileId(connection) {
 
   return null;
 }
+
 
 // Genererer initialer ud fra profilnavn, hvis de ikke findes i databasen
 function getInitials(profile) {
@@ -51,120 +55,8 @@ function getAvatarImageUrl(profile) {
   const first = Array.isArray(images) ? images[0] : null;
   return typeof first === "string" && first.trim() ? first : null;
 }
-
-// Genanvendelig komponent med billede eller initialer
-function Avatar({ initials, color, imageUrl, name }) {
-  return (
-    <div className="request-avatar" style={{ "--avatar-bg": color }}>
-      {imageUrl ? (
-        <img
-          src={imageUrl}
-          alt={name ? `${name} profilbillede` : "Profilbillede"}
-          className="request-avatarImg"
-          loading="lazy"
-        />
-      ) : (
-        initials
-      )}
-    </div>
-  );
-}
-
-// Genanvendelig knap-komponent med forskellige designvarianter
-function ActionButton({ variant, label, onClick }) {
-  const [down, setDown] = useState(false);
-
-  const variantClass =
-    variant === "lime"
-      ? "request-btn--lime"
-      : variant === "beige"
-        ? "request-btn--beige"
-        : variant === "ghost"
-          ? "request-btn--ghost"
-          : "";
-
-  return (
-    <button
-      type="button"
-      className={`request-btn ${variantClass} ${down ? "is-down" : ""}`}
-      onMouseDown={() => setDown(true)}
-      onMouseUp={() => setDown(false)}
-      onMouseLeave={() => setDown(false)}
-      onTouchStart={() => setDown(true)}
-      onTouchEnd={() => setDown(false)}
-      onClick={onClick}
-    >
-      {label}
-    </button>
-  );
-}
-
-// Viser en enkelt anmodning med mulighed for at acceptere eller fjerne
-function RequestItem({ person, onAccept, onShowRemove }) {
-  return (
-    <div className="request-item">
-      <Avatar
-        initials={person.initials}
-        color={person.color}
-        imageUrl={person.imageUrl}
-        name={person.name}
-      />
-      <div className="request-info">
-        <div className="request-name">{person.name}</div>
-        <div className="request-btnRow">
-          <ActionButton
-            variant="lime"
-            label="Accepter"
-            onClick={() => onAccept(person)}
-          />
-          <ActionButton
-            variant="ghost"
-            label="Fjern"
-            onClick={() => onShowRemove(person)}
-          />
-        </div>
-      </div>
-      <h2 className="request-pct">{person.match}%</h2>
-    </div>
-  );
-}
-
-// Viser en eksisterende forbindelse mellem brugere
-function ConnectionItem({ person, onShowRemove, onSendMessage }) {
-  return (
-    <div className="request-item">
-      <Avatar
-        initials={person.initials}
-        color={person.color}
-        imageUrl={person.imageUrl}
-        name={person.name}
-      />
-      <div className="request-info">
-        <p className="request-name">{person.name}</p>
-        <div className="request-btnRow">
-          <ActionButton
-            variant="beige"
-            label="Send besked"
-            onClick={() => onSendMessage(person)}
-          />
-          <ActionButton
-            variant="ghost"
-            label="Fjern"
-            onClick={() => onShowRemove(person)}
-          />
-        </div>
-      </div>
-      <h2 className="request-pct">{person.match}%</h2>
-    </div>
-  );
-}
-
-// Vises når der ikke findes anmodninger eller forbindelser
-function EmptyState({ text }) {
-  return <div className="request-empty">{text}</div>;
-}
-
 export default function RequestPage({ initialTab = "anmodninger" }) {
+  
   // State til håndtering af data, overlays og brugerinteraktion
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState(initialTab);
@@ -437,13 +329,9 @@ export default function RequestPage({ initialTab = "anmodninger" }) {
 
   // Viser fejlmeddelelse hvis data ikke kunne indlæses
   if (error) {
-    return (
-      <div className="request-root">
-        <div className="request-header">
-          <span className="request-title">Anmodninger</span>
-        </div>
-      </div>
-    );
+    return <EmptyState 
+    title="Noget gik galt" 
+    subtitle={error} />;
   }
 
   return (
@@ -475,21 +363,14 @@ export default function RequestPage({ initialTab = "anmodninger" }) {
         </div>
       )}
 
-      {/* Liste over forbindelser eller anmodninger */}
       <div className="request-list">
         {isConnections ? (
           connectionPeople.length === 0 ? (
-            <div className="request-empty">
-              <h3 className="request-emptyTitle">Ingen forbindelser</h3>
-              <p className="request-emptySubtitle">
-                Du har ingen forbindelser endnu
-              </p>
-              <img
-                src={MenuLogo}
-                alt="Rumly logo"
-                className="request-emptyLogo"
-              />
-            </div>
+            <EmptyState
+              title="Ingen forbindelser"
+              subtitle="Du har ingen forbindelser endnu"
+              logo={MenuLogo}
+            />
           ) : (
             connectionPeople.map((person) => (
               <ConnectionItem
@@ -501,17 +382,11 @@ export default function RequestPage({ initialTab = "anmodninger" }) {
             ))
           )
         ) : requestPeople.length === 0 ? (
-          <div className="request-empty">
-            <h3 className="request-emptyTitle">Ingen anmodninger</h3>
-            <p className="request-emptySubtitle">
-              Du har ingen nye anmodninger
-            </p>
-            <img
-              src={MenuLogo}
-              alt="Rumly logo"
-              className="request-emptyLogo"
-            />
-          </div>
+          <EmptyState
+            title="Ingen anmodninger"
+            subtitle="Du har ingen nye anmodninger"
+            logo={MenuLogo}
+          />
         ) : (
           requestPeople.map((person) => (
             <RequestItem
