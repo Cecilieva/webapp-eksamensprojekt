@@ -1,10 +1,10 @@
 import { useState } from "react";
-import "./ProfileImageCarousel.css";
+import "./HousingImageCarousel.css";
 
-export default function ProfileImageCarousel({
+export default function HosingImageCarousel({
   images = [],
   fallback = "/placeholder.jpg",
-  alt = "Profilbillede",
+  alt = "boligbillede",
   className = "",
 }) {
   /* Holder styr på hvilket billede der vises */
@@ -59,7 +59,7 @@ export default function ProfileImageCarousel({
 
   return (
     <div
-      className={`profile-image-carousel ${className}`}
+      className={`housing-image-carousel ${className}`}
       /* Click navigerer til næste billede */
       onClick={nextImage}
       /* Pointer events bruges til swipe support */

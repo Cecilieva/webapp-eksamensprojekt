@@ -1,5 +1,5 @@
 /* Carousel container */
-.profile-image-carousel {
+.housing-image-carousel {
   position: relative;
   width: 100%;
   height: 100%;
@@ -9,7 +9,7 @@
 }
 
 /* Carousel image */
-.profile-image-carousel img {
+.housing-image-carousel img {
   width: 100%;
   height: 100%;
   object-fit: cover;

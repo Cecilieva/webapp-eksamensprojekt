@@ -20,15 +20,17 @@ export default function ProfileCard({
   onToggleFavorite,
   onOpenConnectionOverlay,
 }) {
-  console.log("IMAGES FOR", name, images);
   const safeImages = Array.isArray(images) ? images : [];
+
+  /* Første billede bruges som profilbillede */
   const profileImage = safeImages[0] || "/placeholder.jpg";
 
   return (
     <div className="profile-card">
-      {/* Billede */}
+      {/* Profilbillede + overlays */}
       <div className="profile-image-wrapper">
         <div className="profile-top-ikoner">
+          {/* Like/favorite handling */}
           <div className="profile-like">
             <LikeButton
               liked={liked}
@@ -50,6 +52,8 @@ export default function ProfileCard({
               size={44}
             />
           </div>
+
+          {/* Match score badge */}
           <div className="profile-score">
             <MatchScore score={score} />
           </div>
@@ -58,9 +62,10 @@ export default function ProfileCard({
         <img src={profileImage} alt={name} className="profile-img" />
       </div>
 
-      {/* Grundinfo */}
+      {/* Profilinformation */}
       <div className="profile-info-wrapper">
         <div className="profile-info">
+          {/* Navn + verificeret badge */}
           <div className="profile-name-row">
             <h4 className="profile-name">
               {name}, {age} år
@@ -72,6 +77,7 @@ export default function ProfileCard({
             />
           </div>
 
+          {/* Lokation */}
           <div className="profile-city text-small">
             <img
               src={locationIconPc}
@@ -81,6 +87,7 @@ export default function ProfileCard({
             <span>{city}</span>
           </div>
 
+          {/* Occupation vises kun hvis data findes */}
           {occupation && (
             <div className="profile-occupation text-small">
               <img
@@ -92,6 +99,7 @@ export default function ProfileCard({
             </div>
           )}
 
+          {/* Kort profiltekst */}
           {caption && (
             <div className="profile-caption text-small">
               <img
@@ -102,7 +110,8 @@ export default function ProfileCard({
               <span>{caption}</span>
             </div>
           )}
-          {/* Badges */}
+
+          {/* Interesse-tags */}
           {interests && interests.length > 0 && (
             <div className="profile-interests">
               {interests.map((txt, i) => (
@@ -112,10 +121,13 @@ export default function ProfileCard({
               ))}
             </div>
           )}
+
+          {/* CTA-knap */}
           <button
             className="connect-btn"
             onClick={(e) => {
               e.preventDefault();
+              /* Forhindrer card navigation når der klikkes på knappen */
               e.stopPropagation();
               onOpenConnectionOverlay();
             }}

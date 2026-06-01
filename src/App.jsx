@@ -1,16 +1,21 @@
+/* React Router imports */
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+/* React hooks */
 import { useState, useEffect } from "react";
 
+/* Intro / auth pages */
 import SplashScreenPage from "./pages/SplashScreenPage";
 import LoginPage from "./pages/LoginPage";
 import OnboardingPage from "./pages/OnboardingPage";
 import OpeningPage from "./pages/OpeningPage";
 
+/* Shared components */
 import Header from "./components/Header";
 import HomePage from "./pages/HomePage";
 import FavoritesPage from "./pages/FavoritesPage";
 import NotificationsPage from "./pages/NotificationsPage";
 
+/* Main app pages */
 import PostDetailPage from "./pages/PostDetailPage";
 import RequestPage from "./pages/RequestPage";
 import ProfilePage from "./pages/ProfilePage";
@@ -19,12 +24,18 @@ import Botnav from "./components/Botnav";
 import NotFoundPage from "./pages/NotFoundPage";
 import ProfileDetailPage from "./pages/ProfileDetailPage";
 import Loading from "./components/Loading";
+import HousingDetailPage from "./pages/HousingDetailPage";
 
 import ConnectionRequestOverlay from "./components/ConnectionRequestOverlay";
 
 function App() {
+  /* Loading state ved app reload */
   const [loading, setLoading] = useState(true);
+
+  /* Styrer onboarding/auth flow */
   const [step, setStep] = useState("splash");
+
+  /* Gemmer favorit profiler */
   const [favoriteProfiles, setFavoriteProfiles] = useState([]);
 
   // Connection overlay state
@@ -36,35 +47,43 @@ function App() {
   };
 
   // ⏳ loading ved reload
+  /* Simulerer loading screen */
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
     }, 1500);
 
+    /* Cleanup */
     return () => clearTimeout(timer);
   }, []);
 
-  // SHOW LOADING FØRST
+  /* Viser loading animation først */
   if (loading) {
     return <Loading />;
   }
 
+  /* Tilføjer/fjerner favorit profiler */
   const toggleFavoriteProfile = (profile) => {
+    /* Tjekker om profil allerede findes */
     const exists = favoriteProfiles.some((fav) => fav.id === profile.id);
 
+    /* Fjern favorit */
     if (exists) {
       setFavoriteProfiles((prev) =>
         prev.filter((fav) => fav.id !== profile.id),
       );
     } else {
+      /* Tilføj favorit */
       setFavoriteProfiles((prev) => [...prev, profile]);
     }
   };
 
+  /* Splash screen */
   if (step === "splash") {
     return <SplashScreenPage onFinish={() => setStep("login")} />;
   }
 
+  /* Login screen */
   if (step === "login") {
     return (
       <LoginPage
@@ -74,6 +93,7 @@ function App() {
     );
   }
 
+  /* Onboarding flow */
   if (step === "onboarding") {
     return (
       <OnboardingPage
@@ -83,10 +103,12 @@ function App() {
     );
   }
 
+  /* Intro/opening page */
   if (step === "opening") {
     return (
       <OpeningPage
         onFinish={() => {
+          /* Opdaterer browser URL */
           window.history.pushState({}, "", "/");
           setStep("app");
         }}
@@ -94,9 +116,11 @@ function App() {
     );
   }
 
+  /* Main app */
   return (
     <BrowserRouter>
       <Routes>
+        {/* Home page */}
         <Route
           path="/"
           element={
@@ -111,6 +135,8 @@ function App() {
             </>
           }
         />
+
+        {/* Favorites */}
         <Route
           path="/favorites"
           element={
@@ -124,6 +150,7 @@ function App() {
           }
         />
 
+        {/* Notifications */}
         <Route
           path="/notifications"
           element={
@@ -134,6 +161,7 @@ function App() {
           }
         />
 
+        {/* Post details */}
         <Route
           path="/posts/:id"
           element={
@@ -145,6 +173,7 @@ function App() {
           }
         />
 
+        {/* Requests */}
         <Route
           path="/requests"
           element={
@@ -154,6 +183,8 @@ function App() {
             </>
           }
         />
+
+        {/* Map page */}
         <Route
           path="/map"
           element={
@@ -164,6 +195,8 @@ function App() {
             </>
           }
         />
+
+        {/* Chat page */}
         <Route
           path="/chat"
           element={
@@ -174,6 +207,20 @@ function App() {
             </>
           }
         />
+
+        {/* Chat page (midlertidig) */}
+        <Route
+          path="/chat/:id"
+          element={
+            <>
+              <Header />
+              <NotFoundPage />
+              <Botnav />
+            </>
+          }
+        />
+
+        {/* Own profile */}
         <Route
           path="/profile"
           element={
@@ -183,6 +230,8 @@ function App() {
             </>
           }
         />
+
+        {/* Profile details */}
         <Route
           path="/profiles/:id"
           element={
@@ -196,7 +245,22 @@ function App() {
             </>
           }
         />
+
+        {/* Filter page */}
         <Route path="/filtrering" element={<Filtrering />} />
+
+        {/* Housing details */}
+        <Route
+          path="/housing/:id"
+          element={
+            <>
+              <HousingDetailPage />
+              <Botnav />
+            </>
+          }
+        />
+
+        {/* Fallback route */}
         <Route
           path="*"
           element={

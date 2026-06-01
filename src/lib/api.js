@@ -1,23 +1,29 @@
+/* Base URL til Supabase REST endpoint */
 const URL = `${import.meta.env.VITE_SUPABASE_URL}/rest/v1/profiles`;
 
+/* API key fra environment variables */
 const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_APIKEY;
 
-/* headers */
+/* Standard headers til alle requests */
 const headers = {
   apikey: SUPABASE_KEY,
   Authorization: `Bearer ${SUPABASE_KEY}`,
   "Content-Type": "application/json",
+  Accept: "application/json",
+  /* Returnerer opdaterede records efter POST/PATCH */
   Prefer: "return=representation",
 };
 
 /* håndterer API svar */
 async function handleResponse(res) {
+  /* Fejl håndtering */
   if (!res.ok) {
     const text = await res.text().catch(() => "");
 
     throw new Error(`Request failed: ${res.status} ${res.statusText} ${text}`);
   }
 
+  /* Tjekker om svaret er JSON */
   const contentType = res.headers.get("content-type") || "";
 
   if (contentType.includes("application/json")) {
@@ -36,7 +42,7 @@ export async function getProfiles() {
   return handleResponse(res);
 }
 
-/* henter filtrerede profiler */
+/* Henter profiler baseret på filtre */
 export async function getPostsFiltered(filters = {}) {
   const params = [];
   const currentYear = new Date().getFullYear();
@@ -60,17 +66,20 @@ export async function getPostsFiltered(filters = {}) {
     }
   }
 
-  /* alder */
+  /* alder minimum */
   if (filters.ageMin) {
     const n = Number(filters.ageMin);
 
     if (!Number.isNaN(n)) {
+      /* Konverterer alder til fødselsår */
       params.push(`year=lte.${currentYear - n}`);
     } else {
+      /* Fallback hvis databasen bruger age felt */
       params.push(`age=gte.${filters.ageMin}`);
     }
   }
 
+  /* Alder maksimum */
   if (filters.ageMax) {
     const n = Number(filters.ageMax);
 
@@ -81,7 +90,7 @@ export async function getPostsFiltered(filters = {}) {
     }
   }
 
-  /* pris */
+  /* Minimum pris */
   if (filters.priceMin) {
     const n = Number(filters.priceMin);
 
@@ -90,6 +99,7 @@ export async function getPostsFiltered(filters = {}) {
     }
   }
 
+  /* Maksimum pris */
   if (filters.priceMax) {
     const n = Number(filters.priceMax);
 
@@ -98,7 +108,7 @@ export async function getPostsFiltered(filters = {}) {
     }
   }
 
-  /* depositum */
+  /* Søger efter depositum/acconto keywords */
   if (filters.includeDeposit) {
     const q = encodeURIComponent(
       "or=(caption.ilike.*acconto*,caption.ilike.*deposit*,caption.ilike.*depositum*,caption.ilike.*forudbetaling*)",
@@ -107,13 +117,14 @@ export async function getPostsFiltered(filters = {}) {
     params.push(q);
   }
 
-  /* dato */
+  /* Ledig fra dato */
   if (filters.availableDate) {
     const d = new Date(filters.availableDate).toISOString();
 
     params.push(`available_date=gte.${d}`);
   }
 
+  /* Bygger query string dynamisk */
   const query = params.length ? `?${params.join("&")}` : "";
 
   const res = await fetch(`${URL}${query}`, {
@@ -131,6 +142,7 @@ export async function getProfile(id) {
 
   const data = await handleResponse(res);
 
+  /* Supabase returnerer arrays selv ved enkelt match */
   return Array.isArray(data) ? data[0] || null : data;
 }
 
@@ -154,7 +166,7 @@ export async function getProfilesById(id) {
   return handleResponse(res);
 }
 
-/* opretter profil */
+/* opretter ny profil */
 export async function createProfile(payload) {
   const res = await fetch(URL, {
     method: "POST",
@@ -190,6 +202,7 @@ export async function deleteProfile(id) {
   return handleResponse(res);
 }
 
+/* Samlet API export */
 export default {
   getProfiles,
   getPostsFiltered,

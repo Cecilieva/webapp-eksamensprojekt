@@ -14,7 +14,7 @@
   --app-max-width: 430px;
   --app-padding-x: clamp(16px, 4vw, 24px);
   /* Layout (prototype: iPhone 14 Pro = 393px bred) */
-  --app-width: 500px; /* Skal ændres til 393 senere */
+  --app-width: 393px; /* Skal ændres til 393 senere */
   --app-padding-x: 16px;
   --app-padding-bottom: 24px;
 
@@ -38,7 +38,7 @@
   --background: #faf5ec;
   --white: #fffbfb;
 
-  /* Notifikans farver */
+  /* Notifikationer farver */
   --error-red: #f45454;
   --inline-yellow: #ffcc00 25%;
   --blue: #2499ff;
@@ -46,6 +46,11 @@
   /* skygger */
   --shadow-bottom: 0 2px 10px rgba(41, 35, 42, 0.2);
   --shadow-top: 0 -2px 10px rgba(41, 35, 42, 0.2);
+
+  /* Border */
+  --border: 1px solid rgba(0, 0, 0, 0.08);
+  --border-radius-small: 0.5rem;
+  --border-radius-large: 1rem;
 }
 
 html {

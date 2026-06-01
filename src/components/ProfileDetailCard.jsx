@@ -16,8 +16,9 @@ import backButton from "../assets/back-button-icon.svg";
 import ConnectionButton from "./ConnectionButton";
 import LikeButton from "./LikeButton";
 import ProfileImageCarousel from "./ProfileImageCarousel";
+import ProfileHousingCard from "./ProfileHousingCard";
 
-/* komponent til profil detalje kort */
+/* Komponent til visning/redigering af profil detaljer */
 export default function ProfileDetailCard({
   profileId,
   score,
@@ -31,13 +32,19 @@ export default function ProfileDetailCard({
   onToggleFavorite,
   onOpenConnectionOverlay,
 }) {
-  /* state */
+  /* Navigation */
   const navigate = useNavigate();
+
+  /* Profil data */
   const [profile, setProfile] = useState(null);
+
+  /* Holder styr på hvilket felt der redigeres */
   const [editing, setEditing] = useState(null);
+
+  /* Midlertidig edit værdi */
   const [editValue, setEditValue] = useState("");
 
-  /* læs profil */
+  /* Henter profil når profileId ændrer sig */
   useEffect(() => {
     async function loadProfile() {
       const data = await getProfile(profileId);
@@ -47,7 +54,7 @@ export default function ProfileDetailCard({
     loadProfile();
   }, [profileId]);
 
-  /* profil redigering */
+  /* profil redigering - Starter redigering af et specifikt felt */
   function startEdit(field, value) {
     if (!canEdit) return;
 
@@ -55,11 +62,13 @@ export default function ProfileDetailCard({
     setEditValue(value || "");
   }
 
+  /* Lukker edit mode */
   function cancelEdit() {
     setEditing(null);
     setEditValue("");
   }
 
+  /* Sikrer at profile_description altid returnerer et array */
   function getThings() {
     if (Array.isArray(profile?.profile_description)) {
       return profile.profile_description;
@@ -68,7 +77,7 @@ export default function ProfileDetailCard({
     return [];
   }
 
-  /* gemmer ændringer */
+  /* Gemmer enkelt felt til databasen */
   async function saveField(field) {
     const updatedProfile = await updateProfile(profileId, {
       [field]: editValue,
@@ -78,7 +87,7 @@ export default function ProfileDetailCard({
     cancelEdit();
   }
 
-  /* tilføj array element */
+  /* Tilføjer nyt element til array-felt */
   async function addArrayItem(field, value) {
     const updated = [...(profile[field] || []), value];
 
@@ -89,7 +98,7 @@ export default function ProfileDetailCard({
     setProfile(updatedProfile);
   }
 
-  /* fjern array element */
+  /* Fjerner element fra array-felt */
   async function removeArrayItem(field, value) {
     const updated = (profile[field] || []).filter((item) => item !== value);
 
@@ -100,7 +109,7 @@ export default function ProfileDetailCard({
     setProfile(updatedProfile);
   }
 
-  /* opdatering af array element*/
+  /* Gemmer specifikt punkt i "3 ting..." array */
   async function saveThing(index) {
     const things = [...getThings()];
     things[index] = editValue;
@@ -113,21 +122,24 @@ export default function ProfileDetailCard({
     cancelEdit();
   }
 
-  /* render */
+  /* Loader state */
   if (!profile) return null;
 
-  /* hero */
+  /* Første profilbillede bruges som fallback */
   const profileImage = profile.images?.[0] || "/default-profile.jpg";
 
   return (
     <main className="profile-page">
+      {/* Hero sektion */}
       <section className="profile-hero">
+        {/* Tilbageknap */}
         {showBackButton && (
           <button className="back-button" onClick={() => navigate(-1)}>
             <img src={backButton} alt="Tilbage" />
           </button>
         )}
 
+        {/* Like/favorite funktion */}
         {showLikeButton && (
           <LikeButton
             liked={liked}
@@ -149,6 +161,7 @@ export default function ProfileDetailCard({
           />
         )}
 
+        {/* Billed-carousel */}
         <ProfileImageCarousel
           images={profile.images}
           fallback={profileImage}
@@ -157,7 +170,7 @@ export default function ProfileDetailCard({
         />
       </section>
 
-      {/* indhold */}
+      {/* Profil indhold */}
       <section className="profile-content">
         {/* header */}
         <div className="profile-header">
@@ -171,11 +184,11 @@ export default function ProfileDetailCard({
             />
           </div>
 
+          {/* Aktiv/inaktiv toggle */}
           {showActiveToggle && <ActiveToggle enabled />}
         </div>
 
-        {/* info række */}
-
+        {/* info rows */}
         <ProfileInfoRow
           icon={<ProfileIcon name="city-icon.svg" />}
           field="city"
@@ -236,8 +249,7 @@ export default function ProfileDetailCard({
           onSave={() => saveField("gender")}
         />
 
-        {/* om mig */}
-
+        {/* Om mig */}
         <ProfileSection title="Om mig">
           <EditableTextCard
             editing={editing === "about_me"}
@@ -252,7 +264,6 @@ export default function ProfileDetailCard({
         </ProfileSection>
 
         {/* interesser */}
-
         <ProfileSection title="Interesser">
           <TagList
             items={profile.interests || []}
@@ -275,7 +286,6 @@ export default function ProfileDetailCard({
         </ProfileSection>
 
         {/* dealbreakers */}
-
         <ProfileSection title="Dealbreakers">
           <TagList
             items={profile.dealbreakers || []}
@@ -286,8 +296,7 @@ export default function ProfileDetailCard({
           />
         </ProfileSection>
 
-        {/* 3 ting du hurtigt opdager om mig */}
-
+        {/* Liste med redigerbare punkter */}
         <ProfileSection title="3 ting du hurtigt opdager om mig">
           <div className="three-things-wrapper">
             {getThings().map((thing, index) => {
@@ -295,6 +304,7 @@ export default function ProfileDetailCard({
 
               return (
                 <div className="single-thing-card" key={field}>
+                  {/* Inline edit mode */}
                   {editing === field ? (
                     <p>
                       {index + 1}.{" "}
@@ -326,7 +336,6 @@ export default function ProfileDetailCard({
         </ProfileSection>
 
         {/* søger roomie som */}
-
         <ProfileSection title="Søger roomie som">
           <EditableTextCard
             editing={editing === "roomie_preference"}
@@ -342,30 +351,26 @@ export default function ProfileDetailCard({
           </EditableTextCard>
         </ProfileSection>
 
+        {/* Viser boligkort hvis profilen har et tilknyttet boligopslag (hentes internt i ProfileHousingCard) */}
         {profile.has_housing_boolean_default_false && (
-          <div className="housing-card">
-            <h4>Dit boligopslag</h4>
-
-            <div className="housing-content">
-              <img src="/apartment.jpg" alt="Bolig" />
-
-              <div>
-                <p>Titel</p>
-
-                <button type="button">Forhåndsvisning</button>
-              </div>
-            </div>
-          </div>
+          <ProfileSection title="Dit boligopslag">
+            <ProfileHousingCard
+              profileId={profile.id}
+              onPreview={(housing) =>
+                console.log("Preview bolig:", housing?.id)
+              }
+            />
+          </ProfileSection>
         )}
-
         {/* ret matchsvar */}
-
         <MatchButton enabled={showMatchButton} />
 
         <ConnectionButton
           enabled={showConnectionButton}
           onOpenOverlay={onOpenConnectionOverlay}
         />
+        {/* Connection CTA */}
+        <ConnectionButton enabled={showConnectionButton} />
       </section>
     </main>
   );

@@ -1,0 +1,121 @@
+/*
+  ProfileHousingCard.css
+  - Styling til boligkort på profilsiden (billede + tekst + meta + CTA).
+  - Bruger design tokens fra main.css (fx --border, --green, --border-radius-*).
+  - Tilpasset app-layout (iPhone 14 Pro ~ 393px bred) via kompakte mål.
+*/
+
+/* Wrapper med lidt luft over kortet */
+.profile-housing-section {
+  margin: 1rem 0 0;
+}
+
+/* Selve kortet: grid med billede til venstre og content til højre */
+.profile-housing-card {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 0.75rem;
+  align-items: center;
+
+  padding: 1rem;
+  border: var(--border);
+  border-radius: var(--border-radius-large);
+  background: var(--white);
+}
+
+/* Hover state */
+.profile-housing-card:hover {
+  border-color: var(--bordeaux10);
+}
+
+/* Listing-billede */
+.profile-housing-image {
+  width: 120px;
+  height: 120px;
+  border-radius: var(--border-radius-small);
+  object-fit: cover;
+  display: block;
+}
+
+/* Højre kolonne: tekst + meta + CTA */
+.profile-housing-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.5rem;
+  min-width: 0;
+
+  /* Match præcis højden på billedet */
+  height: 120px;
+}
+
+/* Titel: klip lange titler pænt */
+.profile-housing-card-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+}
+
+/* Meta række (rent / rooms / m²) */
+.profile-housing-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  column-gap: 0.75rem;
+  row-gap: 0.25rem;
+}
+
+/* Meta-item: brug standard p-størrelse (16px). */
+.profile-housing-metaItem {
+  text-align: center;
+}
+
+/* Separator mellem meta-items */
+.profile-housing-metaItem + .profile-housing-metaItem::before {
+  content: "•";
+  margin: 0 0.6rem 0 0.2rem;
+  color: var(--bordeaux10);
+}
+
+/* CTA knap */
+.profile-housing-previewButton {
+  margin-top: 0;
+  width: 100%;
+  border: 0;
+  border-radius: var(--border-radius-small);
+  padding: 0.6rem 0.9rem;
+  background: var(--green);
+  cursor: pointer;
+  color: var(--black);
+}
+
+/* Sørg for at teksten i knappen ikke laver uventede margins */
+.profile-housing-previewButton h5 {
+  margin: 0;
+}
+
+/* CTA hover */
+.profile-housing-previewButton:hover {
+  filter: brightness(0.98);
+}
+
+/* Små skærme: lidt smallere billede */
+@media (max-width: 360px) {
+  .profile-housing-card {
+    grid-template-columns: 108px 1fr;
+  }
+
+  .profile-housing-image {
+    width: 108px;
+    height: 108px;
+  }
+
+  .profile-housing-body {
+    height: 108px;
+  }
+}
