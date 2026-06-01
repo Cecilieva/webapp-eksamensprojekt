@@ -17,6 +17,9 @@ import ConnectionButton from "./ConnectionButton";
 import LikeButton from "./LikeButton";
 import ProfileImageCarousel from "./ProfileImageCarousel";
 import ProfileHousingCard from "./ProfileHousingCard";
+import MatchscoreDetailPage from "../components/MatchscoreDetailPage";
+import MatchScore from "./MatchScore";
+import "./MatchscoreDetailPage.css";
 
 /* Komponent til visning/redigering af profil detaljer */
 export default function ProfileDetailCard({
@@ -261,6 +264,18 @@ export default function ProfileDetailCard({
           >
             {profile.about_me}
           </EditableTextCard>
+        </ProfileSection>
+
+        {/* Matchscore - Lottie */}
+        <ProfileSection title="Vi matcher på" className="matchscore-section">
+          <div className="matchscore-detail-layout">
+            <MatchScore
+              score={score ?? profile.score}
+              className="detail-matchscore"
+            />
+
+            <MatchscoreDetailPage />
+          </div>
         </ProfileSection>
 
         {/* interesser */}
