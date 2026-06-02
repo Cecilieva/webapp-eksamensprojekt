@@ -10,6 +10,9 @@ import MenuLogo from "../assets/menu-logo.svg";
 import RequestItem from "../components/Request/RequestItem";
 import ConnectionItem from "../components/Request/ConnectionItem";
 import EmptyState from "../components/Request/EmptyState";
+import EmptyForbindelse from "../components/EmptyForbindelse";
+import EmptyRequest from "../components/EmptyRequest";
+
 
 const MAIN_PROFILE_ID = 14; // ID på den aktive bruger
 
@@ -298,7 +301,7 @@ export default function RequestPage({ initialTab = "anmodninger" }) {
       <div className="request-header">
         <h2 className="request-title">{pageTitle}</h2>
       </div>
-      
+
       {/* Faner til skift mellem anmodninger og forbindelser */}
       <div className="request-tabBar">
         <button
@@ -307,7 +310,7 @@ export default function RequestPage({ initialTab = "anmodninger" }) {
         >
           <small>Forbindelser</small>
         </button>
-        
+
         <button
           className={`request-tab ${activeTab === "anmodninger" ? "is-on" : "is-off"}`}
           onClick={() => setActiveTab("anmodninger")}
@@ -325,11 +328,7 @@ export default function RequestPage({ initialTab = "anmodninger" }) {
       <div className="request-list">
         {isConnections ? (
           connectionPeople.length === 0 ? (
-            <EmptyState
-              title="Ingen forbindelser"
-              subtitle="Du har ingen forbindelser endnu"
-              logo={MenuLogo}
-            />
+            <EmptyForbindelse />
           ) : (
             connectionPeople.map((person) => (
               <ConnectionItem
@@ -341,11 +340,7 @@ export default function RequestPage({ initialTab = "anmodninger" }) {
             ))
           )
         ) : requestPeople.length === 0 ? (
-          <EmptyState
-            title="Ingen anmodninger"
-            subtitle="Du har ingen nye anmodninger"
-            logo={MenuLogo}
-          />
+          <EmptyRequest />
         ) : (
           requestPeople.map((person) => (
             <RequestItem
@@ -385,8 +380,7 @@ export default function RequestPage({ initialTab = "anmodninger" }) {
               ) : (
                 <>
                   <h2>Hovsa!</h2>
-                  <small>Er du sikker på, at du vil fjerne forbindelsen?
-                  </small>
+                  <small>Er du sikker på, at du vil fjerne forbindelsen?</small>
                 </>
               )}
               <div className="request-overlayCTAWrap">
