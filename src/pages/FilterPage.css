@@ -1,0 +1,85 @@
+/* Hele filtreringssiden */
+.filter-page {
+  width: 100%;
+  max-width: var(--app-max-width);
+  margin: 0 auto;
+  padding-left: var(--app-padding-x);
+  padding-right: var(--app-padding-x);
+  padding-bottom: var(--app-padding-bottom);
+  min-height: 100vh;
+  background: var(--background);
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* Topbar med Luk – Filtrer – Nulstil */
+.filter-topbar {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  width: 100%;
+  max-width: var(--app-max-width);
+  padding: 1rem var(--app-padding-x);
+  margin: 0 auto;
+}
+
+.filter-topbarAction {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  color: var(--black);
+  font: inherit;
+  cursor: pointer;
+}
+
+.filter-topbarAction:first-child {
+  justify-self: start;
+}
+
+/* Højre knap — vigtig! */
+.filter-topbarAction:last-child {
+  justify-self: end;
+  text-align: right;
+}
+
+.filter-title {
+  justify-self: center;
+  margin: 0;
+  color: var(--black);
+}
+
+/* Wrapper til selve filtersektionerne */
+.filter-content {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Fast bund-knap */
+.filter-bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: var(--app-max-width);
+  padding: 0 var(--app-padding-x) var(--app-padding-bottom);
+  z-index: 999;
+}
+
+/* Selve knappen */
+.filter-bottom-button {
+  width: 100%;
+  background: var(--orange);
+  color: var(--black);
+  padding: 1rem;
+  border-radius: var(--border-radius-small);
+  border: none;
+  cursor: pointer;
+}
+
+/* Giv plads i bunden af siden så indhold ikke skjules */
+.filter-page {
+  padding-bottom: calc(120px + var(--app-padding-bottom));
+}

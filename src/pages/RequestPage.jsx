@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Lottie from "lottie-react";
-import { supabase } from "../lib/supabaseClient";
+import supabase from "../lib/supabaseClient";
 import HovsaOverlay from "../assets/Hovsa-overlay.svg";
 import connectionConfetti from "../assets/forbindelse-oprettet-konfetti.json";
 import "./RequestPage.css";
