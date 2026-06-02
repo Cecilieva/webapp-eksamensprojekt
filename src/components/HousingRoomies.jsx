@@ -81,10 +81,18 @@ export default function HousingRoomies({ housingId, roomies }) {
                   </div>
                   <div className="housing-roomie-sub text-small">
                     {/* Vis alder og occupation */}
-                    {Number.isFinite(Number(r.age))
-                      ? `${Number(r.age)} år`
-                      : null}
-                    {r.occupation ? ` • ${r.occupation}` : null}
+                    {Number.isFinite(Number(r.age)) && (
+                      <span>{Number(r.age)} år</span>
+                    )}
+                    {r.occupation && (
+                      <>
+                        <span
+                          className="housing-roomie-dot"
+                          aria-hidden="true"
+                        />
+                        <span>{r.occupation}</span>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>

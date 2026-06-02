@@ -73,7 +73,7 @@
   text-align: center;
 }
 
-/* Separator mellem meta-items */
+/* Prik mellem meta-items */
 .profile-housing-metaItem + .profile-housing-metaItem::before {
   content: "";
   display: inline-block;
