@@ -111,9 +111,6 @@ export default function Header() {
               <p>Hjælp og support</p>
               <p>Abonnementer</p>
               <p>Log ud</p>
-
-              {/* NOTE: dette element er ugyldigt HTML (div med img props) */}
-              <div img src={HeartIcon} alt="Hjerte" className="overlay-heart" />
             </div>
 
             {/* Branding nederst i menu */}
