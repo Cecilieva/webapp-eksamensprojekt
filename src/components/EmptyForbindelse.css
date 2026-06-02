@@ -1,0 +1,23 @@
+.empty-forbindelse {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 8rem;
+  text-align: center;
+  gap: 1rem;
+}
+
+.empty-forbindelse h1 {
+  margin-bottom: 1.5rem;
+}
+
+.empty-forbindelse p {
+  margin-bottom: 0rem;
+}
+
+.empty-forbindelse-animation {
+  margin-top: -5.5rem;
+  width: 18rem;
+  height: 18rem;
+}
