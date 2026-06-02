@@ -207,7 +207,7 @@ export default function ChatPage() {
         )}
 
         {/* Beskedanmodninger */}
-        {(activeFilter === "alle" || activeFilter === "anmodninger") && (
+        {activeFilter === "anmodninger" && (
           <ChatRequestList requests={enrichedRequests} />
         )}
       </section>
