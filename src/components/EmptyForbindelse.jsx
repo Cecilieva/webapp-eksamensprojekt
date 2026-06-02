@@ -2,6 +2,7 @@ import Lottie from "lottie-react";
 import animationData from "../assets/animation-eyeroll.json";
 import "./EmptyForbindelse.css";
 
+/* EMPTY FORBINDELSE - Vises når brugeren ikke har nogen forbindelser */
 export default function EmptyForbindelse() {
   return (
     <div className="empty-forbindelse">

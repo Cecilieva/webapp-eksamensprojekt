@@ -1,3 +1,6 @@
+/* EMPTY FORBINDELSe - Vises når brugeren ikke har nogen forbindelser*/ 
+
+/* Container der centrerer indholdet på siden */
 .empty-forbindelse {
   display: flex;
   flex-direction: column;
@@ -8,14 +11,17 @@
   gap: 1rem;
 }
 
+/* Overskrift */
 .empty-forbindelse h1 {
   margin-bottom: 1.5rem;
 }
 
+/* Beskrivende tekst */
 .empty-forbindelse p {
   margin-bottom: 0rem;
 }
 
+/* Lottie-animation */
 .empty-forbindelse-animation {
   margin-top: -5.5rem;
   width: 18rem;
