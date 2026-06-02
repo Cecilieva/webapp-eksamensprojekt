@@ -1,5 +1,5 @@
 /* React Router imports */
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 /* React hooks */
 import { useState, useEffect } from "react";
 
@@ -118,7 +118,7 @@ function App() {
 
   /* Main app */
   return (
-    <BrowserRouter>
+    <>
       <Routes>
         {/* Home page */}
         <Route
@@ -161,7 +161,6 @@ function App() {
           }
         />
 
-      
         {/* Requests */}
         <Route
           path="/requests"
@@ -275,7 +274,7 @@ function App() {
         open={connectionOverlayOpen}
         onClose={() => setConnectionOverlayOpen(false)}
       />
-    </BrowserRouter>
+    </>
   );
 }
 
