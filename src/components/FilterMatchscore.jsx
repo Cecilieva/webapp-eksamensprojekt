@@ -1,6 +1,6 @@
 import "./FilterPanel.css";
 
-import { MATCHSCORE_OPTIONS } from "../lib/FilterOptions";
+import { MATCHSCORE_OPTIONS } from "../lib/filterOptions";
 // Importerer de faste matchscore-valgmuligheder
 
 export default function FilterMatchscore({ value, onChange }) {

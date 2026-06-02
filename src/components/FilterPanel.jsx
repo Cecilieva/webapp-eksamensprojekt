@@ -1,4 +1,4 @@
-import { AGE_RANGES, PRICE_RANGES } from "../lib/FilterOptions";
+import { AGE_RANGES, PRICE_RANGES } from "../lib/filterOptions";
 // Importerer faste valgmuligheder til alder og pris
 
 import FilterSection from "./FilterSection";

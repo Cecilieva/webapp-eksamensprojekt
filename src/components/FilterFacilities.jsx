@@ -1,4 +1,4 @@
-import { FACILITIES } from "../lib/FilterOptions";// Importerer listen over mulige boligfaciliteter
+import { FACILITIES } from "../lib/filterOptions";// Importerer listen over mulige boligfaciliteter
 
 import "./FilterPanel.css";
 

@@ -1,5 +1,5 @@
 
-import { GENDER_OPTIONS } from "../lib/FilterOptions"; // Importerer de faste kønsvalg
+import { GENDER_OPTIONS } from "../lib/filterOptions"; // Importerer de faste kønsvalg
 import "./FilterPanel.css";
 
 export default function FilterGender({ value, onChange }) {

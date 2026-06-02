@@ -1,4 +1,4 @@
-import { SORT_OPTIONS } from "../lib/FilterOptions"; // Importerer sorteringsmuligheder fra en ekstern fil
+import { SORT_OPTIONS } from "../lib/filterOptions"; // Importerer sorteringsmuligheder fra en ekstern fil
 
 import "./FilterPanel.css";
 

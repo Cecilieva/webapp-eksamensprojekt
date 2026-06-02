@@ -1,4 +1,4 @@
-import { OCCUPATION_OPTIONS } from "../lib/FilterOptions"; // Importerer listen over beskæftigelsesmuligheder
+import { OCCUPATION_OPTIONS } from "../lib/filterOptions"; // Importerer listen over beskæftigelsesmuligheder
 
 import "./FilterPanel.css";
 

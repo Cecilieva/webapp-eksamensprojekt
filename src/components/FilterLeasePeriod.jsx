@@ -1,4 +1,4 @@
-import { LEASE_PERIOD_OPTIONS } from "../lib/FilterOptions"; // Importerer de faste valgmuligheder for lejeperiode
+import { LEASE_PERIOD_OPTIONS } from "../lib/filterOptions"; // Importerer de faste valgmuligheder for lejeperiode
 
 import "./FilterPanel.css";
 // Styling til lejeperiode-sektionen
