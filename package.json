@@ -1,7 +1,7 @@
 {
   "name": "webapp-eksamensprojekt",
   "private": true,
-  "base": "/",
+  "base": "/webapp-eksamensprojekt/",
   "version": "1.0.0",
   "type": "module",
   "scripts": {

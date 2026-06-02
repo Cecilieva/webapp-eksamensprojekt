@@ -109,7 +109,7 @@ function App() {
       <OpeningPage
         onFinish={() => {
           /* Opdaterer browser URL */
-          window.history.pushState({}, "", "/");
+          window.history.pushState({}, "", import.meta.env.BASE_URL);
           setStep("app");
         }}
       />
