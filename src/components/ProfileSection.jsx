@@ -12,7 +12,7 @@ export default function ProfileSection({
     <section className={`profile-section ${className}`}>
       {/* Sektionens titel og redigeringsknap */}
       <div className="section-title">
-        <h4>{title}</h4>
+        {typeof title === "string" ? <h4>{title}</h4> : title}
         <EditIconButton enabled={editable} onClick={onEdit} />
       </div>
 
