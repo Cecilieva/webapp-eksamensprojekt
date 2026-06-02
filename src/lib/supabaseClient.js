@@ -1,4 +1,3 @@
-/* Importerer createClient fra Supabase SDK */
 import { createClient } from "@supabase/supabase-js";
 
 /* Henter environment variables fra Vite */
@@ -14,4 +13,5 @@ if (!supabaseUrl || !supabaseKey) {
 console.log("[supabase] url =", supabaseUrl);
 
 /* Opretter og eksporterer Supabase client */
-export const supabase = createClient(supabaseUrl, supabaseKey);
+const supabase = createClient(supabaseUrl, supabaseKey);
+export default supabase;

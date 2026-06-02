@@ -1,7 +1,8 @@
 import { useEffect, useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import ProfileCard from "../components/ProfileCard";
-import { supabase } from "../lib/supabaseClient";
+import supabase from "../lib/supabaseClient";
+import buildFilterQuery from "../lib/buildFilterQuery";
 import filterIcon from "../assets/filteruden.svg";
 import "./HomePage.css";
 
@@ -10,33 +11,77 @@ export default function HomePage({
   toggleFavoriteProfile = () => {},
   onOpenConnectionOverlay,
 }) {
+  // State til top-toggles og profilfeed
   const [activeIcon, setActiveIcon] = useState(null);
   const [profiles, setProfiles] = useState([]);
 
+  // Refs til top-toggles
   const containerRef = useRef(null);
   const btn12Ref = useRef(null);
   const btn15Ref = useRef(null);
 
+  // Styling til top-bar
   const fillStyle = { opacity: 0 };
+  // Loader og fejl-state
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
+  // ID for hovedprofilen (bruges til at udelukke egen profil og matche score)
   const MAIN_PROFILE_ID = 14;
 
-  useEffect(() => {
-    async function loadData() {
-      /* 1. Hent alle profiler fra Supabase */
-      const { data: profilesData, error: profilesError } = await supabase
-        .from("profiles")
-        .select("*");
+  // Læs URL-parametre
+  const { search } = useLocation();
 
-      if (profilesError) {
-        setError(profilesError.message);
+  useEffect(() => {
+    // Parse URL-parametre til filter-objekt
+    const params = new URLSearchParams(search);
+    const filters = Object.fromEntries(params.entries());
+
+    // Parse facilities fra JSON-string til objekt
+    if (filters.facilities) {
+      try {
+        filters.facilities = JSON.parse(filters.facilities);
+      } catch {
+        filters.facilities = {};
+      }
+    }
+    // Parse occupation fra JSON-string eller streng til objekt
+    if (filters.occupation) {
+      try {
+        // Hvis occupation allerede er et objekt, behold det
+        if (typeof filters.occupation === "object") {
+          // do nothing
+        } else if (typeof filters.occupation === "string") {
+          // Prøv at parse som JSON
+          try {
+            filters.occupation = JSON.parse(filters.occupation);
+          } catch {
+            // Hvis det bare er en streng (fx "Studerende"), lav det om til objekt
+            filters.occupation = { [filters.occupation]: true };
+          }
+        }
+      } catch {
+        filters.occupation = {};
+      }
+      // Debug-log
+      console.log("DEBUG occupation:", filters.occupation);
+    }
+
+    async function loadData() {
+      setLoading(true);
+      setError("");
+
+      // Byg Supabase-query baseret på filtre
+      const query = buildFilterQuery(filters);
+      const { data: filteredData, error: filterError } = await query;
+
+      if (filterError) {
+        setError(filterError.message);
         setLoading(false);
         return;
       }
 
-      // 2. Hent matchscore for Ida (id = 14)
+      // Hent matchscore for hovedprofilen
       const { data: matchData, error: matchError } = await supabase
         .from("matchscore")
         .select("*")
@@ -48,8 +93,8 @@ export default function HomePage({
         return;
       }
 
-      /* 3. Kombinér profiler med deres matchscore */
-      const profilesWithScore = (profilesData ?? []).map((p) => {
+      // Kombinér profiler med deres matchscore
+      const profilesWithScore = (filteredData ?? []).map((p) => {
         const match = (matchData ?? []).find((m) => m.profile_b === p.id);
         return {
           ...p,
@@ -57,41 +102,52 @@ export default function HomePage({
         };
       });
 
-      // 4. Fjern hovedprofilen fra feedet
-      const feedProfiles = profilesWithScore.filter(
+      // Fjern hovedprofilen fra feedet
+      let feedProfiles = profilesWithScore.filter(
         (p) => p.id !== MAIN_PROFILE_ID,
       );
+
+      // Find minimum matchscore fra filtre
+      const minScore = parseInt(filters.matchScore?.replace(/\D/g, ""), 10);
+
+      // Filtrér på matchscore hvis valgt
+      if (!isNaN(minScore)) {
+        feedProfiles = feedProfiles.filter(
+          (p) => typeof p.score === "number" && p.score >= minScore,
+        );
+      }
+
+      // Top-toggles: filtrér på søger roomie/bolig
+      if (activeIcon === "c12") {
+        feedProfiles = feedProfiles.filter(
+          (p) =>
+            !!p.seeking_roomie_boolean_default_false &&
+            !p.seeking_housing_boolean_default_false,
+        );
+      } else if (activeIcon === "c15") {
+        feedProfiles = feedProfiles.filter(
+          (p) =>
+            !!p.seeking_roomie_boolean_default_false &&
+            !!p.seeking_housing_boolean_default_false,
+        );
+      }
+
+      // Sortér efter matchscore hvis brugeren ikke har valgt sortering
+      if (!filters.sort) {
+        feedProfiles.sort((a, b) => (b.score ?? 0) - (a.score ?? 0));
+      }
 
       setProfiles(feedProfiles);
       setLoading(false);
     }
 
+    // Debug-log
+    console.log("FILTERS LOADED:", filters);
     loadData();
-  }, []);
+  }, [search, activeIcon]);
 
-  /* Filtrering baseret på aktiv top-toggle */
-  /* c12: kun brugere der søger roomie */
-  /* c15: brugere der søger både roomie + bolig */
-  const filteredProfiles = profiles.filter((p) => {
-    if (activeIcon === "c12") {
-      return (
-        !!p.seeking_roomie_boolean_default_false &&
-        !p.seeking_housing_boolean_default_false
-      );
-    }
-    if (activeIcon === "c15") {
-      return (
-        !!p.seeking_roomie_boolean_default_false &&
-        !!p.seeking_housing_boolean_default_false
-      );
-    }
-    return true;
-  });
-
-  /* Loading state (viser tom skærm mens data hentes) */
+  // Loader og fejlvisning
   if (loading) return <main className="app"></main>;
-
-  /* Error state fra Supabase */
   if (error) return <main className="app">Error: {error}</main>;
 
   return (
@@ -100,7 +156,6 @@ export default function HomePage({
       <div className="home-top-icons" ref={containerRef}>
         <div className="home-top-fill" style={fillStyle} />
 
-        {/* Toggle: kun roomie-søgende */}
         <button
           ref={btn12Ref}
           type="button"
@@ -111,7 +166,6 @@ export default function HomePage({
           <small>Søger roomie</small>
         </button>
 
-        {/* Toggle: roomie + bolig */}
         <button
           ref={btn15Ref}
           type="button"
@@ -126,7 +180,7 @@ export default function HomePage({
       {/* Link til filtreringsside */}
       <div className="home-filter-row">
         <Link
-          to="/filtrering"
+          to="/filter"
           className="home-filter-button"
           aria-label="Åbn filtre"
         >
@@ -141,12 +195,11 @@ export default function HomePage({
 
       {/* Profil feed */}
       <section className="profile-grid" aria-label="Profiler">
-        {filteredProfiles.length === 0 && (
-          <p className="profile-grid-empty">Ingen profiler fundet</p>
+        {profiles.length === 0 && (
+          <h2 className="profile-grid-empty">Ingen profiler fundet</h2>
         )}
 
-        {/* Render profiler som kort */}
-        {filteredProfiles.map((p) => (
+        {profiles.map((p) => (
           <Link
             key={p.id}
             className="profile-card-link"

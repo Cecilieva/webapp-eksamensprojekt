@@ -6,7 +6,7 @@
  * - Returnerer et simpelt "card"-objekt til UI (id/title/first image + rent/rooms/square_meters).
  */
 
-import { supabase } from "./supabaseClient";
+import supabase from "./supabaseClient";
 
 // Slår en boligrelation op: profile_id -> housing_id
 export async function getHousingIdForProfile(profileId) {
@@ -36,7 +36,7 @@ export async function getHousingById(housingId) {
   const { data, error } = await supabase
     .from("housing_listings")
     .select(
-      "id, title, images, rent, rooms, square_meters, city, description, facilities, seeking_roomies, aconto, deposit, move_in_date"
+      "id, title, images, rent, rooms, square_meters, city, description, facilities, seeking_roomies, aconto, deposit, move_in_date",
     )
     .eq("id", housingId)
     .maybeSingle();
@@ -112,4 +112,19 @@ export async function getHousingIdByProfileId(profileId) {
   if (!data?.housing_id)
     throw new Error("Ingen housing_id fundet for profilen.");
   return data.housing_id;
+}
+
+// Opretter et nyt boligopslag
+export async function createHousing(payload) {
+  // Her normaliserer du facilities til stort forbogstav
+  const facilities = payload.facilities.map(
+    (f) => f.charAt(0).toUpperCase() + f.slice(1).toLowerCase(),
+  );
+
+  // Gem i Supabase
+  const { data, error } = await supabase
+    .from("housing_listings")
+    .insert([{ ...payload, facilities }]);
+
+  return { data, error };
 }

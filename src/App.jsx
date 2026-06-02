@@ -16,10 +16,9 @@ import FavoritesPage from "./pages/FavoritesPage";
 import NotificationsPage from "./pages/NotificationsPage";
 
 /* Main app pages */
-import PostDetailPage from "./pages/PostDetailPage";
 import RequestPage from "./pages/RequestPage";
 import ProfilePage from "./pages/ProfilePage";
-import Filtrering from "./pages/filtreringPage";
+import FilterPage from "./pages/FilterPage";
 import Botnav from "./components/Botnav";
 import NotFoundPage from "./pages/NotFoundPage";
 import ProfileDetailPage from "./pages/ProfileDetailPage";
@@ -162,18 +161,7 @@ function App() {
           }
         />
 
-        {/* Post details */}
-        <Route
-          path="/posts/:id"
-          element={
-            <>
-              <Header />
-              <PostDetailPage />
-              <Botnav />
-            </>
-          }
-        />
-
+      
         {/* Requests */}
         <Route
           path="/requests"
@@ -257,7 +245,7 @@ function App() {
         />
 
         {/* Filter page */}
-        <Route path="/filtrering" element={<Filtrering />} />
+        <Route path="/filter" element={<FilterPage />} />
 
         {/* Housing details */}
         <Route

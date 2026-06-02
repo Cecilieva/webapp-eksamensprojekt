@@ -1,4 +1,4 @@
-import { supabase } from "./supabaseClient";
+import supabase from "./supabaseClient";
 
 // Hent alle roomies tilknyttet et housingId
 export async function getRoomiesByHousingId(housingId) {
