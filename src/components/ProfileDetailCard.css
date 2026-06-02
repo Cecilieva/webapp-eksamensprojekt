@@ -6,7 +6,7 @@
   min-height: 100vh;
   background: var(--background);
   color: var(--black);
-  padding-bottom: 8rem; /* Ekstra plads til fixed buttons/navigation */
+  padding-bottom: 9.5rem; /* Ekstra plads til fixed buttons/navigation */
 }
 
 /* Hero sektion med billede/carousel */
