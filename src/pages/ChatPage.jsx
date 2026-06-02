@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
-import { supabase } from "../lib/supabaseClient";
+import supabase from "../lib/supabaseClient";
 import BrandMark from "../assets/responsivtlogo.svg";
 import ChatHeader from "../components/Chat/ChatHeader.jsx";
 import ChatSearch from "../components/Chat/ChatSearch.jsx";
