@@ -13,10 +13,12 @@ import EmptyState from "../components/Request/EmptyState";
 import EmptyForbindelse from "../components/EmptyForbindelse";
 import EmptyRequest from "../components/EmptyRequest";
 
+/*HJÆLPEFUNKTIONER*/
 
+// Aktiv bruger i systemet
 const MAIN_PROFILE_ID = 14; // ID på den aktive bruger
 
-// Finder ID'et på den profil, der er forbundet med den aktive bruger
+/* Finder ID'et på den profil, som den aktive bruger er forbundet med */
 function getOtherProfileId(connection) {
   if (!connection) return null;
   if (connection.sender_id === MAIN_PROFILE_ID) {
@@ -51,22 +53,31 @@ function getAvatarImageUrl(profile) {
   const first = Array.isArray(images) ? images[0] : null;
   return typeof first === "string" && first.trim() ? first : null;
 }
+
+ /*REQUESTPAGE KOMPONENT*/
 export default function RequestPage({ initialTab = "anmodninger" }) {
-  // State til håndtering af data, overlays og brugerinteraktion
+  /*   STATE MANAGEMENT */
+  // Navigation mellem sider
   const navigate = useNavigate();
+  // Aktiv fane (Anmodninger eller Forbindelser)
   const [activeTab, setActiveTab] = useState(initialTab);
+  // Data fra Supabase
   const [profiles, setProfiles] = useState([]);
   const [matchscores, setMatchscores] = useState([]);
   const [connections, setConnections] = useState([]);
+  // States til overlays og brugerinteraktion
   const [overlayOpen, setOverlayOpen] = useState(false);
   const [overlayTarget, setOverlayTarget] = useState(null); // { id, name, mode: 'request'|'connection' }
+  // States til succes-popup ved oprettelse af forbindelse
   const [acceptedOverlayOpen, setAcceptedOverlayOpen] = useState(false);
   const [acceptedOverlayName, setAcceptedOverlayName] = useState("");
   const [dismissedProfileIds, setDismissedProfileIds] = useState([]);
+  // States til fejl- og loadinghåndtering
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  
-  // Henter profiler, matchscores og forbindelser fra Supabase ved sideindlæsning
+
+  /* DATAHENTNING FRA SUPABASE */
+  /* Henter profiler, matchscores og forbindelser ved indlæsning af siden */
   useEffect(() => {
     let ignore = false;
     async function loadData() {
@@ -104,8 +115,9 @@ export default function RequestPage({ initialTab = "anmodninger" }) {
       ignore = true;
     };
   }, []);
-  
-  // Opretter et opslag over matchscore baseret på profil-ID
+
+  /* BEREGNING AF DATA */
+  /* Opretter opslagstabel med matchscore pr. profil */
   const scoreByProfileId = useMemo(() => {
     const map = new Map();
     for (const item of matchscores) {
@@ -113,8 +125,8 @@ export default function RequestPage({ initialTab = "anmodninger" }) {
     }
     return map;
   }, [matchscores]);
-  
-  // Filtrerer accepterede forbindelser for den aktive bruger
+
+  /* Filtrerer aktive forbindelser */
   const acceptedConnections = useMemo(() => {
     return connections.filter(
       (connection) =>
@@ -123,8 +135,8 @@ export default function RequestPage({ initialTab = "anmodninger" }) {
           connection.receiver_id === MAIN_PROFILE_ID),
     );
   }, [connections]);
-  
-  // Samler ID'er på profiler, som brugeren allerede er forbundet med
+
+  /* Samler ID'er på profiler som allerede er forbundet */
   const connectedProfileIds = useMemo(() => {
     const ids = new Set();
     for (const row of acceptedConnections) {
@@ -136,8 +148,8 @@ export default function RequestPage({ initialTab = "anmodninger" }) {
     return ids;
   }, [acceptedConnections]);
   const scoreByProfileIdWithFallback = scoreByProfileId;
-  
-  // Opretter listen over eksisterende forbindelser
+
+  /* Opretter liste over brugerens forbindelser */
   const connectionPeople = useMemo(() => {
     return profiles
       .filter((profile) => connectedProfileIds.has(profile.id))
@@ -150,8 +162,8 @@ export default function RequestPage({ initialTab = "anmodninger" }) {
         imageUrl: getAvatarImageUrl(profile),
       }));
   }, [connectedProfileIds, profiles, scoreByProfileIdWithFallback]);
-  
-  // Opretter listen over anmodninger sorteret efter matchscore
+
+  /* Opretter liste over anmodninger sorteret efter matchscore */
   const requestPeople = useMemo(() => {
     return profiles
       .filter(
@@ -177,8 +189,9 @@ export default function RequestPage({ initialTab = "anmodninger" }) {
   ]);
   const isConnections = activeTab === "forbindelser";
   const pageTitle = isConnections ? "Forbindelser" : "Anmodninger";
-  
-  // Accepterer en anmodning og opretter/opfatter forbindelsen
+
+  /* HÅNDTERING AF ANMODNINGER */
+  /* Accepterer en anmodning og opretter forbindelse */
   const handleAccept = async (person) => {
     const id = person.id;
     const existingRequest = connections.find(
@@ -227,8 +240,8 @@ export default function RequestPage({ initialTab = "anmodninger" }) {
     setAcceptedOverlayName(person.name);
     setAcceptedOverlayOpen(true);
   };
-  
-  // Afviser en anmodning og skjuler den fra listen
+
+  /* Afviser en anmodning */
   const handleReject = async (id) => {
     const request = connections.find(
       (connection) =>
@@ -249,8 +262,8 @@ export default function RequestPage({ initialTab = "anmodninger" }) {
     );
     setError("");
   };
-  
-  // Fjerner en eksisterende forbindelse
+
+  /* Fjerner en eksisterende forbindelse */
   const handleRemove = async (id) => {
     const connection = acceptedConnections.find(
       (item) => getOtherProfileId(item) === id,
@@ -265,18 +278,20 @@ export default function RequestPage({ initialTab = "anmodninger" }) {
       setError(deleteError.message);
     }
   };
-  
-  // Åbner bekræftelses-overlay ved fjernelse
+
+  /* OVERLAYS OG POPUPS */
+  /* Åbner popup til bekræftelse af fjernelse */
   const showRemoveOverlay = (person, mode) => {
     setOverlayTarget({ id: person.id, name: person.name, mode });
     setOverlayOpen(true);
   };
+  /* Lukker popup */
   const closeOverlay = () => {
     setOverlayOpen(false);
     setOverlayTarget(null);
   };
-  
-  // Bekræfter og udfører fjernelse af anmodning eller forbindelse
+
+  /* Bekræfter brugerens valg og udfører handlingen */
   const confirmRemove = async () => {
     if (!overlayTarget) return;
     const { id, mode } = overlayTarget;
@@ -287,15 +302,17 @@ export default function RequestPage({ initialTab = "anmodninger" }) {
     }
     closeOverlay();
   };
-  
-  // Viser loading-state mens data hentes
+
+  /* FEJL- OG LOADINGSTATES */
+  /* Viser loading-state mens data indlæses */
   if (loading) return <main className="app"></main>;
-  
-  // Viser fejlmeddelelse hvis data ikke kunne indlæses
+
+  /* Viser fejlbesked ved fejl i datahentning */
   if (error) {
     return <EmptyState title="Noget gik galt" subtitle={error} />;
   }
 
+    /* RENDERING AF SIDEN */
   return (
     <div className="request-root">
       <div className="request-header">
