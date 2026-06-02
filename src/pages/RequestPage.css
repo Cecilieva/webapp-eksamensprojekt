@@ -235,7 +235,7 @@
   border: none;
   cursor: pointer;
   transition: transform 0.15s ease;
-  border-radius: 2rem;
+  border-radius: var(--border-radius-large);
 }
 .request-textBtn--danger {
   background-color: var(--error-red);
