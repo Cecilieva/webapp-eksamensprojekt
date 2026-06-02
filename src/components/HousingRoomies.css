@@ -2,11 +2,11 @@
 .housing-roomies {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 1rem;
   background-color: var(--white);
   border: var(--border);
   border-radius: var(--border-radius-large);
-  padding: 16px;
+  padding: 1rem;
 }
 
 /* Liste af roomies */
@@ -62,14 +62,30 @@
   margin-bottom: 0.25rem;
 }
 
+/* Alder og beskæftigelse */
+.housing-roomie-sub {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Prik mellem alder og beskæftigelse */
+.housing-roomie-dot {
+  display: inline-block;
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 50%;
+  background: var(--bordeaux10);
+  flex-shrink: 0;
+  vertical-align: middle;
+}
 /* Knap til profil */
 .housing-roomie-profile-btn {
   background: var(--green);
   border: 0;
   color: var(--black);
-  font-weight: 600;
   padding: 0.5rem 1rem;
-  border-radius: 10px;
+  border-radius: var(--border-radius-small);
   cursor: pointer;
   white-space: nowrap;
 }
@@ -81,7 +97,7 @@
 /* Knap til besked */
 .housing-roomies-message-btn {
   width: 100%;
-  border: 1px solid #29232a;
+  border: 1px solid var(--black);
   color: var(--black);
   background: transparent;
   padding: 0.5rem 1rem;

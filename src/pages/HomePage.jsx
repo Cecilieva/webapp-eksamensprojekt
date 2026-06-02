@@ -9,6 +9,7 @@ import "./HomePage.css";
 export default function HomePage({
   favoriteProfiles = [],
   toggleFavoriteProfile = () => {},
+  onOpenConnectionOverlay,
 }) {
   // State til top-toggles og profilfeed
   const [activeIcon, setActiveIcon] = useState(null);
@@ -162,7 +163,7 @@ export default function HomePage({
           aria-pressed={activeIcon === "c12"}
           onClick={() => setActiveIcon(activeIcon === "c12" ? null : "c12")}
         >
-          <p className="text-small">Søger roomie</p>
+          <small>Søger roomie</small>
         </button>
 
         <button
@@ -172,7 +173,7 @@ export default function HomePage({
           aria-pressed={activeIcon === "c15"}
           onClick={() => setActiveIcon(activeIcon === "c15" ? null : "c15")}
         >
-          <p className="text-small">Søger roomie & bolig</p>
+          <small>Søger roomie & bolig</small>
         </button>
       </div>
 
@@ -226,6 +227,7 @@ export default function HomePage({
               score={p.score}
               liked={favoriteProfiles.some((fav) => fav.id === p.id)}
               onToggleFavorite={toggleFavoriteProfile}
+              onOpenConnectionOverlay={onOpenConnectionOverlay}
             />
           </Link>
         ))}

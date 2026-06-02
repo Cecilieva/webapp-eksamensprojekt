@@ -1,0 +1,21 @@
+.matchscore-detail-layout {
+  display: flex;
+  align-items: center;
+  gap: 5rem; /* afstand mellem score og lottie */
+}
+
+/* Matchscore 3x større */
+.detail-matchscore {
+  transform: scale(3);
+  transform-origin: left center;
+}
+
+/* Gør Lottie mindre */
+.matchscore-lottie {
+  width: 14rem;
+  height: 14rem;
+}
+
+.matchscore-section .section-title {
+  margin-bottom: 0;
+}

@@ -5,7 +5,7 @@
   margin: 0 auto;
   padding-left: var(--app-padding-x);
   padding-right: var(--app-padding-x);
-  padding-bottom: calc(var(--app-padding-bottom) + 86px);
+  padding-bottom: calc(var(--app-padding-bottom) + 5rem);
   padding-top: 2rem;
   justify-items: center;
 }
@@ -15,22 +15,7 @@
   display: flex;
   width: 100%;
   justify-content: flex-end;
-  margin: 16px 0 16px;
-}
-
-/* Banner med søgning */
-.home-search-banner {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  margin-bottom: 12px;
-}
-
-.home-search-banner-img {
-  width: 100%;
-  max-width: 360px;
-  height: auto;
-  display: block;
+  margin: 1rem 0 1rem;
 }
 
 /* Knapper til skift mellem visninger */
@@ -39,11 +24,11 @@
   grid-template-columns: 1fr 1fr;
   gap: 0;
   width: 100%;
-  max-width: 520px;
-  margin: 12px auto 16px;
+  max-width: 32.5rem;
+  margin: 1rem auto 1rem;
   position: relative;
-  border: 1.5px solid var(--bordeaux);
-  border-radius: 999px;
+  border: 1px solid var(--bordeaux);
+  border-radius: var(--border-radius-large);
   overflow: hidden;
   background: var(--bordeaux10);
 }
@@ -51,8 +36,8 @@
 .home-top-icons::before {
   content: "";
   position: absolute;
-  top: 4px;
-  bottom: 4px;
+  top: 0.5rem;
+  bottom: 0.5rem;
   left: 50%;
   width: 1px;
   background: var(--bordeaux);
@@ -72,8 +57,8 @@
   border: 0;
   background: transparent;
   color: var(--black);
-  padding: 12px 14px;
-  min-height: 44px;
+  padding: 1rem 1rem;
+  min-height: 2.5rem;
   width: 100%;
   text-align: center;
   cursor: pointer;
@@ -92,8 +77,8 @@
 }
 
 .home-top-toggle:focus-visible {
-  outline: 3px solid color-mix(in srgb, var(--bordeaux) 35%, transparent);
-  outline-offset: -3px;
+  outline: 1px solid color-mix(in srgb, var(--bordeaux) 35%, transparent);
+  outline-offset: -0.5rem;
 }
 
 /* Aktiv tilstand for ikonknapper */
@@ -117,16 +102,16 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 26px;
-  height: 17px;
+  width: 1.5rem;
+  height: 1rem;
   color: inherit;
   text-decoration: none;
 }
 
 .home-filter-icon {
   display: block;
-  width: 26px;
-  height: 17px;
+  width: 1.5rem;
+  height: 1rem;
 }
 
 /* Grid med profiler */
@@ -157,7 +142,7 @@
 
 /* Fokusmarkering til tastaturnavigation */
 .profile-card-link:focus-visible {
-  outline: 2px solid currentColor;
-  outline-offset: 4px;
-  border-radius: 12px;
+  outline: 1px solid currentColor;
+  outline-offset: 0.5rem;
+  border-radius: var(--border-radius-large);
 }

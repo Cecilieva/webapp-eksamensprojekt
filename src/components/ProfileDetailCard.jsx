@@ -17,6 +17,9 @@ import ConnectionButton from "./ConnectionButton";
 import LikeButton from "./LikeButton";
 import ProfileImageCarousel from "./ProfileImageCarousel";
 import ProfileHousingCard from "./ProfileHousingCard";
+import MatchscoreDetail from "../components/MatchscoreDetail";
+import MatchScore from "./MatchScore";
+import "./MatchscoreDetail.css";
 
 /* Komponent til visning/redigering af profil detaljer */
 export default function ProfileDetailCard({
@@ -30,6 +33,8 @@ export default function ProfileDetailCard({
   showLikeButton = false,
   liked = false,
   onToggleFavorite,
+  onOpenConnectionOverlay,
+  showMatchSection = false,
 }) {
   /* Navigation */
   const navigate = useNavigate();
@@ -262,6 +267,23 @@ export default function ProfileDetailCard({
           </EditableTextCard>
         </ProfileSection>
 
+        {/* Matchscore sektion */}
+        {showMatchSection && (
+          <ProfileSection
+            title={<h2>Vi matcher på</h2>}
+            className="matchscore-section"
+          >
+            <div className="matchscore-detail-layout">
+              <MatchScore
+                score={score ?? profile.score}
+                className="detail-matchscore"
+              />
+
+              <MatchscoreDetail />
+            </div>
+          </ProfileSection>
+        )}
+
         {/* interesser */}
         <ProfileSection title="Interesser">
           <TagList
@@ -365,7 +387,10 @@ export default function ProfileDetailCard({
         <MatchButton enabled={showMatchButton} />
 
         {/* Connection CTA */}
-        <ConnectionButton enabled={showConnectionButton} />
+        <ConnectionButton
+          enabled={showConnectionButton}
+          onOpenOverlay={onOpenConnectionOverlay}
+        />
       </section>
     </main>
   );

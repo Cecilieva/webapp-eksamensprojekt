@@ -43,8 +43,8 @@
   height: 24rem;
   max-width: 24rem;
   margin-top: 3.5rem;
-  border-radius: 1.5rem;
-  background: rgba(var(--bordeaux), 0.1);
+  border-radius: var(--border-radius-large);
+  background: rgba(123, 30, 58, 0.1);
   box-shadow: var(--shadow-bottom);
   display: flex;
   align-items: center;
@@ -86,7 +86,7 @@
   max-width: 24rem;
   height: 3rem;
   border: none;
-  border-radius: 1rem;
+  border-radius: var(--border-radius-large);
   background: var(--green);
   color: var(--black);
   box-shadow: var(--shadow-bottom);

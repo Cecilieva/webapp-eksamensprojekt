@@ -4,7 +4,7 @@
   /* Dynamisk procentværdi fra React (styrer progress-ring) */
   --pct: 0%;
 
- /* Farver til ring, baggrund og center */
+  /* Farver til ring, baggrund og center */
   --ring: var(--orange);
   --track: var(--bordeaux10);
   --inner: var(--background);
@@ -16,7 +16,7 @@
   height: 2rem;
   border-radius: 3rem;
 
-   /* Visualiserer score som cirkulær progress */
+  /* Visualiserer score som cirkulær progress */
   background: conic-gradient(var(--ring) var(--pct), var(--track) 0);
 
   display: grid;

@@ -5,8 +5,8 @@
 
   margin-top: 2.5rem;
 
-  border-radius: 1rem;
-  border: 2px solid var(--bordeaux10);
+  border-radius: var(--border-radius-large);
+  border: 1px solid var(--bordeaux10);
 
   background: transparent;
 

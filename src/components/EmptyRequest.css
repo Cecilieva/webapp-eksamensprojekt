@@ -1,0 +1,23 @@
+.empty-request {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 6rem;
+  text-align: center;
+  gap: 1rem;
+}
+
+.empty-request h1 {
+  margin-bottom: 1.5rem;
+}
+
+.empty-request p {
+  margin-bottom: 0rem;
+}
+
+.empty-request-animation {
+  margin-top: -5.5rem;
+  width: 18rem;
+  height: 18rem;
+}

@@ -1,0 +1,19 @@
+/* Layout for chatsiden */
+.chat-pageShell {
+  padding-top: 0.5rem;
+  padding-bottom: 7.5rem;
+}
+
+/* Indhold på chatsiden */
+.chat-page {
+  min-height: calc(100vh - 7rem);
+  background: var(--background);
+  padding: 1rem 0.25rem 2rem;
+}
+
+/* Justerer padding på mindre skærme */
+@media (max-width: 393px) {
+  .chat-page {
+    padding-inline: 0;
+  }
+}

@@ -6,31 +6,35 @@ import HovsaOverlay from "../assets/Hovsa-overlay.svg";
 import connectionConfetti from "../assets/forbindelse-oprettet-konfetti.json";
 import "./RequestPage.css";
 import connectionMatch from "../assets/ForbindelseOprettetMatch.json";
+import MenuLogo from "../assets/menu-logo.svg";
+import RequestItem from "../components/Request/RequestItem";
+import ConnectionItem from "../components/Request/ConnectionItem";
+import EmptyState from "../components/Request/EmptyState";
+import EmptyForbindelse from "../components/EmptyForbindelse";
+import EmptyRequest from "../components/EmptyRequest";
 
+/*HJÆLPEFUNKTIONER*/
+
+// Aktiv bruger i systemet
 const MAIN_PROFILE_ID = 14; // ID på den aktive bruger
 
-// Finder ID'et på den profil, der er forbundet med den aktive bruger
+/* Finder ID'et på den profil, som den aktive bruger er forbundet med */
 function getOtherProfileId(connection) {
   if (!connection) return null;
-
   if (connection.sender_id === MAIN_PROFILE_ID) {
     return connection.receiver_id;
   }
-
   if (connection.receiver_id === MAIN_PROFILE_ID) {
     return connection.sender_id;
   }
-
   return null;
 }
 
 // Genererer initialer ud fra profilnavn, hvis de ikke findes i databasen
 function getInitials(profile) {
   if (profile.initials) return profile.initials;
-
   const nameParts = (profile.name ?? "").trim().split(/\s+/).filter(Boolean);
   if (nameParts.length === 0) return "??";
-
   return nameParts
     .slice(0, 2)
     .map((part) => part[0]?.toUpperCase() ?? "")
@@ -46,151 +50,39 @@ function getColor(profile, fallback) {
 function getAvatarImageUrl(profile) {
   const images = profile?.images;
   if (!images) return null;
-
   const first = Array.isArray(images) ? images[0] : null;
   return typeof first === "string" && first.trim() ? first : null;
 }
 
-// Genanvendelig komponent med billede eller initialer
-function Avatar({ initials, color, imageUrl, name }) {
-  return (
-    <div className="request-avatar" style={{ "--avatar-bg": color }}>
-      {imageUrl ? (
-        <img
-          src={imageUrl}
-          alt={name ? `${name} profilbillede` : "Profilbillede"}
-          className="request-avatarImg"
-          loading="lazy"
-        />
-      ) : (
-        initials
-      )}
-    </div>
-  );
-}
-
-// Genanvendelig knap-komponent med forskellige designvarianter
-function ActionButton({ variant, label, onClick }) {
-  const [down, setDown] = useState(false);
-
-  const variantClass =
-    variant === "lime"
-      ? "request-btn--lime"
-      : variant === "beige"
-        ? "request-btn--beige"
-        : variant === "ghost"
-          ? "request-btn--ghost"
-          : "";
-
-  return (
-    <button
-      type="button"
-      className={`request-btn ${variantClass} ${down ? "is-down" : ""}`}
-      onMouseDown={() => setDown(true)}
-      onMouseUp={() => setDown(false)}
-      onMouseLeave={() => setDown(false)}
-      onTouchStart={() => setDown(true)}
-      onTouchEnd={() => setDown(false)}
-      onClick={onClick}
-    >
-      {label}
-    </button>
-  );
-}
-
-// Viser en enkelt anmodning med mulighed for at acceptere eller fjerne
-function RequestItem({ person, onAccept, onShowRemove }) {
-  return (
-    <div className="request-item">
-      <Avatar
-        initials={person.initials}
-        color={person.color}
-        imageUrl={person.imageUrl}
-        name={person.name}
-      />
-      <div className="request-info">
-        <div className="request-name">{person.name}</div>
-        <div className="request-btnRow">
-          <ActionButton
-            variant="lime"
-            label="Accepter"
-            onClick={() => onAccept(person)}
-          />
-          <ActionButton
-            variant="ghost"
-            label="Fjern"
-            onClick={() => onShowRemove(person)}
-          />
-        </div>
-      </div>
-      <h2 className="request-pct">{person.match}%</h2>
-    </div>
-  );
-}
-
-// Viser en eksisterende forbindelse mellem brugere
-function ConnectionItem({ person, onShowRemove }) {
-  return (
-    <div className="request-item">
-      <Avatar
-        initials={person.initials}
-        color={person.color}
-        imageUrl={person.imageUrl}
-        name={person.name}
-      />
-      <div className="request-info">
-        <p className="request-name">{person.name}</p>
-        <div className="request-btnRow">
-          <ActionButton
-            variant="beige"
-            label="Send besked"
-            onClick={() => {}}
-          />
-          <ActionButton
-            variant="ghost"
-            label="Fjern"
-            onClick={() => onShowRemove(person)}
-          />
-        </div>
-      </div>
-      <h2 className="request-pct">{person.match}%</h2>
-    </div>
-  );
-}
-
-// Vises når der ikke findes anmodninger eller forbindelser
-function EmptyState({ icon, text }) {
-  return (
-    <div className="request-empty">
-      <div className="request-emptyIcon">{icon}</div>
-      {text}
-    </div>
-  );
-}
-
-export default function RequestPage() {
-  // State til håndtering af data, overlays og brugerinteraktion
+ /*REQUESTPAGE KOMPONENT*/
+export default function RequestPage({ initialTab = "anmodninger" }) {
+  /*   STATE MANAGEMENT */
+  // Navigation mellem sider
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState("anmodninger");
+  // Aktiv fane (Anmodninger eller Forbindelser)
+  const [activeTab, setActiveTab] = useState(initialTab);
+  // Data fra Supabase
   const [profiles, setProfiles] = useState([]);
   const [matchscores, setMatchscores] = useState([]);
   const [connections, setConnections] = useState([]);
+  // States til overlays og brugerinteraktion
   const [overlayOpen, setOverlayOpen] = useState(false);
   const [overlayTarget, setOverlayTarget] = useState(null); // { id, name, mode: 'request'|'connection' }
+  // States til succes-popup ved oprettelse af forbindelse
   const [acceptedOverlayOpen, setAcceptedOverlayOpen] = useState(false);
   const [acceptedOverlayName, setAcceptedOverlayName] = useState("");
   const [dismissedProfileIds, setDismissedProfileIds] = useState([]);
+  // States til fejl- og loadinghåndtering
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // Henter profiler, matchscores og forbindelser fra Supabase ved sideindlæsning
+  /* DATAHENTNING FRA SUPABASE */
+  /* Henter profiler, matchscores og forbindelser ved indlæsning af siden */
   useEffect(() => {
     let ignore = false;
-
     async function loadData() {
       setLoading(true);
       setError("");
-
       const [profilesResult, matchscoresResult, connectionsResult] =
         await Promise.all([
           supabase
@@ -203,45 +95,38 @@ export default function RequestPage() {
             .eq("profile_a", MAIN_PROFILE_ID),
           supabase.from("connections").select("*"),
         ]);
-
       const firstError =
         profilesResult.error ||
         matchscoresResult.error ||
         connectionsResult.error;
-
       if (ignore) return;
-
       if (firstError) {
         setError(firstError.message);
         setLoading(false);
         return;
       }
-
       setProfiles(profilesResult.data ?? []);
       setMatchscores(matchscoresResult.data ?? []);
       setConnections(connectionsResult.data ?? []);
       setLoading(false);
     }
-
     loadData();
-
     return () => {
       ignore = true;
     };
   }, []);
 
-  // Opretter et opslag over matchscore baseret på profil-ID
+  /* BEREGNING AF DATA */
+  /* Opretter opslagstabel med matchscore pr. profil */
   const scoreByProfileId = useMemo(() => {
     const map = new Map();
-
     for (const item of matchscores) {
       map.set(item.profile_b, item.score);
     }
-
     return map;
   }, [matchscores]);
 
-  // Filtrerer accepterede forbindelser for den aktive bruger
+  /* Filtrerer aktive forbindelser */
   const acceptedConnections = useMemo(() => {
     return connections.filter(
       (connection) =>
@@ -251,23 +136,20 @@ export default function RequestPage() {
     );
   }, [connections]);
 
-  // Samler ID'er på profiler, som brugeren allerede er forbundet med
+  /* Samler ID'er på profiler som allerede er forbundet */
   const connectedProfileIds = useMemo(() => {
     const ids = new Set();
-
     for (const row of acceptedConnections) {
       const otherProfileId = getOtherProfileId(row);
       if (otherProfileId != null && otherProfileId !== MAIN_PROFILE_ID) {
         ids.add(otherProfileId);
       }
     }
-
     return ids;
   }, [acceptedConnections]);
-
   const scoreByProfileIdWithFallback = scoreByProfileId;
 
-  // Opretter listen over eksisterende forbindelser
+  /* Opretter liste over brugerens forbindelser */
   const connectionPeople = useMemo(() => {
     return profiles
       .filter((profile) => connectedProfileIds.has(profile.id))
@@ -281,7 +163,7 @@ export default function RequestPage() {
       }));
   }, [connectedProfileIds, profiles, scoreByProfileIdWithFallback]);
 
-  // Opretter listen over anmodninger sorteret efter matchscore
+  /* Opretter liste over anmodninger sorteret efter matchscore */
   const requestPeople = useMemo(() => {
     return profiles
       .filter(
@@ -305,29 +187,26 @@ export default function RequestPage() {
     profiles,
     scoreByProfileIdWithFallback,
   ]);
-
   const isConnections = activeTab === "forbindelser";
   const pageTitle = isConnections ? "Forbindelser" : "Anmodninger";
 
-  // Accepterer en anmodning og opretter/opfatter forbindelsen
+  /* HÅNDTERING AF ANMODNINGER */
+  /* Accepterer en anmodning og opretter forbindelse */
   const handleAccept = async (person) => {
     const id = person.id;
     const existingRequest = connections.find(
       (connection) =>
         connection.status === "pending" && connection.sender_id === id,
     );
-
     if (existingRequest) {
       const { error: updateError } = await supabase
         .from("connections")
         .update({ status: "accepted" })
         .eq("id", existingRequest.id);
-
       if (updateError) {
         setError(updateError.message);
         return;
       }
-
       setConnections((prev) =>
         prev.map((connection) =>
           connection.id === existingRequest.id
@@ -341,12 +220,10 @@ export default function RequestPage() {
         receiver_id: MAIN_PROFILE_ID,
         status: "accepted",
       });
-
       if (insertError) {
         setError(insertError.message);
         return;
       }
-
       setConnections((prev) => [
         ...prev,
         {
@@ -356,101 +233,86 @@ export default function RequestPage() {
         },
       ]);
     }
-
     setDismissedProfileIds((prev) =>
       prev.filter((profileId) => profileId !== id),
     );
-
     setError("");
     setAcceptedOverlayName(person.name);
     setAcceptedOverlayOpen(true);
   };
 
-  // Afviser en anmodning og skjuler den fra listen
+  /* Afviser en anmodning */
   const handleReject = async (id) => {
     const request = connections.find(
       (connection) =>
         connection.status === "pending" && connection.sender_id === id,
     );
-
     if (request) {
       const { error: deleteError } = await supabase
         .from("connections")
         .delete()
         .eq("id", request.id);
-
       if (deleteError) {
         setError(deleteError.message);
         return;
       }
     }
-
     setDismissedProfileIds((prev) =>
       prev.includes(id) ? prev : [...prev, id],
     );
     setError("");
   };
 
-  // Fjerner en eksisterende forbindelse
+  /* Fjerner en eksisterende forbindelse */
   const handleRemove = async (id) => {
     const connection = acceptedConnections.find(
       (item) => getOtherProfileId(item) === id,
     );
-
     if (!connection) return;
-
     setConnections((prev) => prev.filter((item) => item.id !== connection.id));
-
     const { error: deleteError } = await supabase
       .from("connections")
       .delete()
       .eq("id", connection.id);
-
     if (deleteError) {
       setError(deleteError.message);
     }
   };
 
-  // Åbner bekræftelses-overlay ved fjernelse
+  /* OVERLAYS OG POPUPS */
+  /* Åbner popup til bekræftelse af fjernelse */
   const showRemoveOverlay = (person, mode) => {
     setOverlayTarget({ id: person.id, name: person.name, mode });
     setOverlayOpen(true);
   };
-
+  /* Lukker popup */
   const closeOverlay = () => {
     setOverlayOpen(false);
     setOverlayTarget(null);
   };
 
-  // Bekræfter og udfører fjernelse af anmodning eller forbindelse
+  /* Bekræfter brugerens valg og udfører handlingen */
   const confirmRemove = async () => {
     if (!overlayTarget) return;
     const { id, mode } = overlayTarget;
-
     if (mode === "request") {
       await handleReject(id);
     } else {
       await handleRemove(id);
     }
-
     closeOverlay();
   };
 
-  // Viser loading-state mens data hentes
+  /* FEJL- OG LOADINGSTATES */
+  /* Viser loading-state mens data indlæses */
   if (loading) return <main className="app"></main>;
 
-  // Viser fejlmeddelelse hvis data ikke kunne indlæses
+  /* Viser fejlbesked ved fejl i datahentning */
   if (error) {
-    return (
-      <div className="request-root">
-        <div className="request-header">
-          <span className="request-title">Anmodninger</span>
-        </div>
-        <EmptyState icon="⚠️" text={`Error: ${error}`} />
-      </div>
-    );
+    return <EmptyState title="Noget gik galt" subtitle={error} />;
   }
 
+    /* RENDERING AF SIDEN */
   return (
     <div className="request-root">
       <div className="request-header">
@@ -460,16 +322,17 @@ export default function RequestPage() {
       {/* Faner til skift mellem anmodninger og forbindelser */}
       <div className="request-tabBar">
         <button
-          className={`request-tab ${activeTab === "anmodninger" ? "is-on" : "is-off"}`}
-          onClick={() => setActiveTab("anmodninger")}
-        >
-          Anmodninger
-        </button>
-        <button
           className={`request-tab ${activeTab === "forbindelser" ? "is-on" : "is-off"}`}
           onClick={() => setActiveTab("forbindelser")}
         >
-          Forbindelser
+          <small>Forbindelser</small>
+        </button>
+
+        <button
+          className={`request-tab ${activeTab === "anmodninger" ? "is-on" : "is-off"}`}
+          onClick={() => setActiveTab("anmodninger")}
+        >
+          <small>Anmodninger</small>
         </button>
       </div>
 
@@ -479,23 +342,22 @@ export default function RequestPage() {
           Opret en forbindelse, så i kan skrive sammen
         </div>
       )}
-
-      {/* Liste over forbindelser eller anmodninger */}
       <div className="request-list">
         {isConnections ? (
           connectionPeople.length === 0 ? (
-            <EmptyState icon="🤝" text="Ingen forbindelser endnu" />
+            <EmptyForbindelse />
           ) : (
             connectionPeople.map((person) => (
               <ConnectionItem
                 key={person.id}
                 person={person}
+                onSendMessage={(p) => navigate(`/chat/${p.id}`)}
                 onShowRemove={(p) => showRemoveOverlay(p, "connection")}
               />
             ))
           )
         ) : requestPeople.length === 0 ? (
-          <EmptyState icon="🎉" text="Ingen nye anmodninger" />
+          <EmptyRequest />
         ) : (
           requestPeople.map((person) => (
             <RequestItem
@@ -507,7 +369,6 @@ export default function RequestPage() {
           ))
         )}
       </div>
-
       {/* Bekræftelses-popup ved fjernelse */}
       {overlayOpen && (
         <div
@@ -528,42 +389,37 @@ export default function RequestPage() {
             <div className="request-overlayContent">
               {overlayTarget?.mode === "request" ? (
                 <>
-                  <h2 className="request-overlayTitle">Hovsa!</h2>
-                  <p className="request-overlayText">
+                  <h2>Hovsa!</h2>
+                  <small>
                     Er du sikker på, at du vil fjerne denne anmodning?
-                  </p>
+                  </small>
                 </>
               ) : (
                 <>
-                  <h2 className="request-overlayTitle">Hovsa!</h2>
-                  <p className="request-overlayText">
-                    Er du sikker på, at du vil fjerne forbindelsen?
-                  </p>
+                  <h2>Hovsa!</h2>
+                  <small>Er du sikker på, at du vil fjerne forbindelsen?</small>
                 </>
               )}
-
               <div className="request-overlayCTAWrap">
                 <button
                   type="button"
                   onClick={confirmRemove}
                   className="request-overlayBtn request-textBtn request-textBtn--danger"
                 >
-                  <p className="text-small">Fjern</p>
+                  <small>Fjern</small>
                 </button>
-
                 <button
                   type="button"
                   onClick={closeOverlay}
                   className="request-overlayBtn request-textBtn request-textBtn--cancel"
                 >
-                  <p className="text-small">Annuller</p>
+                  <small className="text-small">Annuller</small>
                 </button>
               </div>
             </div>
           </div>
         </div>
       )}
-
       {/* Popup der vises når en forbindelse er accepteret */}
       {acceptedOverlayOpen && (
         <div
@@ -597,22 +453,20 @@ export default function RequestPage() {
                   className="request-overlayLottieBig"
                 />
               </div>
-
               <div className="request-overlayCTAWrap">
                 <button
                   type="button"
                   onClick={() => navigate("/chat")}
                   className="request-textBtn request-textBtn--success"
                 >
-                  <p className="text-small">Send besked</p>
+                  <small>Send besked</small>
                 </button>
-
                 <button
                   type="button"
                   onClick={() => setAcceptedOverlayOpen(false)}
                   className="request-overlayBtn request-textBtn request-textBtn--cancel"
                 >
-                  <p className="text-small">Annuller</p>
+                  <small>Annuller</small>
                 </button>
               </div>
             </div>

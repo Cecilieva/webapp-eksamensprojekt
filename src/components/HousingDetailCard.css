@@ -42,7 +42,7 @@
   margin-top: -1rem;
   padding: 1.5rem 1rem 2.5rem;
   background: var(--background);
-  border-radius: 1.5rem 1.5rem 0 0;
+  border-radius: var(--border-radius-large);
 }
 
 /* Header med titel */
@@ -103,7 +103,7 @@
 }
 
 .housing-info-box {
-  flex: 0 0 96px;
+  flex: 0 0 6rem;
   text-align: center;
 }
 
@@ -111,7 +111,7 @@
 .housing-info-box-icon {
   width: 4rem;
   height: 4rem;
-  border-radius: 999px;
+  border-radius: 3rem;
   display: grid;
   place-items: center;
   margin: 0 auto 0.5rem;
@@ -133,7 +133,7 @@
 
 /* Input i info-boks */
 .housing-info-box-input {
-  width: 96px;
+  width: 6rem;
   max-width: 100%;
   box-sizing: border-box;
   text-align: center;
@@ -191,7 +191,7 @@
 .facility-add-button,
 .facility-add-inline {
   min-height: 2rem;
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius-small);
 }
 
 /* Enkelt facility-tag */
@@ -237,7 +237,6 @@
   padding: 0 1rem;
 
   background: var(--green);
-  font-size: 0.875rem;
 }
 
 /* Input til tilføj facility */
@@ -273,7 +272,7 @@
 .roomie-card {
   background: var(--bordeaux10);
   padding: 1rem;
-  border-radius: 0.75rem;
+  border-radius: var(--border-radius-small);
 
   display: flex;
   justify-content: space-between;
@@ -302,7 +301,7 @@
 
 .roomie-actions button {
   padding: 0.4rem 0.8rem;
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius-small);
   border: none;
 
   background: var(--green);
