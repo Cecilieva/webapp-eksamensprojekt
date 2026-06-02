@@ -1,3 +1,5 @@
+
+/* Container der centrerer indholdet på siden */
 .empty-request {
   display: flex;
   flex-direction: column;
@@ -7,15 +9,15 @@
   text-align: center;
   gap: 1rem;
 }
-
+/* Overskrift */
 .empty-request h1 {
   margin-bottom: 1.5rem;
 }
-
+/* Beskrivende tekst */
 .empty-request p {
   margin-bottom: 0rem;
 }
-
+/* Lottie-animation */
 .empty-request-animation {
   margin-top: -5.5rem;
   width: 18rem;
