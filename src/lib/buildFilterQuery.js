@@ -1,5 +1,5 @@
 import supabase from "./supabaseClient";
-import { OCCUPATION_DB_MAP, GENDER_DB_MAP } from "./filterOptions";
+import { OCCUPATION_DB_MAP, GENDER_DB_MAP } from "./filterOptionss";
 
 // Bygger en Supabase-query baseret på de valgte filtre
 const viewerId = 14;
