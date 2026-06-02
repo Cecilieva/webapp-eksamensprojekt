@@ -13,7 +13,7 @@
   width: 100%;
   max-width: 500px;
   background: var(--background);
-  border-radius: var(--border-radius-large);
+  border-radius: 2em 2rem 0 0;
   padding: 1rem 1.5rem 2rem;
   animation: slideUp 0.25s ease;
 }
@@ -64,7 +64,7 @@
 
 .connection-overlayBtn--outline {
   background: transparent;
-  border: 2px solid #e5ddd6;
+  border: 2px solid var(--bordeaux10);
   color: var(--black);
 }
 
