@@ -1,6 +1,6 @@
 import Lottie from "lottie-react";
 import animationData from "../assets/animation-eyeroll.json";
-import "./EmptyRequest.css";
+import "./EmptyRequest.css"; 
 
 /* EMPTY REQUEST - Vises når brugeren ikke har nogen anmodninger */
 export default function EmptyRequest() {
