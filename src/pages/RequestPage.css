@@ -172,7 +172,7 @@
   position: relative;
   width: min(22.5rem, 92%);
   background-color: var(--background);
-  border-radius: 1rem;
+  border-radius: var(--border-radius-large);
   padding: 2rem 2rem;
   box-shadow: var(--shadow-bottom);
   text-align: center;
@@ -235,7 +235,7 @@
   border: none;
   cursor: pointer;
   transition: transform 0.15s ease;
-  border-radius: 2rem;
+  border-radius: var(--border-radius-large);
 }
 .request-textBtn--danger {
   background-color: var(--error-red);
